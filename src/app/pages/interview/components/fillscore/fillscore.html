@@ -1,0 +1,49 @@
+<div class="alert alert-danger alert-dismissible" role="alert" *ngIf="invalidName">
+  <strong>Oh snap!</strong> Select a candidate from drop down menu and try submitting again.
+</div>
+<div class="alert alert-danger alert-dismissible" role="alert" *ngIf="invalidName2">
+  <strong>Oh snap!</strong> Select a interviewer from drop down menu and try submitting again.
+</div>
+<div class="widgets">
+<!--  {{diagnostic}}
+  {{candidate_id}}{{candidate_name}}{{searchStr}}-->
+  <div class="row buffer-bottom">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Candidate Name</label>
+        <ng2-completer [(ngModel)]="interviews.candidate_name" [datasource]="dataService"
+                       [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelectCandidate($event)"></ng2-completer>
+        <!--<input type="text" class="form-control" id="inputCandidateName" placeholder="Candidate Name" [(ngModel)]="interview.candidateName">-->
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Interviewer Name</label>
+        <ng2-completer [(ngModel)]="interviews.interviews[this.selectedTypeID].interviewer_name" [datasource]="dataService2"
+                       [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelectInterviewer($event)"></ng2-completer>
+        <!--<input type="email" class="form-control" id="inputInterviewerName" placeholder="Interviewer Name" [(ngModel)]="interview.interviewerName">-->
+      </div>
+    </div>
+  </div>
+  <div class="row buffer-left buffer-bottom">
+    <div class="btn-toolbar">
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group" role="group" aria-label="First group">
+          <button *ngFor="let type of types" type="button" class="types btn btn-primary"
+              [class.selected]="type.id === selectedTypeID"
+              (click)="onSelectType(type)">
+            {{type.name}}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group submit" role="group" aria-label="Third group">
+      <button type="button" class="btn btn-success" (click)="onSubmit()">submit</button>
+    </div>
+  </div>
+  <div [ngSwitch]="selectedTypeID">
+    <cv *ngSwitchCase=0 [interviews]="interviews" [type]="selectedTypeID"></cv>
+    <common *ngSwitchDefault [interviews]="interviews" [type]="selectedTypeID"></common>
+  </div>
+  <sum [interviews]="interviews" [sum]="sum" [type]="selectedTypeID"></sum>
+</div>

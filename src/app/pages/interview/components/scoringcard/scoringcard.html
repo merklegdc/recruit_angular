@@ -1,0 +1,212 @@
+
+<div class="widgets">
+  {{getCV}}
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Candidate Name</label>
+        <!--<input type="text" class="form-control" id="inputCandidateName" placeholder="Candidate Name">-->
+        <ng2-completer [(ngModel)]="searchStr" [datasource]="dataService"
+                       [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelect($event)"></ng2-completer>
+      </div>
+    </div>
+    <!--<div class="col-sm-6">
+      <div class="form-group">
+        <label for="inputCandidatePosistion">Candidate Posistion</label>
+        <input type="text" class="form-control" id="inputCandidatePosistion" placeholder="Candidate Posistion">
+      </div>
+    </div>-->
+  </div>
+  <div class="row">
+    <ba-card title="" class="my-container">
+      <!--<hot-table [data]="data" [options]="options"></hot-table>-->
+      <div class="horizontal-scroll">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th width="50">Checkpoints</th>
+            <th width="70">Details</th>
+            <th width="15">Weight</th>
+            <th width="20">CV Screening</th>
+            <th>Phone Interview</th>
+            <th>Score</th>
+            <th>Group Interview</th>
+            <th>Score</th>
+            <th>Interview1</th>
+            <th>Score</th>
+            <th>Interview2</th>
+            <th>Score</th>
+            <th>Interview3</th>
+            <th>Score</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Interviewer</td>
+            <td></td><td></td><td>{{cv.interviewer_name}}</td><td>{{phone.interviewer_name}}</td><td></td>
+            <td>{{group.interviewer_name}}</td><td></td>
+            <td>{{onsite1.interviewer_name}}</td><td></td>
+            <td>{{onsite2.interviewer_name}}</td><td></td>
+            <td>{{onsite3.interviewer_name}}</td><td></td>
+          </tr>
+          <tr>
+            <td rowspan="4" class="align-middle">Trainable/Culture fit 40%</td>
+            <td>Desire to Serve (Interpersonal)</td>
+            <td>10%</td><td rowspan="3" class="align-middle">{{cv.score[0].score}}</td><td>{{phone.score[0].question}}</td><td>{{phone.score[0].score}}</td>
+            <td>{{group.score[0].question}}</td><td>{{group.score[0].score}}</td>
+            <td>{{onsite1.score[0].question}}</td><td>{{onsite1.score[0].score}}</td>
+            <td>{{onsite2.score[0].question}}</td><td>{{onsite2.score[0].score}}</td>
+            <td>{{onsite3.score[0].question}}</td><td>{{onsite3.score[0].score}}</td>
+          </tr>
+          <tr>
+            <td>Desire to Learn (Intellectual)</td>
+            <td>20%</td>
+            <td>{{phone.score[1].question}}</td><td>{{phone.score[1].score}}</td>
+            <td>{{group.score[1].question}}</td><td>{{group.score[1].score}}</td>
+            <td>{{onsite1.score[1].question}}</td><td>{{onsite1.score[1].score}}</td>
+            <td>{{onsite2.score[1].question}}</td><td>{{onsite2.score[1].score}}</td>
+            <td>{{onsite3.score[1].question}}</td><td>{{onsite3.score[1].score}}</td>
+          </tr>
+          <tr>
+            <td>Desire to Achieve (Result Driven)</td>
+            <td>10%</td>
+            <td>{{phone.score[2].question}}</td><td>{{phone.score[2].score}}</td>
+            <td>{{group.score[2].question}}</td><td>{{group.score[2].score}}</td>
+            <td>{{onsite1.score[2].question}}</td><td>{{onsite1.score[2].score}}</td>
+            <td>{{onsite2.score[2].question}}</td><td>{{onsite2.score[2].score}}</td>
+            <td>{{onsite3.score[2].question}}</td><td>{{onsite3.score[2].score}}</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>40%</td><td>{{(cv.sums[0]).toFixed(2)}}</td><td></td><td>{{(phone.sums[0]).toFixed(2)}}</td><td></td>
+            <td>{{(group.sums[0]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite1.sums[0]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite2.sums[0]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite3.sums[0]).toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <td rowspan="4" class="align-middle">Acadamitic/Tech. Skill (SAS,SQL,etc.) 35%</td>
+            <td>Technical Skill Set (SAS,SQL,etc.)</td>
+            <td>10%</td><td>{{cv.score[1].score}}</td>
+            <td>{{phone.score[3].question}}</td><td>{{phone.score[3].score}}</td>
+            <td>{{group.score[3].question}}</td><td>{{group.score[3].score}}</td>
+            <td>{{onsite1.score[3].question}}</td><td>{{onsite1.score[3].score}}</td>
+            <td>{{onsite2.score[3].question}}</td><td>{{onsite2.score[3].score}}</td>
+            <td>{{onsite3.score[3].question}}</td><td>{{onsite3.score[3].score}}</td>
+          </tr>
+          <tr>
+            <td>Examination Result (Pass 0.5, Fail 0)</td>
+            <td>10%</td><td>{{common.score[0].score}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td>Academic Achievements, School Project & Internship Experience for Campus Hire</td>
+            <td>15%</td><td>{{cv.score[2].score}}</td>
+            <td>{{phone.score[4].question}}</td><td>{{phone.score[4].score}}</td>
+            <td>{{group.score[4].question}}</td><td>{{group.score[4].score}}</td>
+            <td>{{onsite1.score[4].question}}</td><td>{{onsite1.score[4].score}}</td>
+            <td>{{onsite2.score[4].question}}</td><td>{{onsite2.score[4].score}}</td>
+            <td>{{onsite3.score[4].question}}</td><td>{{onsite3.score[4].score}}</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>35%</td><td>{{(cv.sums[1]+common.sums[0]).toFixed(2)}}</td><td></td>
+            <td>{{(phone.sums[1]+common.sums[0]).toFixed(2)}}</td><td></td>
+            <td>{{(group.sums[1]+common.sums[0]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite1.sums[1]+common.sums[0]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite2.sums[1]+common.sums[0]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite3.sums[1]+common.sums[0]).toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <td rowspan="3" class="align-middle">Potential Management Skill 5%</td>
+            <td>Business Knowledge</td>
+            <td>2.5%</td><td rowspan="2" class="align-middle">{{cv.score[3].score}}</td>
+            <td>{{phone.score[5].question}}</td><td>{{phone.score[5].score}}</td>
+            <td>{{group.score[5].question}}</td><td>{{group.score[5].score}}</td>
+            <td>{{onsite1.score[5].question}}</td><td>{{onsite1.score[5].score}}</td>
+            <td>{{onsite2.score[5].question}}</td><td>{{onsite2.score[5].score}}</td>
+            <td>{{onsite3.score[5].question}}</td><td>{{onsite3.score[5].score}}</td>
+          </tr>
+          <tr>
+            <td>People Management Experience</td>
+            <td>2.5%</td>
+            <td>{{phone.score[6].question}}</td><td>{{phone.score[6].score}}</td>
+            <td>{{group.score[6].question}}</td><td>{{group.score[6].score}}</td>
+            <td>{{onsite1.score[6].question}}</td><td>{{onsite1.score[6].score}}</td>
+            <td>{{onsite2.score[6].question}}</td><td>{{onsite2.score[6].score}}</td>
+            <td>{{onsite3.score[6].question}}</td><td>{{onsite3.score[6].score}}</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>5%</td><td>{{(cv.sums[2]).toFixed(2)}}</td><td></td>
+            <td>{{(phone.sums[2]).toFixed(2)}}</td><td></td>
+            <td>{{(group.sums[2]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite1.sums[2]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite2.sums[2]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite3.sums[2]).toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <td rowspan="3" class="align-middle">Communication (Chinese & English) & Logical Language Structure Competence 20%</td>
+            <td>Communication Skill both in English and Chinese</td>
+            <td>10%</td><td rowspan="2">{{cv.score[4].score}}</td>
+            <td>{{phone.score[7].question}}</td><td>{{phone.score[7].score}}</td>
+            <td>{{group.score[7].question}}</td><td>{{group.score[7].score}}</td>
+            <td>{{onsite1.score[7].question}}</td><td>{{onsite1.score[7].score}}</td>
+            <td>{{onsite2.score[7].question}}</td><td>{{onsite2.score[7].score}}</td>
+            <td>{{onsite3.score[7].question}}</td><td>{{onsite3.score[7].score}}</td>
+          </tr>
+          <tr>
+            <td>Language Skill/Logical Language Structure Competence</td>
+            <td>10%</td>
+            <td>{{phone.score[8].question}}</td><td>{{phone.score[8].score}}</td>
+            <td>{{group.score[8].question}}</td><td>{{group.score[8].score}}</td>
+            <td>{{onsite1.score[8].question}}</td><td>{{onsite1.score[8].score}}</td>
+            <td>{{onsite2.score[8].question}}</td><td>{{onsite2.score[8].score}}</td>
+            <td>{{onsite3.score[8].question}}</td><td>{{onsite3.score[8].score}}</td>
+          </tr>
+          <tr>
+            <td>Total</td>
+            <td>20%</td><td>{{(cv.sums[3]).toFixed(2)}}</td><td></td>
+            <td>{{(phone.sums[3]).toFixed(2)}}</td><td></td>
+            <td>{{(group.sums[3]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite1.sums[3]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite2.sums[3]).toFixed(2)}}</td><td></td>
+            <td>{{(onsite3.sums[3]).toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <td rowspan="3" class="align-middle">Add-on</td>
+            <td>Hometown & Family Tie</td>
+            <td></td><td>{{common.score[1].score}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td>Overseas Study Experience</td>
+            <td></td><td>{{common.score[2].score}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td>Relevant Working Experience</td>
+            <td></td><td>{{common.score[3].score}}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td>Overall Assessment</td>
+            <td colspan="2">"CV & Phone Interview: >=2.5,Pass;
+              On-site Interview: >3.5,Pass"</td><td [class.red-text]="cv.passed==0">{{cv.sum}}</td>
+            <td></td><td [class.red-text]="phone.passed==0">{{phone.sum}}</td>
+            <td></td><td [class.red-text]="group.passed==0">{{group.sum}}</td>
+            <td></td><td [class.red-text]="onsite1.passed==0">{{onsite1.sum}}</td>
+            <td></td><td [class.red-text]="onsite2.passed==0">{{onsite2.sum}}</td>
+            <td></td><td [class.red-text]="onsite3.passed==0">{{onsite3.sum}}</td>
+          </tr>
+          <tr>
+            <td colspan="3">Comments by CV Screeners/Interviewers(If necessary)</td>
+            <td>{{cv.comment}}</td><td></td><td>{{phone.comment}}</td><td></td><td>{{group.comment}}</td>
+            <td></td><td>{{onsite1.comment}}</td>
+            <td></td><td>{{onsite2.comment}}</td>
+            <td></td><td>{{onsite3.comment}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </ba-card>
+  </div>
+
+
+</div>

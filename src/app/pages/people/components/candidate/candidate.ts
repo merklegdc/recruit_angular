@@ -1,0 +1,20 @@
+export class Candidate {
+  candidate_id:number;
+  name:string="";
+  status:string="";
+  department:string="";
+  gender:string="";
+  level:string="";
+  email:string="";
+  birthday:string="";
+  channel:string="";
+  recommender:string="";
+  receive_date:string="";
+  bachelor_school:string="";
+  bachelor_date:string="";
+  bachelor_major:string="";
+  master_school:string="";
+  master_date:string="";
+  master_major:string="";
+  create_date:string="";
+}
