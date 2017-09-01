@@ -7,8 +7,8 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class InterviewerService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
-  private interviewerUrl = Global.baseUrl+'interviewer';
+  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private interviewerUrl = `${Global.baseUrl}interviewer`;
 
   constructor(private http: Http) { }
 
@@ -19,17 +19,15 @@ export class InterviewerService {
       .catch(this.handleError);
   }
 
-
-
   addInterviewer(data): Promise<any> {
-    return this.http.post(this.interviewerUrl,data,{headers: this.headers})
+    return this.http.post(this.interviewerUrl, data, { headers: this.headers })
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
   }
 
-  saveInterviewer(id,data): Promise<any> {
-    return this.http.put(this.interviewerUrl+'/id/'+id,data,{headers: this.headers})
+  saveInterviewer(id, data): Promise<any> {
+    return this.http.post(`${this.interviewerUrl}/id/${id}`, data, { headers: this.headers })
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
@@ -37,7 +35,7 @@ export class InterviewerService {
 
   deleteInterviewer(id: number): Promise<void> {
     const url = `${this.interviewerUrl}/id/${id}`;
-    return this.http.delete(url,{headers: this.headers})
+    return this.http.delete(url, { headers: this.headers })
       .toPromise()
       .then(() => null)
       .catch(this.handleError);

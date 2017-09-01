@@ -53,8 +53,20 @@ export class InterviewerComponent implements OnInit {
           type: 'list',
           config: {
             list: [{ value: 'Sr. Analyst', title: 'Sr. Analyst' }, { value: 'Lead Analys', title: 'Lead Analys' }, { value: 'Manager', title: 'Manager' }]
-          }
-        }
+          },
+        },
+      },
+      if_cv: {
+        title: 'CV',
+        type: 'html',
+        width: '100px',
+        editor: {
+          type: 'list',
+          config: {
+            list: [{ value: 'Y', title: 'Y' }, { value: 'N', title: 'N' }]
+          },
+        },
+        // width: '200px',
       },
       if_phone: {
         title: 'Phone',
@@ -64,8 +76,8 @@ export class InterviewerComponent implements OnInit {
           type: 'list',
           config: {
             list: [{ value: 'Y', title: 'Y' }, { value: 'N', title: 'N' }]
-          }
-        }
+          },
+        },
         // width: '200px',
       },
       if_onsite: {
@@ -112,15 +124,17 @@ export class InterviewerComponent implements OnInit {
   };
 
   source: LocalDataSource = new LocalDataSource();
-  interviewers:Interviewer[];
+  interviewers: Interviewer[];
 
   constructor(protected service: InterviewerService) {}
 
   ngOnInit(): void {
     this.getInterviewers();
   }
-  getInterviewers():void{
-    this.service.getInterviewer().then( data => this.interviewers=data).then(data => this.source.load(this.interviewers));
+  getInterviewers(): void {
+    this.service.getInterviewer()
+    .then( data => this.interviewers = data)
+    .then(data => this.source.load(this.interviewers));
   }
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
@@ -136,7 +150,7 @@ export class InterviewerComponent implements OnInit {
       .then(data => event.confirm.resolve(event.newData));
   }
   onEditConfirm(event): void {
-    this.service.saveInterviewer(event.data.interviewer_id,event.newData)
+    this.service.saveInterviewer(event.data.interviewer_id, event.newData)
       .then(data => event.confirm.resolve(event.newData));
   }
 

@@ -15,12 +15,15 @@ export class ViewCandidateComponent implements OnInit {
   query: string = '';
 
   settings = {
-    add: {
+    actions:{
+      add:false
+    },
+    /*add: {
       addButtonContent: '<i class="ion-ios-plus-outline"></i>',
       createButtonContent: '<i class="ion-checkmark"></i>',
       cancelButtonContent: '<i class="ion-close"></i>',
       confirmCreate: true
-    },
+    },*/
     edit: {
       editButtonContent: '<i class="ion-edit"></i>',
       saveButtonContent: '<i class="ion-checkmark"></i>',
@@ -45,6 +48,7 @@ export class ViewCandidateComponent implements OnInit {
       },
       status: {
         title: 'Status',
+        editable:false,
         type: 'string',
         width: '200px',
       },

@@ -5,9 +5,6 @@ import * as Global from '../../../global';
 import { getScoringCard } from '../../data'
 import { CompleterService, CompleterData,CompleterItem } from 'ng2-completer';
 import * as Data from '../../data';
-import { TableComponent } from '../commonTable/table.component';
-
-// declare var Handsontable: any;
 
 @Component({
   selector: 'scoringcard',
@@ -22,19 +19,19 @@ import { TableComponent } from '../commonTable/table.component';
 })
 
 export class ScoringCardComponent {
-  protected searchStr: string;
-  protected dataService: CompleterData;
+  searchStr: string;
+  dataService: CompleterData;
   title = 'Scoring Card Overview';
   data = getScoringCard("table");
   candidate_id:number;
   options: any;
-  cv:Data.Interview=new Data.Interview();
-  phone:Data.Interview=new Data.Interview();
-  group:Data.Interview=new Data.Interview();
-  onsite1:Data.Interview=new Data.Interview();
-  onsite2:Data.Interview=new Data.Interview();
-  onsite3:Data.Interview=new Data.Interview();
-  common:Data.Interview=new Data.Interview();
+  cv:Data.Interview1=new Data.Interview1();
+  phone:Data.Interview1=new Data.Interview1();
+  group:Data.Interview1=new Data.Interview1();
+  onsite1:Data.Interview1=new Data.Interview1();
+  onsite2:Data.Interview1=new Data.Interview1();
+  onsite3:Data.Interview1=new Data.Interview1();
+  common:Data.Interview1=new Data.Interview1();
   interviews:any;
   i:number=0;
   average=[0,0,0,0,0,0,0,0,0,0,0,0];
@@ -206,28 +203,5 @@ export class ScoringCardComponent {
   }
   constructor(protected service: ScoringCardService,private completerService: CompleterService,protected service2: FillScoreService) {
     this.dataService = completerService.remote(Global.baseUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
-    this.options ={
-      disableVisualSelection: true,
-      rowHeaders: false,
-      colHeaders: getScoringCard("header"),
-      colWidths: [200, 200, 70, 120, 200, 60, 100, 60, 100, 60, 100, 60, 70],
-      mergeCells: [
-        {row: 1, col: 0, rowspan: 4, colspan: 1},
-        {row: 5, col: 0, rowspan: 4, colspan: 1},
-        {row: 9, col: 0, rowspan: 3, colspan: 1},
-        {row: 12, col: 0, rowspan: 3, colspan: 1},
-        {row: 15, col: 0, rowspan: 3, colspan: 1},
-        {row: 19, col: 0, rowspan: 1, colspan: 3},
-        {row: 20, col: 0, rowspan: 1, colspan: 3},
-        {row: 1, col: 3, rowspan: 3, colspan: 1}
-      ],
-      className: "htCenter htMiddle",
-      columns: [
-        {editor: false}, {editor: false}, {editor: false},
-        { editor: false},
-        {editor: false},{editor: false},{editor: false},{editor: false},
-        {editor: false},{editor: false},{editor: false},{editor: false},{editor: false}
-      ]
-    }
   }
 }

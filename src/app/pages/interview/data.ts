@@ -341,6 +341,30 @@ export class Interview{
   q=["","","","","","","","",""];
   weight=["","","","","","","","",""];
 }
+export class Interview1{
+  interview_id:number=0;
+  interviewer_id:number=0;
+  interviewer_name:string="";
+  type:number=0;
+  comment:string="";
+  date:string="";
+  site:string="";
+  sum="0";
+  sums=[0,0,0,0,0];
+  passed=0;
+  score=[{score:"0",question:"",weight:""},
+    {score:"0",question:"",weight:""},
+    {score:"0",question:"",weight:""},
+    {score:"0",question:"",weight:""},
+    {score:"0",question:"",weight:""},
+    {score:"0",question:"",weight:""},
+    {score:"0",question:"",weight:""},
+    {score:"0",question:"",weight:""},
+    {score:"0",question:"",weight:""},
+    ];//["0","0","0","0","0","0","0","0","0"];
+  q=["","","","","","","","",""];
+  weight=["","","","","","","","",""];
+}
 export class OneInterview{
   candidate_id:number;
   interview1=new Interview();

@@ -14,13 +14,17 @@ import { CompleterService, CompleterData,CompleterItem } from 'ng2-completer';
 })
 export class FillScoreComponent {
   interviews = new Data.Interviews();
-  selectedTypeID=0;
-  protected dataService: CompleterData;
-  protected dataService2: CompleterData;
-  invalidName:boolean=false;
-  invalidName2:boolean=false;
-  types = [{'name': 'CV Screening',id:0}, {'name': 'Phone Interview',id:1}, {'name': 'Group Interview',id:2},{'name': 'Interview 1',id:3},
-    {'name': 'Interview 2',id:4},{'name': 'Interview 3',id:5}];
+  selectedTypeID = 0;
+  dataService: CompleterData;
+  dataService2: CompleterData;
+  invalidName: boolean = false;
+  invalidName2: boolean = false;
+  types = [{ 'name': 'CV Screening', id: 0 }, 
+  { 'name': 'Phone Interview', id: 1 }, 
+  { 'name': 'Group Interview', id: 2 },
+  { 'name': 'Interview 1', id: 3 },
+  { 'name': 'Interview 2', id: 4 },
+  { 'name': 'Interview 3', id: 5 }];
   scores = Data.scores;
 
   sum = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
@@ -98,7 +102,7 @@ export class FillScoreComponent {
       if(interview.interview_id==0)
         this.service.addInterview(oneInterview).then(data=>interview.interview_id=data);
       else
-        this.service.saveInterview(oneInterview);
+        this.service.saveInterview(interview.interview_id, oneInterview);
     }
   }
   validate(){
@@ -121,7 +125,7 @@ export class FillScoreComponent {
   // getInterview(){
   //   this.fillscoreService.getInterview().then(interview => this.interview = interview);
   // }
-  constructor(private router: Router,private service: FillScoreService,private completerService: CompleterService) {
+  constructor(private router: Router, private service: FillScoreService,private completerService: CompleterService) {
     this.dataService = completerService.remote(Global.baseUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
     this.dataService2 = completerService.remote(Global.baseUrl+'searchInterviewer/name/', 'name', 'name');
     //this.interviews = new Data.Interviews();

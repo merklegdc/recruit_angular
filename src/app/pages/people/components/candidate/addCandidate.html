@@ -1,13 +1,13 @@
 
 <div class="widgets">
 
-
+  <!-- {{diag}} -->
   <ba-card title="" class="my-container">
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
-          <label>Name</label>
-          <ng2-completer [(ngModel)]="searchStr" [datasource]="dataService"
+          <label>Chinese Name</label>
+          <ng2-completer [(ngModel)]="candidate.name_cn" [datasource]="nameServiceCN"
                          [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelect($event)"></ng2-completer>
           <!--<input type="text" [(ngModel)]="candidate.name" required-->
                  <!--class="form-control" id="inputName" #name="ngModel" placeholder=""-->
@@ -21,22 +21,57 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="status">Status</label>
-          <input type="text" [(ngModel)]="candidate.status" class="form-control" id="status" placeholder="">
+          <label>English Name</label>
+          <ng2-completer [(ngModel)]="candidate.name_en" [datasource]="nameServiceEN"
+                         [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelect($event)"></ng2-completer>
+          <!--<input type="text" [(ngModel)]="candidate.name" required-->
+                 <!--class="form-control" id="inputName" #name="ngModel" placeholder=""-->
+                 <!--(keyup.enter)="update()"-->
+                 <!--(blur)="update()">-->
+          <!--<div [hidden]="name.valid || name.pristine"
+               class="alert alert-danger">
+            Name is required
+          </div>-->
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="department">Department</label>
-          <input type="text" [(ngModel)]="candidate.department" class="form-control" id="department" placeholder="">
+          <label for="status">Status</label>
+          <input type="text" [(ngModel)]="candidate.status" class="form-control" id="status" placeholder="" disabled>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="level">Level</label>
-          <input type="text" [(ngModel)]="candidate.level" class="form-control" id="level" placeholder="">
+          <label>Degree</label>
+          <select type="text" [(ngModel)]="candidate.degree" class="form-control" id="degree">
+            <option *ngFor="let degree of config.degree" [value]="degree">
+               {{degree}} 
+            </option>  
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="service">Service Line</label>
+          <select type="text" [(ngModel)]="candidate.service_line" class="form-control" id="service-line" (change)="onChangeSL($event)">
+            <option *ngFor="let sl of config.service_line" [ngValue]="sl.name">
+               {{sl.name}} 
+            </option>  
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Position</label>
+          <select type="text" [(ngModel)]="candidate.position" class="form-control" id="position">
+             <option *ngFor="let position of positions" [value]="position">
+               {{position}} 
+            </option> 
+          </select>
         </div>
       </div>
     </div>
@@ -52,8 +87,31 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="birthday">Birthday</label>
-          <input type="date" class="form-control" [(ngModel)]="candidate.birthday" id="birthday" placeholder="">
+          <label for="type">Type</label>
+          <select type="text" [(ngModel)]="candidate.type" class="form-control" id="type">
+            <option *ngFor="let type of config.type" [value]="type">
+               {{type}} 
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="location">Location</label>
+          <select type="text" [(ngModel)]="candidate.location" class="form-control" id="location">
+            <option *ngFor="let location of config.location" [value]="location">
+               {{location}} 
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Assign Date</label>
+          <my-date-picker name="assign-date" [options]="myDatePickerOptions"
+                    [(ngModel)]="assignDate" ></my-date-picker> 
         </div>
       </div>
     </div>
@@ -94,30 +152,16 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="b-date">Bachelor Date</label>
-          <input type="date" class="form-control" [(ngModel)]="candidate.bachelor_date" id="b-date" placeholder="">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
           <label for="b-major">Bachelor Major</label>
           <input type="text" class="form-control" [(ngModel)]="candidate.bachelor_major" id="b-major" placeholder="">
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="m-school">Master School</label>
-          <input type="text" class="form-control" [(ngModel)]="candidate.master_school" id="m-school" placeholder="">
-        </div>
-      </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="m-date">Master Date</label>
-          <input type="date" class="form-control" [(ngModel)]="candidate.master_date" id="m-date" placeholder="">
+          <label for="m-school">Master School</label>
+          <input type="text" class="form-control" [(ngModel)]="candidate.master_school" id="m-school" placeholder="">
         </div>
       </div>
       <div class="col-sm-6">
@@ -130,16 +174,19 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="r-date">Receive Date</label>
-          <input type="date" class="form-control" [(ngModel)]="candidate.receive_date" id="r-date" placeholder="">
+          <label>Receive Date</label>
+          <my-date-picker name="receive-date" [options]="myDatePickerOptions"
+                    [(ngModel)]="receiveDate" ></my-date-picker> 
         </div>
       </div>
       <div class="col-sm-6">
-        <label>Upload Resume</label>
+        <label>Upload Resume to \\nanitfp01\Public\Departments\Public\2017 recruitment\resume\{{candidate.department}}</label>
         <ba-file-uploader [fileUploaderOptions]="fileUploaderOptions"></ba-file-uploader>
       </div>
     </div>
     <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+    <button type="submit" class="btn btn-primary" (click)="onEdit()">Edit</button>
+    <button type="submit" class="btn btn-primary" (click)="onClear()">Clear</button>
   </ba-card>
 
 

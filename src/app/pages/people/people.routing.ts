@@ -9,7 +9,7 @@ import { ViewCandidateComponent } from './components/candidate/viewCandidate.com
 const routes: Routes = [
   {
     path: '',
-    component: People,
+    // component: AddCandidateComponent,
     children: [
       { path: 'interviewer', component: InterviewerComponent },
       { path: 'addCandidate', component: AddCandidateComponent },

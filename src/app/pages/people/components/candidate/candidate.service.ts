@@ -28,17 +28,15 @@ export class CandidateService {
   }
 
   addCandidate(data): Promise<any> {
-    return this.http.post(this.candidateUrl,data,{headers: this.headers})
+    return this.http.post(this.candidateUrl, data, { headers: this.headers })
       .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+      .then(response => response.json());
   }
 
-  saveCandidate(id,data): Promise<any> {
-    return this.http.put(this.candidateUrl+'/id/'+id,data,{headers: this.headers})
+  saveCandidate(id, data): Promise<any> {
+    return this.http.post(`${this.candidateUrl}/id/${id}`, data, { headers: this.headers })
       .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+      .then(response => response.json());
   }
 
   deleteCandidate(id: number): Promise<void> {

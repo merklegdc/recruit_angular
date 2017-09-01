@@ -21,7 +21,7 @@ import { PagesModule } from './pages/pages.module';
 // Application wide providers
 const APP_PROVIDERS = [
   AppState,
-  GlobalState
+  GlobalState,
 ];
 
 export type StoreType = {
@@ -36,7 +36,7 @@ export type StoreType = {
 @NgModule({
   bootstrap: [App],
   declarations: [
-    App
+    App,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -47,7 +47,7 @@ export type StoreType = {
     NgaModule.forRoot(),
     NgbModule.forRoot(),
     PagesModule,
-    routing
+    routing,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     APP_PROVIDERS

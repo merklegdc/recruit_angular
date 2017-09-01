@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Interview } from '../../data';
 import * as Global from '../../../global';
 import 'rxjs/add/operator/map';
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { Headers, Http } from '@angular/http';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class FillScoreService {
   }
   searchInterviewer(id: number): Observable<any>{
     return this.http
-      .get(`${this.candidateUrl}/id/${id}`)
+      .get(`${this.interviewerUrl}/id/${id}`)
       .map(response => response.json());
   }
   tableData = [
@@ -56,13 +56,13 @@ export class FillScoreService {
   }
 
   addInterview(data): Promise<any> {
-    return this.http.post(this.interviewUrl,data,this.headers)
+    return this.http.post(this.interviewUrl, data, this.headers)
       .toPromise()
       .then(response => response.json());
   }
 
-  saveInterview(data):Promise<any> {
-    return this.http.put(this.interviewUrl,data)
+  saveInterview(id, data): Promise<any> {
+    return this.http.post(`${this.interviewUrl}/id/${id}`, data)
       .toPromise()
       .then(response => response.json());
   }

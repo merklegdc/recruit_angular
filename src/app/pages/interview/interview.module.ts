@@ -5,7 +5,6 @@ import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
-import { HotTable, HotTableModule } from 'ng2-handsontable';
 import { routing } from './interview.routing';
 import { Ng2CompleterModule } from "ng2-completer";
 
@@ -25,7 +24,6 @@ import { FillScoreService } from "./components/fillscore/fillscore.service"
     NgbRatingModule,
     routing,
     Ng2SmartTableModule,
-    HotTableModule,
     Ng2CompleterModule,
   ],
   declarations: [
