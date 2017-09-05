@@ -15,13 +15,13 @@ import { DefaultModal } from '../../../modal/default-modal/default-modal.compone
 })
 
 export class AddCandidateComponent {
-  private myDatePickerOptions: IMyDpOptions = {
+  myDatePickerOptions: IMyDpOptions = {
         // other options...
         dateFormat: 'yyyy-mm-dd',
   };   
-  private receiveDate: IMyDateModel;
-  private assignDate: IMyDateModel;
-  positions: string[];
+  receiveDate: IMyDateModel;
+  assignDate: IMyDateModel;
+  positions: any = [{ id: 0, text: '' }];
   config = config;
   searchStr: string;
   nameServiceCN: CompleterData;
@@ -32,8 +32,20 @@ export class AddCandidateComponent {
   get diag() {
     return JSON.stringify(this.candidate);
   }
+  get serviceLine() {
+    for (const sl of config.service_line) {
+      if (this.candidate.service_line == sl.id) {
+        return sl.name;
+      }
+    } 
+  }
   // fill missing fields
   helper() {
+    if (this.candidate.service_line == 2) {
+      this.candidate.if_group = 'Y';
+    }else {
+      this.candidate.if_group = 'N';
+    }
     if (this.assignDate) {
       this.candidate.assign_date = this.assignDate.formatted;
     }
@@ -41,7 +53,7 @@ export class AddCandidateComponent {
       this.candidate.receive_date = this.receiveDate.formatted;
     }
   }
-  onSubmit(){
+  onSubmit() {
     this.candidate.candidate_id = 0;
     let content: string = '';
     const cand = this.candidate;
@@ -69,9 +81,10 @@ export class AddCandidateComponent {
     if (content) {
       content = content.substring(0, content.length - 2);
       const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-      activeModal.componentInstance.modalHeader = 'Fields are empty';
+      activeModal.componentInstance.modalHeader = 'Erro: fields are empty';
       activeModal.componentInstance.modalContent = content;
     }else {
+      this.helper();
       this.service.addCandidate(this.candidate)
       .then(data => { if (data) {
         const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
@@ -130,7 +143,7 @@ export class AddCandidateComponent {
             };
           }
           for (const entry of config.service_line) {
-            if (entry.name === this.candidate.service_line) {
+            if (entry.id == this.candidate.service_line) {
               this.positions = entry.position;
               return;
             }
@@ -140,16 +153,17 @@ export class AddCandidateComponent {
     } else {
     }
   }
+
   onChangeSL(event) {
     for (const entry of config.service_line) {
-      if (entry.name === this.candidate.service_line) {
+      if (entry.id == this.candidate.service_line) {
         this.positions = entry.position;
         return;
       }
     }
   }
 
-  get fileUploaderOptions():NgUploaderOptions{
+  get fileUploaderOptions(): NgUploaderOptions {
     return {url: `${Global.baseUrl}upload/name/${this.candidate.name_en}/dept/${this.candidate.service_line}`,};
   }
 

@@ -46,8 +46,8 @@
         <div class="form-group">
           <label>Degree</label>
           <select type="text" [(ngModel)]="candidate.degree" class="form-control" id="degree">
-            <option *ngFor="let degree of config.degree" [value]="degree">
-               {{degree}} 
+            <option *ngFor="let degree of config.degree" [value]="degree.id">
+               {{degree.text}} 
             </option>  
           </select>
         </div>
@@ -58,7 +58,7 @@
         <div class="form-group">
           <label for="service">Service Line</label>
           <select type="text" [(ngModel)]="candidate.service_line" class="form-control" id="service-line" (change)="onChangeSL($event)">
-            <option *ngFor="let sl of config.service_line" [ngValue]="sl.name">
+            <option *ngFor="let sl of config.service_line" [value]="sl.id">
                {{sl.name}} 
             </option>  
           </select>
@@ -68,8 +68,8 @@
         <div class="form-group">
           <label>Position</label>
           <select type="text" [(ngModel)]="candidate.position" class="form-control" id="position">
-             <option *ngFor="let position of positions" [value]="position">
-               {{position}} 
+             <option *ngFor="let position of positions" [value]="position.id">
+               {{position.text}}
             </option> 
           </select>
         </div>
@@ -89,8 +89,8 @@
         <div class="form-group">
           <label for="type">Type</label>
           <select type="text" [(ngModel)]="candidate.type" class="form-control" id="type">
-            <option *ngFor="let type of config.type" [value]="type">
-               {{type}} 
+            <option *ngFor="let type of config.type" [value]="type.id">
+               {{type.text}} 
             </option>
           </select>
         </div>
@@ -101,8 +101,8 @@
         <div class="form-group">
           <label for="location">Location</label>
           <select type="text" [(ngModel)]="candidate.location" class="form-control" id="location">
-            <option *ngFor="let location of config.location" [value]="location">
-               {{location}} 
+            <option *ngFor="let location of config.location" [value]="location.id">
+               {{location.text}} 
             </option>
           </select>
         </div>
@@ -180,7 +180,7 @@
         </div>
       </div>
       <div class="col-sm-6">
-        <label>Upload Resume to \\nanitfp01\Public\Departments\Public\2017 recruitment\resume\{{candidate.department}}</label>
+        <label>Upload Resume to \\nanitfp01\Public\Departments\Public\2017 recruitment\resume\{{serviceLine}}</label>
         <ba-file-uploader [fileUploaderOptions]="fileUploaderOptions"></ba-file-uploader>
       </div>
     </div>

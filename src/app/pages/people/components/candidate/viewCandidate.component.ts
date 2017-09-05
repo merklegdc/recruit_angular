@@ -41,29 +41,34 @@ export class ViewCandidateComponent implements OnInit {
         width: '200px',
         editable: false,
       },
-      name: {
-        title: 'Candidate Name',
+      name_cn: {
+        title: 'Chinese Name',
+        type: 'string',
+        width: '200px',
+      },
+      name_en: {
+        title: 'English Name',
         type: 'string',
         width: '200px',
       },
       status: {
         title: 'Status',
-        editable:false,
+        editable: false,
         type: 'string',
         width: '200px',
       },
-      department: {
-        title: 'Department',
+      service_line: {
+        title: 'Service Line',
+        type: 'string',
+        width: '200px',
+      },
+      position: {
+        title: 'Position',
         type: 'string',
         width: '200px',
       },
       gender: {
         title: 'Gender',
-        type: 'string',
-        width: '200px',
-      },
-      level: {
-        title: 'Level',
         type: 'string',
         width: '200px',
       },

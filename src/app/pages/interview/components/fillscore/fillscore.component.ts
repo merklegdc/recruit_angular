@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import {FillScoreService} from "./fillscore.service";
-import * as Data from '../../data'
+import { FillScoreService } from "./fillscore.service";
+import * as Data from '../../data';
 import * as Global from '../../../global';
 import { Router } from '@angular/router';
 import { CVComponent } from './cv.component';
-import { CompleterService, CompleterData,CompleterItem } from 'ng2-completer';
+import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
+import { DefaultModal } from '../../../modal/default-modal/default-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'fillscore',
@@ -13,12 +15,13 @@ import { CompleterService, CompleterData,CompleterItem } from 'ng2-completer';
   providers: [FillScoreService]
 })
 export class FillScoreComponent {
+  title = 'Fill Score';
+  data: any;
+  options: any;
   interviews = new Data.Interviews();
   selectedTypeID = 0;
   dataService: CompleterData;
   dataService2: CompleterData;
-  invalidName: boolean = false;
-  invalidName2: boolean = false;
   types = [{ 'name': 'CV Screening', id: 0 }, 
   { 'name': 'Phone Interview', id: 1 }, 
   { 'name': 'Group Interview', id: 2 },
@@ -77,55 +80,87 @@ export class FillScoreComponent {
       }
     );
   }
-  onSelectCandidate(selected){
+  onSelectCandidate(selected) {
     if (selected) {
-      this.interviews=new Data.Interviews();
-      this.interviews.candidate_name=selected.originalObject.name;
-      this.interviews.candidate_id=selected.originalObject.candidate_id;
+      this.interviews = new Data.Interviews();
+      this.selectedTypeID = 0;
+      if (selected.originalObject.if_group == 'N') {
+        this.types.splice(2, 1);
+      }
+      this.interviews.candidate_name = selected.originalObject.name;
+      this.interviews.candidate_id = selected.originalObject.candidate_id;
       this.onSelectType(this.types[this.selectedTypeID]);
     } else {
     }
   }
-  onSelectInterviewer(selected){
+  onSelectInterviewer(selected) {
 
     if (selected) {
-      this.interviews.interviews[this.selectedTypeID].interviewer_name=selected.originalObject.name;
-      this.interviews.interviews[this.selectedTypeID].interviewer_id=selected.originalObject.interviewer_id;
-      this.invalidName2=false;
+      this.interviews.interviews[this.selectedTypeID].interviewer_name = selected.originalObject.name;
+      this.interviews.interviews[this.selectedTypeID].interviewer_id = selected.originalObject.interviewer_id;
     } else {
     }
   }
-  onSubmit(){
-    if(this.validate()){
-      let interview=this.interviews.interviews[this.selectedTypeID];
-      let oneInterview = new Data.OneInterview(this.interviews.candidate_id,this.interviews.interviews[this.selectedTypeID],this.interviews.interviews[6]);
-      if(interview.interview_id==0)
-        this.service.addInterview(oneInterview).then(data=>interview.interview_id=data);
-      else
-        this.service.saveInterview(interview.interview_id, oneInterview);
+  onSubmit() {
+    let content: string = '';
+    if (this.interviews.candidate_id == 0) {
+      content += 'candidate, ';
+    }
+    if (this.interviews.interviews[this.selectedTypeID].interviewer_id == 0) {
+      content += 'interviewer, ';
+    }
+    if (this.selectedTypeID == 0) {
+      for (const s of this.interviews.interviews[this.selectedTypeID].score.slice(0, 5)) {
+        if (s == '0') {
+          content += 'score, ';
+          break;
+        }
+      }
+    }else {
+      for (const s of this.interviews.interviews[this.selectedTypeID].score.slice(0, 9)) {
+        if (s == '0') {
+          content += 'score, ';
+          break;
+        }
+      }
+    }
+    if (content) {
+      content = content.substring(0, content.length - 2);
+      const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+      activeModal.componentInstance.modalHeader = 'Error: fields are empty';
+      activeModal.componentInstance.modalContent = content;
+    }else {
+      const interview = this.interviews.interviews[this.selectedTypeID];
+      const oneInterview = new Data.OneInterview(this.interviews.candidate_id,
+        this.interviews.interviews[this.selectedTypeID], this.interviews.interviews[6]);
+      if (interview.interview_id == 0) {
+        this.service.addInterview(oneInterview).then(data => { 
+          interview.interview_id = data;
+          if (data) {
+            const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+            activeModal.componentInstance.modalHeader = 'Success';
+          }
+         });
+      }else {
+        this.service.saveInterview(interview.interview_id, oneInterview)
+        .then(data => { if (data) {
+          const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+          activeModal.componentInstance.modalHeader = 'Success';
+        }})
+        .catch(error => {
+          const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+          activeModal.componentInstance.modalHeader = 'Nothing changed';
+        });
+      }
     }
   }
-  validate(){
-    let valid=true;
-    if(this.interviews.candidate_id==0){
-      this.invalidName=true;
-      valid = false;
-    }
-    if(this.interviews.interviews[this.selectedTypeID].interviewer_id==0){
-      this.invalidName2=true;
-      valid = false;
-    }
-    return valid;
-  }
-  title = 'Fill Score';
-  data: any;
-  options: any;
 
   get diagnostic() { return JSON.stringify(this.interviews); }
   // getInterview(){
   //   this.fillscoreService.getInterview().then(interview => this.interview = interview);
   // }
-  constructor(private router: Router, private service: FillScoreService,private completerService: CompleterService) {
+  constructor(private router: Router, private service: FillScoreService, private completerService: CompleterService,
+    private modalService: NgbModal) {
     this.dataService = completerService.remote(Global.baseUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
     this.dataService2 = completerService.remote(Global.baseUrl+'searchInterviewer/name/', 'name', 'name');
     //this.interviews = new Data.Interviews();

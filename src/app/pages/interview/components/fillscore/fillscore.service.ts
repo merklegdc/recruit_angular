@@ -8,7 +8,7 @@ import { Headers, Http } from '@angular/http';
 @Injectable()
 export class FillScoreService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private headers = new Headers({ 'Content-Type': 'application/json' });
   private candidateUrl = Global.baseUrl+'candidate';
   private interviewerUrl = Global.baseUrl+'interviewer';
   private interviewUrl = Global.baseUrl+'interview';
@@ -67,18 +67,17 @@ export class FillScoreService {
       .then(response => response.json());
   }
 
-  getInterview(id,type):Promise<any> {
+  getInterview(id, type): Promise<any> {
     return this.http.get(`${this.interviewUrl}/id/${id}/type/${type}`)
       .toPromise()
       .then(response => response.json());
   }
-  getInterviews(id,type){
-    var ids:number[] = [type,6];
+  getInterviews(id, type) {
+    const ids: number[] = [type, 6];
     return Observable.forkJoin(
       ids.map(
         i => this.http.get(`${this.interviewUrl}/id/${id}/type/${i}`)
-          .map(res => res.json())
-      ));
+          .map(res => res.json())));
   }
 
   private interview = new Interview();

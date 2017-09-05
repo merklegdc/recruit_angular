@@ -19,6 +19,7 @@ import { InterviewerService } from './components/interviewer/interviewer.service
 import { CandidateService } from './components/candidate/candidate.service';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DefaultModal } from '../modal/default-modal/default-modal.component';
+import { ModalModule } from '../modal/modal.module';
 
 @NgModule({
   imports: [
@@ -32,21 +33,18 @@ import { DefaultModal } from '../modal/default-modal/default-modal.component';
     Ng2SmartTableModule,
     Ng2CompleterModule,
     MyDatePickerModule,
+    ModalModule,
     ],
   declarations: [
     InterviewerComponent,
     People,
     AddCandidateComponent,
     ViewCandidateComponent,
-    DefaultModal,
     // InlineForm,
     // BlockForm,
     // HorizontalForm,
     // BasicForm,
     // WithoutLabelsForm,
-  ],
-  entryComponents: [
-    DefaultModal,
   ],
   providers: [
     InterviewerService,

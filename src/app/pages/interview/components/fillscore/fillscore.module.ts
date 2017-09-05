@@ -5,13 +5,15 @@ import { RouterModule } from '@angular/router';
 import { AppTranslationModule } from '../../../../app.translation.module';
 import { NgaModule } from '../../../../theme/nga.module';
 import { Ng2CompleterModule } from "ng2-completer";
-
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { routing } from './fillscore.routing';
 import { FillScoreComponent } from './fillscore.component';
 import { CVComponent } from './cv.component';
 import { SumComponent } from './sum.component';
 import { CommonComponent } from './common.component';
-import { FillScoreService } from './fillscore.service'
+import { FillScoreService } from './fillscore.service';
+import { DefaultModal } from '../../../modal/default-modal/default-modal.component';
+import { ModalModule } from '../../../modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,7 @@ import { FillScoreService } from './fillscore.service'
     FillScoreComponent,
     CVComponent,
     SumComponent,
-    CommonComponent
+    CommonComponent,
   ],
   imports: [
     AppTranslationModule,
@@ -28,9 +30,11 @@ import { FillScoreService } from './fillscore.service'
     FormsModule,
     routing,
     Ng2CompleterModule,
+    NgbModalModule,
+    ModalModule,
   ],
   providers: [
-    FillScoreService
+    FillScoreService,
   ],
 })
 export class FillScoreModule {
