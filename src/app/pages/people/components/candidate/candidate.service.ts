@@ -1,16 +1,17 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Candidate } from './candidate';
-import * as Global from '../../../global';
+// import * as Global from '../../../global';
+import { baseUrl } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class CandidateService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
-  private candidateUrl = Global.baseUrl+'candidate';
+  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private candidateUrl = `${baseUrl}candidate`;
 
   constructor(private http: Http) { }
 

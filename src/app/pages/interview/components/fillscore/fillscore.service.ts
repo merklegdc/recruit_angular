@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Interview } from '../../data';
-import * as Global from '../../../global';
+// import * as Global from '../../../global';
+import { baseUrl } from '../../../../../environments/environment';
+
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Headers, Http } from '@angular/http';
@@ -9,14 +11,14 @@ import { Headers, Http } from '@angular/http';
 export class FillScoreService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
-  private candidateUrl = Global.baseUrl+'candidate';
-  private interviewerUrl = Global.baseUrl+'interviewer';
-  private interviewUrl = Global.baseUrl+'interview';
+  private candidateUrl = `${baseUrl}candidate`;
+  private interviewerUrl = `${baseUrl}interviewer`;
+  private interviewUrl = `${baseUrl}interview`;
 
   constructor(private http: Http) {
     this.headers.append('Access-Control-Allow-Origin', '*');
   }
-  searchCandidate(id: number): Observable<any>{
+  searchCandidate(id: number): Observable<any> {
     return this.http
       .get(`${this.candidateUrl}/id/${id}`)
       .map(response => response.json());

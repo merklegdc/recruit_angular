@@ -3,18 +3,20 @@
   {{candidate_id}}{{candidate_name}}{{searchStr}}-->
   <div class="row buffer-bottom">
     <div class="col-sm-4">
-      <div class="form-group">
+      <div [class]="(candidateRequired.valid) ? 'form-group' : 'form-group has-error'">
         <label>Candidate Name</label>
-        <ng2-completer [(ngModel)]="interviews.candidate_name" [datasource]="dataService"
-                       [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelectCandidate($event)"></ng2-completer>
+        <ng2-completer name="candidateRequired" [(ngModel)]="interviews.candidate_name" [datasource]="dataService" #candidateRequired="ngModel"
+                       [minSearchLength]="1" [inputClass]="(candidateRequired.valid) ? 'form-control' : 'form-control input-invalid'" [clearUnselected]="true"
+                       (selected)="onSelectCandidate($event)" required></ng2-completer>
         <!--<input type="text" class="form-control" id="inputCandidateName" placeholder="Candidate Name" [(ngModel)]="interview.candidateName">-->
       </div>
     </div>
     <div class="col-sm-4">
-      <div class="form-group">
+      <div [class]="(interviewerRequired.valid) ? 'form-group' : 'form-group has-error'">
         <label>Interviewer Name</label>
-        <ng2-completer [(ngModel)]="interviews.interviews[this.selectedTypeID].interviewer_name" [datasource]="dataService2"
-                       [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelectInterviewer($event)"></ng2-completer>
+        <ng2-completer name="interviewerRequired" [(ngModel)]="interviews.interviews[this.selectedTypeID].interviewer_name" [datasource]="dataService2"
+                       #interviewerRequired="ngModel" [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelectInterviewer($event)"
+                       [clearUnselected]="true" required></ng2-completer>
         <!--<input type="email" class="form-control" id="inputInterviewerName" placeholder="Interviewer Name" [(ngModel)]="interview.interviewerName">-->
       </div>
     </div>

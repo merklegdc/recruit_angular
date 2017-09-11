@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FillScoreService } from "./fillscore.service";
 import * as Data from '../../data';
-import * as Global from '../../../global';
+// import * as Global from '../../../global';
+import { baseUrl } from '../../../../../environments/environment';
 import { Router } from '@angular/router';
 import { CVComponent } from './cv.component';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
@@ -33,9 +34,9 @@ export class FillScoreComponent {
   sum = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
   // questions = Data.questions;
   onSelectType(type) {
-    this.selectedTypeID=type.id;
-    let interview=this.interviews.interviews[type.id];
-    let interview2=this.interviews.interviews[6];
+    this.selectedTypeID = type.id;
+    let interview = this.interviews.interviews[type.id];
+    let interview2 = this.interviews.interviews[6];
    /* this.service.getInterview(this.interviews.candidate_id,type.id)
       .then(data=> {
         if(data[0]=='0'){
@@ -52,29 +53,29 @@ export class FillScoreComponent {
         }
       });*/
     this.service.getInterviews(this.interviews.candidate_id,type.id).subscribe(
-      data=>{
-        if(data[0][0]=='0'){
-          interview=new Data.Interview();
-          interview.type=type.id;
-        }else{
-          interview.interview_id=data[0][0].interview.interview_id;
-          interview.interviewer_id=data[0][0].interview.interviewer_id;
-          interview.interviewer_name=data[0][0].interview.interviewer_name;
-          for(let i of data[0][0].score){
-            interview.score[i.score_cd]=i.score;
-            interview.q[i.score_cd]=i.question;
+      data => {
+        if (data[0][0] == '0') {
+          interview = new Data.Interview();
+          interview.type = type.id;
+        }else {
+          interview.interview_id = data[0][0].interview.interview_id;
+          interview.interviewer_id = data[0][0].interview.interviewer_id;
+          interview.interviewer_name = data[0][0].interview.interviewer_name;
+          for (const i of data[0][0].score) {
+            interview.score[i.score_cd] = i.score;
+            interview.q[i.score_cd] = i.question;
           }
         }
-        if(data[1][0]=='0'){
-          interview2=new Data.Interview();
-          interview2.type=6;
-        }else{
-          interview2.interview_id=data[1][0].interview.interview_id;
-          interview2.interviewer_id=data[1][0].interview.interviewer_id;
-          interview2.interviewer_name=data[1][0].interview.interviewer_name;
-          for(let i of data[1][0].score){
-            interview2.score[i.score_cd]=i.score;
-            interview2.q[i.score_cd]=i.question;
+        if (data[1][0] == '0') {
+          interview2 = new Data.Interview();
+          interview2.type = 6;
+        }else {
+          interview2.interview_id = data[1][0].interview.interview_id;
+          interview2.interviewer_id = data[1][0].interview.interviewer_id;
+          interview2.interviewer_name = data[1][0].interview.interviewer_name;
+          for (const i of data[1][0].score) {
+            interview2.score[i.score_cd] = i.score;
+            interview2.q[i.score_cd] = i.question;
           }
         }
       }
@@ -86,6 +87,13 @@ export class FillScoreComponent {
       this.selectedTypeID = 0;
       if (selected.originalObject.if_group == 'N') {
         this.types.splice(2, 1);
+      }else {
+        this.types = [{ 'name': 'CV Screening', id: 0 }, 
+        { 'name': 'Phone Interview', id: 1 }, 
+        { 'name': 'Group Interview', id: 2 },
+        { 'name': 'Interview 1', id: 3 },
+        { 'name': 'Interview 2', id: 4 },
+        { 'name': 'Interview 3', id: 5 }];
       }
       this.interviews.candidate_name = selected.originalObject.name;
       this.interviews.candidate_id = selected.originalObject.candidate_id;
@@ -161,8 +169,8 @@ export class FillScoreComponent {
   // }
   constructor(private router: Router, private service: FillScoreService, private completerService: CompleterService,
     private modalService: NgbModal) {
-    this.dataService = completerService.remote(Global.baseUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
-    this.dataService2 = completerService.remote(Global.baseUrl+'searchInterviewer/name/', 'name', 'name');
+    this.dataService = completerService.remote(baseUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
+    this.dataService2 = completerService.remote(baseUrl+'searchInterviewer/name/', 'name', 'name');
     //this.interviews = new Data.Interviews();
   }
 }

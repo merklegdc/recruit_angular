@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import * as Global from '../../../global';
+// import * as Global from '../../../global';
+import { baseUrl } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
 import { Observable }     from 'rxjs/Observable';
 import { Headers, Http } from '@angular/http';
@@ -8,9 +9,9 @@ import 'rxjs/add/observable/forkJoin';
 @Injectable()
 export class ScoringCardService {
 
-  private candidateUrl = Global.baseUrl+'candidate';
+  private candidateUrl = baseUrl+'candidate';
   private headers = new Headers({'Content-Type': 'application/json'});
-  private interviewUrl = Global.baseUrl+'interview';
+  private interviewUrl = baseUrl+'interview';
 
   tableData = [
     ["Interviewer","","","","","","","","","","","",""],

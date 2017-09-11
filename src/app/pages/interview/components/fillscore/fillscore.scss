@@ -35,3 +35,8 @@
 .buffer-bottom {
   margin-bottom:20px;
 }
+
+
+:host ::ng-deep ng2-completer div input  {
+  border-left: 5px solid #a94442; /* red */
+}

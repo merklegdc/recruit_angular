@@ -1,22 +1,23 @@
-import { Component,OnInit } from '@angular/core';
-import * as Global from '../../../global';
+import { Component, OnInit } from '@angular/core';
+// import * as Global from '../../../global';
+import { baseUrl } from '../../../../../environments/environment';
 import { Candidate } from './candidate';
-import { CandidateService } from './candidate.service'
+import { CandidateService } from './candidate.service';
 import { LocalDataSource } from 'ng2-smart-table';
 
 
 @Component({
   selector: 'view-candidate',
   templateUrl: './viewCandidate.html',
-  styleUrls: ['./candidate.scss','viewCandidate.scss']
+  styleUrls: ['./candidate.scss', 'viewCandidate.scss'],
 })
 export class ViewCandidateComponent implements OnInit {
 
   query: string = '';
 
   settings = {
-    actions:{
-      add:false
+    actions: {
+      add: false,
     },
     /*add: {
       addButtonContent: '<i class="ion-ios-plus-outline"></i>',
@@ -28,11 +29,11 @@ export class ViewCandidateComponent implements OnInit {
       editButtonContent: '<i class="ion-edit"></i>',
       saveButtonContent: '<i class="ion-checkmark"></i>',
       cancelButtonContent: '<i class="ion-close"></i>',
-      confirmSave: true
+      confirmSave: true,
     },
     delete: {
       deleteButtonContent: '<i class="ion-trash-a"></i>',
-      confirmDelete: true
+      confirmDelete: true,
     },
     columns: {
       candidate_id: {
@@ -89,9 +90,9 @@ export class ViewCandidateComponent implements OnInit {
         editor: {
           type: 'list',
           config: {
-            list: [{ value: 'NJ', title: 'NJ' }, { value: 'SH', title: 'SH' }]
-          }
-        }
+            list: [{ value: 'NJ', title: 'NJ' }, { value: 'SH', title: 'SH' }],
+          },
+        },
       },
       /*birthday: {
         title: 'brithday',
@@ -143,19 +144,19 @@ export class ViewCandidateComponent implements OnInit {
         type: 'string',
         width: '100px',
       }*/
-    }
+    },
   };
 
   source: LocalDataSource = new LocalDataSource();
-  candidates:Candidate[];
+  candidates: Candidate[];
 
   constructor(protected service: CandidateService) {}
 
   ngOnInit(): void {
     this.getCandidates();
   }
-  getCandidates():void{
-    this.service.getCandidate().then( data => this.candidates=data).then(data => this.source.load(this.candidates));
+  getCandidates(): void {
+    this.service.getCandidate().then( data => this.candidates = data).then(data => this.source.load(this.candidates));
   }
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
@@ -166,7 +167,7 @@ export class ViewCandidateComponent implements OnInit {
     }
   }
   onEditConfirm(event): void {
-    this.service.saveCandidate(event.data.interviewer_id,event.newData)
+    this.service.saveCandidate(event.data.interviewer_id, event.newData)
       .then(data => event.confirm.resolve(event.newData));
   }
 

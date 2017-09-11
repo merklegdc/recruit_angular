@@ -252,7 +252,7 @@ const mergeCell = [{row: 0, col: 0, rowspan: 4, colspan: 1},
   {row: 19, col: 0, rowspan: 1, colspan: 3}];
 const commonHeader = ["Check Points","Details","Weight"];
 
-export enum interviewType{
+export enum interviewType {
   cv = 0,
   group = 1,
   phone = 2,
@@ -337,7 +337,7 @@ export class Interview{
   sum="0";
   sums=[0,0,0,0,0];
   passed=0;
-  score=["0","0","0","0","0","0","0","0","0"];
+  score=["","","","","","","","",""];
   q=["","","","","","","","",""];
   weight=["","","","","","","","",""];
 }

@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Interviewer } from './interviewer';
-import * as Global from '../../../global'
+// import * as Global from '../../../global';
+import { baseUrl } from '../../../../../environments/environment';
 
 import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class InterviewerService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
-  private interviewerUrl = `${Global.baseUrl}interviewer`;
+  private interviewerUrl = `${baseUrl}interviewer`;
 
   constructor(private http: Http) { }
 

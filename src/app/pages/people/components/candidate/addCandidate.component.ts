@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgUploaderOptions } from 'ngx-uploader';
-import * as Global from '../../../global';
+// import * as Global from '../../../global';
+import { baseUrl } from '../../../../../environments/environment';
 import { Candidate, config } from './candidate';
 import { CandidateService } from './candidate.service';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
@@ -164,7 +165,7 @@ export class AddCandidateComponent {
   }
 
   get fileUploaderOptions(): NgUploaderOptions {
-    return {url: `${Global.baseUrl}upload/name/${this.candidate.name_en}/dept/${this.candidate.service_line}`,};
+    return {url: `${baseUrl}upload/name/${this.candidate.name_en}/dept/${this.candidate.service_line}`,};
   }
 
   /*public fileUploaderOptions:NgUploaderOptions = {
@@ -173,9 +174,10 @@ export class AddCandidateComponent {
   };*/
 
   constructor(protected service: CandidateService, private completerService: CompleterService, private modalService: NgbModal) {
+    console.log(baseUrl);
     this.nameServiceCN = completerService
-    .remote(Global.baseUrl+'searchCandidateCN/name/', 'name', 'name').descriptionField('description');
+    .remote(baseUrl+'searchCandidateCN/name/', 'name', 'name').descriptionField('description');
     this.nameServiceEN = completerService
-    .remote(Global.baseUrl+'searchCandidateEN/name/', 'name', 'name').descriptionField('description');
+    .remote(baseUrl+'searchCandidateEN/name/', 'name', 'name').descriptionField('description');
   }
 }
