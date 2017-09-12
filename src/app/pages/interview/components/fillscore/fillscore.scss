@@ -37,6 +37,11 @@
 }
 
 
-:host ::ng-deep ng2-completer div input  {
-  border-left: 5px solid #a94442; /* red */
+:host /deep/ {
+  .ng-invalid input {
+    border-left: 5px solid #a94442; /* red */
+  }
+  .ng-valid input {
+    border-left: 5px solid #42A948; /* green */
+  }
 }

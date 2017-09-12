@@ -3,12 +3,12 @@ export class Candidate {
   name_cn: string="";
   name_en: string = '';
   status: string="";
-  location: number = 0;
-  service_line: number = 0;
+  location: number;
+  service_line: number;
   if_group: string;
   gender: string="";
   phone: string="";
-  position: number = 0;
+  position: number;
   degree: string = '';
   type: string = '';
   assign_date: string = '';

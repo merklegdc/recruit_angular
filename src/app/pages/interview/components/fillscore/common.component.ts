@@ -6,6 +6,12 @@ import * as Data from '../../data'
   templateUrl: './common.html',
   styles: [`.buffer-top{
     margin-top:10px;
+  }
+  .ng-invalid  {
+    border-left: 5px solid #a94442; /* red */
+  }
+  .ng-valid  {
+    border-left: 5px solid #42A948; /* green */
   }`]
 })
 export class CommonComponent {
