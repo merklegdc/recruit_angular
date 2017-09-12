@@ -4,81 +4,60 @@
   </div>
 </div>
 <div class="row">
-  <div [class]="(require1.valid) ? 'form-group col-md-2' : 'form-group has-error col-md-2'">
+  <div class="form-group col-md-2">
     <label for=1>Desire to learn/serve/achieve</label>
-    <select name="require1" [(ngModel)]="interviews.interviews[type].score[0]" 
-    #require1="ngModel" class="form-control" id=1 required>
+    <select [(ngModel)]="interviews.interviews[type].score[0]" class="form-control" id=1 required>
       <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
-    <div [class]="(require2.valid) ? 'form-group' : 'form-group has-error'">
-      <label for=21>Technical Skill Set 10%</label>
-      <select name="require2" [(ngModel)]="interviews.interviews[type].score[1]" 
-      #require2="ngModel" class="form-control" id=21 required>
-        <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
-      </select>
-    </div>
-    <div [class]="(require3.valid) ? 'form-group' : 'form-group has-error'">
-      <label for=22>Examination Result</label>
-      <select name="require3" [(ngModel)]="interviews.interviews[6].score[0]" 
-      #require3="ngModel" class="form-control" id=22 required>
-        <option value=0.5> Pass 0.5 </option>
-        <option value=0.0> Fail 0 </option>
-      </select>
-    </div>
-    <div [class]="(require4.valid) ? 'form-group' : 'form-group has-error'">
-      <label for=23>Academic Achievements 15%</label>
-      <select name="require4" [(ngModel)]="interviews.interviews[type].score[2]" 
-      #require4="ngModel" class="form-control" id=23 required>
-        <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
-      </select>
-    </div>
+    <label for=21>Technical Skill Set 10%</label>
+    <select [(ngModel)]="interviews.interviews[type].score[1]" (ngModelChange)="setScore($event)" class="form-control" id=21 required>
+      <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
+    </select>
+    <label for=22>Examination Result</label>
+    <select [(ngModel)]="interviews.interviews[6].score[0]" (ngModelChange)="setScore($event)" class="form-control" id=22 required>
+      <option value=0.5> Pass 0.5 </option>
+      <option value=0.0> Fail 0 </option>
+    </select>
+    <label for=23>Academic Achievements 15%</label>
+    <select [(ngModel)]="interviews.interviews[type].score[2]" (ngModelChange)="setScore($event)" class="form-control" id=23 required>
+      <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
+    </select>
   </div>
 
-  <div [class]="(require5.valid) ? 'form-group col-md-2' : 'form-group has-error col-md-2'">
+  <div class="form-group col-md-2">
     <label for=3>All details</label>
-    <select name="require5" [(ngModel)]="interviews.interviews[type].score[3]" 
-    #require5="ngModel" class="form-control" id=3 required>
-      <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
-    </select>
-  </div>
-
-  <div [class]="(require6.valid) ? 'form-group col-md-2' : 'form-group has-error col-md-2'">
-    <label for=4>All details</label>
-    <select name="require6" [(ngModel)]="interviews.interviews[type].score[4]" 
-    #require6="ngModel" class="form-control" id=4 required>
+    <select [(ngModel)]="interviews.interviews[type].score[3]" (ngModelChange)="setScore($event)" class="form-control" id=3 required>
       <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
-    <div [class]="(require7.valid) ? 'form-group' : 'form-group has-error'">
-      <label for=51>Hometown & Family Tie</label>
-      <select name="require7" [(ngModel)]="interviews.interviews[6].score[1]" 
-      #require7="ngModel" class="form-control" id=51 required>
-        <option value=0.3> Nanjing 0.3 </option>
-        <option value=0.1> Jiangsu&Anhui 0.1 </option>
-        <option value=0.0> Others 0 </option>
-      </select>
-    </div>
-    <div [class]="(require8.valid) ? 'form-group' : 'form-group has-error'">
-      <label for=52>Overseas Study Experience</label>
-      <select name="require8" [(ngModel)]="interviews.interviews[6].score[2]" 
-      #require8="ngModel" class="form-control" id=52 required>
-        <option value=0.1> Yes 0.1 </option>
-        <option value=0.0> No 0 </option>
-      </select>
-    </div>
-    <div [class]="(require9.valid) ? 'form-group' : 'form-group has-error'">
-      <label for=53>Relevant Working Experience</label>
-      <select name="require9" [(ngModel)]="interviews.interviews[6].score[3]" 
-      #require9="ngModel" class="form-control" id=53 required>
-        <option value=0.1> Yes 0.1 </option>
-        <option value=0.0> No 0 </option>
-      </select>
-    </div>
+    <label for=4>All details</label>
+    <select [(ngModel)]="interviews.interviews[type].score[4]" (ngModelChange)="setScore($event)" class="form-control" id=4 required>
+      <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
+    </select>
+  </div>
+
+  <div class="form-group col-md-2">
+    <label for=51>Hometown & Family Tie</label>
+    <select [(ngModel)]="interviews.interviews[6].score[1]" (ngModelChange)="setScore($event)" class="form-control" id=51 required>
+      <option value=0.3> Nanjing 0.3 </option>
+      <option value=0.1> Jiangsu&Anhui 0.1 </option>
+      <option value=0.0> Others 0 </option>
+    </select>
+    <label for=52>Overseas Study Experience</label>
+    <select [(ngModel)]="interviews.interviews[6].score[2]" (ngModelChange)="setScore($event)" class="form-control" id=52 required>
+      <option value=0.1> Yes 0.1 </option>
+      <option value=0.0> No 0 </option>
+    </select>
+    <label for=53>Relevant Working Experience</label>
+    <select [(ngModel)]="interviews.interviews[6].score[3]" (ngModelChange)="setScore($event)" class="form-control" id=53 required>
+      <option value=0.1> Yes 0.1 </option>
+      <option value=0.0> No 0 </option>
+    </select>
   </div>
 
   <div class="form-group col-md-2">
