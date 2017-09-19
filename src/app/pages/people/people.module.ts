@@ -5,8 +5,9 @@ import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbRatingModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2CompleterModule } from 'ng2-completer';
+import { HotTableModule } from 'ng2-handsontable';
 
 import { routing } from './people.routing';
 
@@ -29,11 +30,13 @@ import { ModalModule } from '../modal/modal.module';
     NgaModule,
     NgbModalModule,
     NgbRatingModule,
+    NgbDropdownModule,
     routing,
     Ng2SmartTableModule,
     Ng2CompleterModule,
     MyDatePickerModule,
     ModalModule,
+    HotTableModule,
     ],
   declarations: [
     InterviewerComponent,

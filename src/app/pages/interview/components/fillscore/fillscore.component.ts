@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FillScoreService } from "./fillscore.service";
 import * as Data from '../../data';
 // import * as Global from '../../../global';
-import { baseUrl } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { Router } from '@angular/router';
 import { CVComponent } from './cv.component';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
@@ -169,8 +169,8 @@ export class FillScoreComponent {
   // }
   constructor(private router: Router, private service: FillScoreService, private completerService: CompleterService,
     private modalService: NgbModal) {
-    this.dataService = completerService.remote(baseUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
-    this.dataService2 = completerService.remote(baseUrl+'searchInterviewer/name/', 'name', 'name');
+    this.dataService = completerService.remote(environment.SearchUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
+    this.dataService2 = completerService.remote(environment.SearchUrl+'searchInterviewer/name/', 'name', 'name');
     //this.interviews = new Data.Interviews();
   }
 }

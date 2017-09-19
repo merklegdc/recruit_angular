@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 // import * as Global from '../../../global';
-import { baseUrl } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { Candidate } from './candidate';
 import { CandidateService } from './candidate.service';
-import { LocalDataSource } from 'ng2-smart-table';
-
+import { HotTableModule } from 'ng2-handsontable';
+import { NgUploaderOptions } from 'ngx-uploader';
+import { DefaultModal } from '../../../modal/default-modal/default-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'view-candidate',
@@ -12,151 +15,62 @@ import { LocalDataSource } from 'ng2-smart-table';
   styleUrls: ['./candidate.scss', 'viewCandidate.scss'],
 })
 export class ViewCandidateComponent implements OnInit {
-
-  query: string = '';
-
-  settings = {
-    actions: {
-      add: false,
-    },
-    /*add: {
-      addButtonContent: '<i class="ion-ios-plus-outline"></i>',
-      createButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-      confirmCreate: true
-    },*/
-    edit: {
-      editButtonContent: '<i class="ion-edit"></i>',
-      saveButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-      confirmSave: true,
-    },
-    delete: {
-      deleteButtonContent: '<i class="ion-trash-a"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      candidate_id: {
-        title: 'ID',
-        type: 'string',
-        width: '200px',
-        editable: false,
-      },
-      name_cn: {
-        title: 'Chinese Name',
-        type: 'string',
-        width: '200px',
-      },
-      name_en: {
-        title: 'English Name',
-        type: 'string',
-        width: '200px',
-      },
-      status: {
-        title: 'Status',
-        editable: false,
-        type: 'string',
-        width: '200px',
-      },
-      service_line: {
-        title: 'Service Line',
-        type: 'string',
-        width: '200px',
-      },
-      position: {
-        title: 'Position',
-        type: 'string',
-        width: '200px',
-      },
-      gender: {
-        title: 'Gender',
-        type: 'string',
-        width: '200px',
-      },
-      phone: {
-        title: 'Phone',
-        type: 'string',
-        width: '200px',
-      },
-      email: {
-        title: 'Email',
-        type: 'string',
-        width: '200px',
-      },
-      location: {
-        title: 'Location',
-        type: 'html',
-        width: '100px',
-        editor: {
-          type: 'list',
-          config: {
-            list: [{ value: 'NJ', title: 'NJ' }, { value: 'SH', title: 'SH' }],
-          },
-        },
-      },
-      /*birthday: {
-        title: 'brithday',
-        type: 'string',
-        width: '200px',
-      },*/
-      /*channel: {
-        title: 'Channel',
-        type: 'string',
-        width: '200px',
-      },*/
-      /*recommender: {
-        title: 'Recommender',
-        type: 'string',
-        width: '100px',
-      },
-      receive_date:{
-        title: 'Receive_date',
-        type: 'string',
-        width: '150px',
-      },
-      bachelor_school:{
-        title: 'Bachelor School',
-        type: 'string',
-        width: '300px',
-      },
-      bachelor_date:{
-        title: 'Bachelor Date',
-        type: 'string',
-        width: '100px',
-      },
-      bachelor_major:{
-        title: 'Bachelor Major',
-        type: 'string',
-        width: '100px',
-      },
-      master_school:{
-        title: 'Master School',
-        type: 'string',
-        width: '300px',
-      },
-      master_date:{
-        title: 'Master Date',
-        type: 'string',
-        width: '100px',
-      },
-      master_major:{
-        title: 'Master Major',
-        type: 'string',
-        width: '100px',
-      }*/
-    },
+  fileUploaderOptions: NgUploaderOptions = {
+    url: `${environment.uploadUrl}uploadExcel`,
+  };
+  data: any[] = [['false', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+  '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']]; 
+  colHeaders: string[] = ['assign','查重', 'Candidate ID', 'Name (CN)', 'Name (ENG)', 'Assign Date',
+    'Service Line', 'Position', 'Location', 'Gender', 'Degree', 'University',
+    'Major', 'Graduation Date', 'Cell Phone', 'Email', 'Received Date', 'Channel Detail', 'CV Sreen Coordinator',
+    'CV Screen Result', 'CV Status', 'Phone Screener', 'Phone Screen Date', 'Phone Screen Result', 'Comments',
+    'On-site Date', 'interviewer1-Name', 'interview1-score', 'interview1 comments', 'interviewer2-Name',
+    'interview2-score', 'interview2 comments', 'interviewer3-Name', 'interview3-score', 'interview3 comments',
+    'On-site Result'];
+  columns: any[] = [
+    {
+      type: "checkbox",
+    },{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
+  ];
+  private colWidths: number[] = [];
+  options: any = {
+    width: 1300,
+    height: 500,
+    rowHeights: 23,
+    colWidths: 100,
+    allowInsertRow: true,
+    stretchH: 'all',
+    columnSorting: true,
+    contextMenu: [
+      'row_above', 'row_below', 'remove_row',
+    ],
   };
 
-  source: LocalDataSource = new LocalDataSource();
+  private afterChange(e: any) {
+    console.log(e);
+  }
+
+  private afterOnCellMouseDown(e: any) {
+    console.log(e);
+  }
+
   candidates: Candidate[];
 
-  constructor(protected service: CandidateService) {}
+  constructor(protected service: CandidateService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.getCandidates();
   }
+  onImported(event): void {
+    let data = JSON.parse(event.response);
+    for (let i in data){
+      data[i] = [''].concat(data[i]);
+    }
+    data = this.helper(data);
+    this.data = data;
+  }
   getCandidates(): void {
-    this.service.getCandidate().then( data => this.candidates = data).then(data => this.source.load(this.candidates));
+    this.service.getCandidate().then( data => this.candidates = data).then();
   }
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
@@ -170,5 +84,68 @@ export class ViewCandidateComponent implements OnInit {
     this.service.saveCandidate(event.data.interviewer_id, event.newData)
       .then(data => event.confirm.resolve(event.newData));
   }
-
+  clickExportExcel(): void {
+    this.service.downloadExcel(this.data)
+    .subscribe(blob => { saveAs(blob, 'Campus Tracking');
+    })
+  };
+  
+  clickExportServer(): void {
+    let d = new Date();
+    let dd = d.getDate();
+    let mm = d.getMonth()+1; //January is 0!
+    let yyyy = d.getFullYear();
+    let dds: string = dd.toString();
+    let mms: string = mm.toString();
+    if(dd<10) {
+        dds = '0'+dd;
+    } 
+    
+    if(mm<10) {
+        mms = '0'+mm;
+    } 
+    let today = `${yyyy}-${mms}-${dds}`;
+    for (let i in this.data){
+      this.data[i][5] = this.data[i][0] ? today: '';
+    }
+    this.service.uploadData(this.data)
+    .then(data => { if (data) {
+      const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+      activeModal.componentInstance.modalHeader = 'Success';
+    }})
+    .catch(error => {
+      const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+      activeModal.componentInstance.modalHeader = 'Error';
+    });
+  }
+  clickImportServer(): void {
+    this.service.downloadData()
+    .then(data => { if (data) {
+      data = this.helper(data);
+      this.data = data;
+      const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+      activeModal.componentInstance.modalHeader = 'Success';
+    }})
+    .catch(error => {
+      const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+      activeModal.componentInstance.modalHeader = 'Error';
+    });
+  }
+  clickAssign(): void {
+    console.log(this.data);
+  }
+  helper(data): any {
+    let name = new Set();
+    for (let i in data){
+      let s = name.size;
+      name.add(data[i][3]);
+      if (name.size == s){
+        data[i][1] = 1;
+      }else {
+        data[i][1] = 0;
+      }
+      data[i][0] = data[i][5] ? false: true;
+    }
+    return data;
+  }
 }

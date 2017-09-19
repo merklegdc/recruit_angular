@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgUploaderOptions } from 'ngx-uploader';
 // import * as Global from '../../../global';
-import { baseUrl } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { Candidate, config } from './candidate';
 import { CandidateService } from './candidate.service';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
@@ -144,7 +144,7 @@ export class AddCandidateComponent {
             };
           }
           for (const entry of config.service_line) {
-            if (entry.id == this.candidate.service_line) {
+            if (entry.name === this.candidate.service_line) {
               this.positions = entry.position;
               return;
             }
@@ -165,19 +165,13 @@ export class AddCandidateComponent {
   }
 
   get fileUploaderOptions(): NgUploaderOptions {
-    return {url: `${baseUrl}upload/name/${this.candidate.name_en}/dept/${this.candidate.service_line}`,};
+    return {url: `${environment.uploadUrl}name/${this.candidate.name_en}/dept/${this.candidate.service_line}`,};
   }
 
-  /*public fileUploaderOptions:NgUploaderOptions = {
-    // url: 'http://website.com/upload'
-    url: `${Global.baseUrl}upload/name/${this.candidate.name}/dept/${this.candidate.department}`,
-  };*/
-
   constructor(protected service: CandidateService, private completerService: CompleterService, private modalService: NgbModal) {
-    console.log(baseUrl);
     this.nameServiceCN = completerService
-    .remote(baseUrl+'searchCandidateCN/name/', 'name', 'name').descriptionField('description');
+    .remote(environment.SearchUrl+'searchCandidateCN/name/', 'name', 'name').descriptionField('description');
     this.nameServiceEN = completerService
-    .remote(baseUrl+'searchCandidateEN/name/', 'name', 'name').descriptionField('description');
+    .remote(environment.SearchUrl+'searchCandidateEN/name/', 'name', 'name').descriptionField('description');
   }
 }

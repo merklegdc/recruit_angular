@@ -1,8 +1,50 @@
 <div class="widgets">
 
   <div class="row">
-    <ba-card title="" baCardClass="with-scroll" class="smart-table-container">
-      <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+    <ba-card title="" >
+        <!-- <hotTable 
+        [data]="data" 
+        [columns]="columns" 
+        [colHeaders]="colHeaders" 
+        [colWidths]="colHeaders" 
+        [options]="options" 
+        (HANDSONTABLE_EVENT)="eventHandler">
+        </hotTable> -->
+      <div class="row">
+        <hotTable 
+          [data]="data" 
+          [options]="options"
+          [columns]="columns"
+          [colHeaders]="colHeaders"
+          [colWidths]="colHeaders">
+        </hotTable>
+      </div>
+      <hr>
+      <div class="row">
+          <!-- <div class="col-sm-2">
+              <button type="button" class="btn btn-success" (click)="clickAssign()">Assign</button>
+            </div> -->
+          <div class="col-sm-3">
+            <ba-file-uploader [buttonText]="'Import Excel'" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onImported($event)"></ba-file-uploader>
+          </div>
+          <div class="col-sm-2">
+            <button type="button" class="btn btn-success" (click)="clickImportServer()">Import From Server</button>
+          </div>
+          <div class="col-sm-4 col-6">
+            <div class="btn-group" ngbDropdown>
+              <button type="button" class="btn btn-success" ngbDropdownToggle>
+                Export
+              </button>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item"><a href="javascript:void(0);" (click)="clickExportExcel()">To Excel</a></li>
+                <li class="dropdown-item"><a href="javascript:void(0);" (click)="clickExportServer()">To Server</a></li>
+                <li class="dropdown-item"><a href="javascript:void(0);">Something else here</a></li>
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-item"><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+          </div>
+      </div>
     </ba-card>
   </div>
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {ScoringCardService} from "./scoringcard.service";
 import { FillScoreService } from "../fillscore/fillscore.service"
 // import * as Global from '../../../global';
-import { baseUrl } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { getScoringCard } from '../../data';
 import { CompleterService, CompleterData,CompleterItem } from 'ng2-completer';
 import * as Data from '../../data';
@@ -203,6 +203,6 @@ export class ScoringCardComponent {
       });
   }
   constructor(protected service: ScoringCardService,private completerService: CompleterService,protected service2: FillScoreService) {
-    this.dataService = completerService.remote(baseUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
+    this.dataService = completerService.remote(environment.SearchUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
   }
 }

@@ -10,6 +10,7 @@ export class BaFileUploader {
   @Output() onFileUpload = new EventEmitter<any>();
   @Output() onFileUploadCompleted = new EventEmitter<any>();
   @Input() defaultValue: string = '';
+  @Input() buttonText: string = 'Browse';
 
   @ViewChild('fileUpload') public _fileUpload: ElementRef;
   @ViewChild('inputText') public _inputText: ElementRef;

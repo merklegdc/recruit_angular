@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 // import * as Global from '../../../global';
-import { baseUrl } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
 import { Observable }     from 'rxjs/Observable';
 import { Headers, Http } from '@angular/http';
@@ -9,10 +9,10 @@ import 'rxjs/add/observable/forkJoin';
 @Injectable()
 export class ScoringCardService {
 
-  private candidateUrl = baseUrl+'candidate';
+  private candidateUrl = `${environment.candidateUrl}candidate`;
   private headers = new Headers({'Content-Type': 'application/json'});
-  private interviewUrl = baseUrl+'interview';
-
+  private interviewUrl = `${environment.interviewUrl}interview`;
+  
   tableData = [
     ["Interviewer","","","","","","","","","","","",""],
     ["Trainable/Culture fit 40%","Desire to Serve (Interpersonal)","10%","","","","","","","","","",""],
@@ -49,8 +49,8 @@ export class ScoringCardService {
       .get(`${this.candidateUrl}/id/${id}`)
       .map(response => response.json());
   }
-  //handle multiple http requests
-  getInterview(id){
+  // handle multiple http requests
+  getInterview(id) {
     var ids:number[] = [0,1,2,3,4,5,6];
     return Observable.forkJoin(
       ids.map(

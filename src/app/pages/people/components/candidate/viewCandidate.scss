@@ -1,5 +1,8 @@
 @import "../../../../theme/sass/conf/conf";
 
+hr {
+  margin-top: 0.5rem;
+}
 :host /deep/ .widgets {
   .smart-table-container {
     width: 100%;

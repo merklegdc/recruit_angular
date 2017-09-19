@@ -3,12 +3,12 @@ export class Candidate {
   name_cn: string="";
   name_en: string = '';
   status: string="";
-  location: number;
-  service_line: number;
+  location: any;
+  service_line: any;
   if_group: string;
   gender: string="";
   phone: string="";
-  position: number;
+  position: any;
   degree: string = '';
   type: string = '';
   assign_date: string = '';
@@ -119,25 +119,25 @@ export const config = {
   degree: [
     {
       id: 1,
-      text: 'bachelor',
+      text: 'Bachelor',
     },
     {
       id: 2,
-      text: 'master',
+      text: 'Master',
     },
     {
       id: 3,
-      text: 'doctor',
+      text: 'Doctor',
     },
   ],
   type: [
     {
       id: 1,
-      text: 'fresh graduate',
+      text: 'Fresh graduate',
     },
     {
       id: 2,
-      text: 'former graduate',
+      text: 'Former graduate',
     },
   ],
   location: [
