@@ -87,7 +87,7 @@ export class ViewCandidateComponent implements OnInit {
   }
   clickExportExcel(): void {
     this.service.downloadExcel(this.data)
-    .subscribe(blob => { saveAs(blob, 'Campus Tracking');
+    .subscribe(blob => { saveAs(blob, 'Campus Tracking.xlsx');
     })
   };
   
