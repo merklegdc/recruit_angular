@@ -90,6 +90,11 @@ export class ViewCandidateComponent implements OnInit {
     .subscribe(blob => { saveAs(blob, 'Campus Tracking.xlsx');
     })
   };
+  clickDelete(): void {
+    const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+    activeModal.componentInstance.modalHeader = 'Unavailable';
+    activeModal.componentInstance.modalContent = 'This functionality is still under development.';
+  }
   
   clickExportServer(): void {
     

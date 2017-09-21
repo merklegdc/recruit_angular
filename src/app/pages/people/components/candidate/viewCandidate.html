@@ -21,10 +21,11 @@
       </div>
       <hr>
       <div class="row">
-          <div class="col-sm-2">
+          <div class="col-sm-4">
               <button type="button" class="btn btn-success" (click)="clickAssign()">Assign</button>
+              <button type="button" class="btn btn-success" (click)="clickDelete()">Delete</button>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
               <ba-file-uploader #uploader [style.display]="'none'" [buttonText]="'Import Excel'" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onImported($event)"></ba-file-uploader>
           </div>
           <!-- <div class="col-sm-3">
