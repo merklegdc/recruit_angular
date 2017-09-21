@@ -21,6 +21,9 @@ export class Candidate {
   master_school: string="";
   master_major: string="";
   create_date: string="";
+  university: string = '';
+  major: string = '';
+  graduation_date: string = '';
 }
 
 export const config = {

@@ -22,7 +22,8 @@ export class AddCandidateComponent {
   };   
   receiveDate: IMyDateModel;
   assignDate: IMyDateModel;
-  positions: any = [{ id: 0, text: '' }];
+  graduationDate: IMyDateModel;
+  positions: any = [{ id: 0, text: '', value: ''}];
   config = config;
   searchStr: string;
   nameServiceCN: CompleterData;
@@ -53,6 +54,9 @@ export class AddCandidateComponent {
     if (this.receiveDate) {
       this.candidate.receive_date = this.receiveDate.formatted;
     }
+    if (this.graduationDate) {
+      this.candidate.graduation_date = this.graduationDate.formatted;
+    }
   }
   onSubmit() {
     this.candidate.candidate_id = 0;
@@ -76,9 +80,6 @@ export class AddCandidateComponent {
     if (!cand.gender) {
       content += 'gender, ';
     }
-    if (!cand.type) {
-      content += 'type, ';
-    }
     if (content) {
       content = content.substring(0, content.length - 2);
       const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
@@ -88,6 +89,9 @@ export class AddCandidateComponent {
       this.helper();
       this.service.addCandidate(this.candidate)
       .then(data => { if (data) {
+        if (+data) {
+          this.candidate.candidate_id = +data;
+        }
         const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
         activeModal.componentInstance.modalHeader = 'Success';
       }})
@@ -101,6 +105,7 @@ export class AddCandidateComponent {
     this.candidate = new Candidate();
     this.assignDate = null;
     this.receiveDate = null;
+    this.graduationDate = null;
   }
   onEdit() {
     this.helper();
@@ -143,8 +148,16 @@ export class AddCandidateComponent {
               epoc: null,
             };
           }
+          if (this.candidate.receive_date) {
+            this.graduationDate = {
+              date: null,
+              formatted: this.candidate.graduation_date,
+              jsdate: null,
+              epoc: null,
+            };
+          }
           for (const entry of config.service_line) {
-            if (entry.name === this.candidate.service_line) {
+            if (entry.name == this.candidate.service_line) {
               this.positions = entry.position;
               return;
             }
@@ -157,7 +170,7 @@ export class AddCandidateComponent {
 
   onChangeSL(event) {
     for (const entry of config.service_line) {
-      if (entry.id == this.candidate.service_line) {
+      if (entry.name == this.candidate.service_line) {
         this.positions = entry.position;
         return;
       }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 // import * as Global from '../../../global';
 import { environment } from '../../../../../environments/environment';
 import { Candidate } from './candidate';
@@ -8,6 +8,7 @@ import { NgUploaderOptions } from 'ngx-uploader';
 import { DefaultModal } from '../../../modal/default-modal/default-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { saveAs } from "file-saver";
+import { BaFileUploader } from '../../../../theme/components/baFileUploader/baFileUploader.component'
 
 @Component({
   selector: 'view-candidate',
@@ -15,14 +16,15 @@ import { saveAs } from "file-saver";
   styleUrls: ['./candidate.scss', 'viewCandidate.scss'],
 })
 export class ViewCandidateComponent implements OnInit {
+  @ViewChild(BaFileUploader) uploader: BaFileUploader;
   fileUploaderOptions: NgUploaderOptions = {
     url: `${environment.uploadUrl}uploadExcel`,
   };
   data: any[] = [['false', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
   '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']]; 
-  colHeaders: string[] = ['assign','查重', 'Candidate ID', 'Name (CN)', 'Name (ENG)', 'Assign Date',
+  colHeaders: string[] = ['','查重', 'Candidate ID', 'Name (CN)', 'Name (ENG)', 'Assign Date',
     'Service Line', 'Position', 'Location', 'Gender', 'Degree', 'University',
-    'Major', 'Graduation Date', 'Cell Phone', 'Email', 'Received Date', 'Channel Detail', 'CV Sreen Coordinator',
+    'Major', 'Graduation Date', 'Cell Phone', 'Email', 'Received Date', 'Channel', 'Channel Detail', 'CV Sreen Coordinator',
     'CV Screen Result', 'CV Status', 'Phone Screener', 'Phone Screen Date', 'Phone Screen Result', 'Comments',
     'On-site Date', 'interviewer1-Name', 'interview1-score', 'interview1 comments', 'interviewer2-Name',
     'interview2-score', 'interview2 comments', 'interviewer3-Name', 'interview3-score', 'interview3 comments',
@@ -30,14 +32,15 @@ export class ViewCandidateComponent implements OnInit {
   columns: any[] = [
     {
       type: "checkbox",
-    },{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
+    },{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
   ];
   private colWidths: number[] = [];
   options: any = {
     width: 1300,
     height: 500,
     rowHeights: 23,
-    colWidths: 100,
+    colWidths: [25, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+      100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
     allowInsertRow: true,
     stretchH: 'all',
     columnSorting: true,
@@ -47,11 +50,9 @@ export class ViewCandidateComponent implements OnInit {
   };
 
   private afterChange(e: any) {
-    console.log(e);
   }
 
   private afterOnCellMouseDown(e: any) {
-    console.log(e);
   }
 
   candidates: Candidate[];
@@ -91,23 +92,7 @@ export class ViewCandidateComponent implements OnInit {
   };
   
   clickExportServer(): void {
-    let d = new Date();
-    let dd = d.getDate();
-    let mm = d.getMonth()+1; //January is 0!
-    let yyyy = d.getFullYear();
-    let dds: string = dd.toString();
-    let mms: string = mm.toString();
-    if(dd<10) {
-        dds = '0'+dd;
-    } 
     
-    if(mm<10) {
-        mms = '0'+mm;
-    } 
-    let today = `${yyyy}-${mms}-${dds}`;
-    for (let i in this.data){
-      this.data[i][5] = this.data[i][0] ? today: '';
-    }
     this.service.uploadData(this.data)
     .then(data => { if (data) {
       const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
@@ -132,7 +117,26 @@ export class ViewCandidateComponent implements OnInit {
     });
   }
   clickAssign(): void {
-    console.log(this.data);
+    let d = new Date();
+    let dd = d.getDate();
+    let mm = d.getMonth()+1; //January is 0!
+    let yyyy = d.getFullYear();
+    let dds: string = dd.toString();
+    let mms: string = mm.toString();
+    if(dd<10) {
+        dds = '0'+dd;
+    } 
+    
+    if(mm<10) {
+        mms = '0'+mm;
+    } 
+    let today = `${yyyy}-${mms}-${dds}`;
+    for (let i in this.data){
+      this.data[i][5] = this.data[i][0] ? today: this.data[i][5];
+    }
+  }
+  clickImportExcel(): void {
+    this.uploader.bringFileSelector();
   }
   helper(data): any {
     let name = new Set();

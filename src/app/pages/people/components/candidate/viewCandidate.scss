@@ -3,6 +3,9 @@
 hr {
   margin-top: 0.5rem;
 }
+button.float-right {
+  float: right;
+}
 :host /deep/ .widgets {
   .smart-table-container {
     width: 100%;

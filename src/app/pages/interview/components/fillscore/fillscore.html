@@ -18,6 +18,12 @@
         <!--<input type="email" class="form-control" id="inputInterviewerName" placeholder="Interviewer Name" [(ngModel)]="interview.interviewerName">-->
       </div>
     </div>
+    <div class="col-sm-4">
+        <div *ngIf="!this.selectedTypeID==0" class="form-group">
+          <label>Interview Date</label>
+          <my-date-picker name="interview-date" [options]="myDatePickerOptions" [(ngModel)]="interviewDate" required></my-date-picker>
+        </div>
+      </div>
   </div>
   <div class="row buffer-left buffer-bottom">
     <div class="btn-toolbar">

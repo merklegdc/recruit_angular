@@ -71,9 +71,9 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="type">Type</label>
-          <select type="text" [(ngModel)]="candidate.type" class="form-control" id="type" required>
-            <option *ngFor="let type of config.type" [value]="type.id">
+          <label for="type">Fresh/Former</label>
+          <select type="text" [(ngModel)]="candidate.type" class="form-control" id="type" >
+            <option *ngFor="let type of config.type" [value]="type.text">
                {{type.text}} 
             </option>
           </select>
@@ -122,7 +122,7 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="recommender">Recommender</label>
+          <label for="recommender">Channel Detail</label>
           <input type="text" class="form-control" [(ngModel)]="candidate.recommender" id="recommender" placeholder="" required>
         </div>
       </div>
@@ -130,28 +130,14 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="b-school">Bachelor School</label>
-          <input type="text" class="form-control" [(ngModel)]="candidate.bachelor_school" id="b-school" placeholder="" required>
+          <label for="school">University</label>
+          <input type="text" class="form-control" [(ngModel)]="candidate.university" id="school" placeholder="" required>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="b-major">Bachelor Major</label>
-          <input type="text" class="form-control" [(ngModel)]="candidate.bachelor_major" id="b-major" placeholder="" required>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="m-school">Master School</label>
-          <input type="text" class="form-control" [(ngModel)]="candidate.master_school" id="m-school" placeholder="" required>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="form-group">
-          <label for="m-major">Master Major</label>
-          <input type="text" class="form-control" [(ngModel)]="candidate.master_major" id="m-major" placeholder="" required>
+          <label for="major">Major</label>
+          <input type="text" class="form-control" [(ngModel)]="candidate.major" id="b-major" placeholder="" required>
         </div>
       </div>
     </div>
@@ -159,10 +145,18 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label>Receive Date</label>
-          <my-date-picker name="receive-date" [options]="myDatePickerOptions"
-                    [(ngModel)]="receiveDate" required></my-date-picker> 
+          <my-date-picker name="receive-date" [options]="myDatePickerOptions" [(ngModel)]="receiveDate" required></my-date-picker>
         </div>
       </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Graduation Date</label>
+          <my-date-picker name="graduation-date" [options]="myDatePickerOptions" [(ngModel)]="graduationDate" required></my-date-picker>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      
       <div class="col-sm-6">
         <label>Upload Resume to \\nanitfp01\Public\Departments\Public\2017 recruitment\resume\{{serviceLine}}</label>
         <ba-file-uploader [fileUploaderOptions]="fileUploaderOptions"></ba-file-uploader>

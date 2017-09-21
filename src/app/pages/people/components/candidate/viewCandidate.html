@@ -21,17 +21,24 @@
       </div>
       <hr>
       <div class="row">
-          <!-- <div class="col-sm-2">
+          <div class="col-sm-2">
               <button type="button" class="btn btn-success" (click)="clickAssign()">Assign</button>
-            </div> -->
-          <div class="col-sm-3">
+          </div>
+          <div class="col-sm-6">
+              <ba-file-uploader #uploader [style.display]="'none'" [buttonText]="'Import Excel'" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onImported($event)"></ba-file-uploader>
+          </div>
+          <!-- <div class="col-sm-3">
             <ba-file-uploader [buttonText]="'Import Excel'" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onImported($event)"></ba-file-uploader>
           </div>
           <div class="col-sm-2">
             <button type="button" class="btn btn-success" (click)="clickImportServer()">Import From Server</button>
-          </div>
-          <div class="col-sm-4 col-6">
-            <div class="btn-group" ngbDropdown>
+          </div> -->
+          <div class="col-sm-4">
+            <button type="button" class="btn btn-success" (click)="clickImportServer()">Query</button>
+            <button type="button" class="btn btn-success" (click)="clickExportExcel()">Export</button>
+            <button type="button" class="btn btn-success" (click)="clickExportServer()">Save to Server</button>
+            <button type="button" class="btn btn-success" (click)="clickImportExcel()">Import Excel</button>
+            <!-- <div class="btn-group" ngbDropdown>
               <button type="button" class="btn btn-success" ngbDropdownToggle>
                 Export
               </button>
@@ -42,7 +49,7 @@
                 <li class="dropdown-divider"></li>
                 <li class="dropdown-item"><a href="#">Separated link</a></li>
               </ul>
-            </div>
+            </div> -->
           </div>
       </div>
     </ba-card>
