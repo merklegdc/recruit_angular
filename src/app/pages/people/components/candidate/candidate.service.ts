@@ -21,10 +21,10 @@ export class CandidateService {
       .map(response => response.json() as Candidate);
   }
 
-  getCandidate(): Promise<Candidate[]> {
-    return this.http.get(this.candidateUrl)
+  getCandidate(id: number): Promise<Candidate> {
+    return this.http.get(`${this.candidateUrl}id/${id}`)
       .toPromise()
-      .then(response => response.json() as Candidate[])
+      .then(response => response.json() as Candidate)
       .catch(this.handleError);
   }
 

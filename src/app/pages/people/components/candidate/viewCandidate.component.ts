@@ -60,7 +60,6 @@ export class ViewCandidateComponent implements OnInit {
   constructor(protected service: CandidateService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
-    this.getCandidates();
   }
   onImported(event): void {
     let data = JSON.parse(event.response);
@@ -69,9 +68,6 @@ export class ViewCandidateComponent implements OnInit {
     }
     data = this.helper(data);
     this.data = data;
-  }
-  getCandidates(): void {
-    this.service.getCandidate().then( data => this.candidates = data).then();
   }
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {

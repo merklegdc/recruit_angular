@@ -9,6 +9,7 @@ import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import { DefaultModal } from '../../../modal/default-modal/default-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
+import { Candidate, CandidateService } from '../../../people';
 
 @Component({
   selector: 'fillscore',
@@ -20,11 +21,14 @@ export class FillScoreComponent {
   myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'yyyy-mm-dd',
-  }; 
+  };
+  candidateName = '';
+  interviewerName = '';
   interviewDate: IMyDateModel;
   title = 'Fill Score';
   data: any;
   options: any;
+  candidate: Candidate = new Candidate();
   interviews = new Data.Interviews();
   selectedTypeID = 0;
   dataService: CompleterData;
@@ -86,6 +90,8 @@ export class FillScoreComponent {
   }
   onSelectCandidate(selected) {
     if (selected) {
+      this.candidate = new Candidate();
+      this.candidateService.getCandidate();
       this.interviews = new Data.Interviews();
       this.selectedTypeID = 0;
       if (selected.originalObject.if_group == 'N') {
@@ -105,8 +111,7 @@ export class FillScoreComponent {
       this.interviews.candidate_name = selected.originalObject.name;
       this.interviews.candidate_id = selected.originalObject.candidate_id;
       this.onSelectType(this.types[this.selectedTypeID]);
-    } else {
-    }
+    } 
   }
   onSelectInterviewer(selected) {
 
@@ -183,7 +188,7 @@ export class FillScoreComponent {
   //   this.fillscoreService.getInterview().then(interview => this.interview = interview);
   // }
   constructor(private router: Router, private service: FillScoreService, private completerService: CompleterService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal, private candidateService: CandidateService) {
     this.dataService = completerService.remote(environment.SearchUrl+'searchCandidate/name/', 'name', 'name').descriptionField("description");
     this.dataService2 = completerService.remote(environment.SearchUrl+'searchInterviewer/name/', 'name', 'name');
     //this.interviews = new Data.Interviews();

@@ -290,13 +290,6 @@ export function getFillScore(type1,type2){
 
   }
 }
-export function getMergeCell(type){
-  switch (type){
-    case "cv":
-      let arr = [{row: 0, col: 3, rowspan: 3, colspan: 1},{row: 8, col: 3, rowspan: 2, colspan: 1},{row: 11, col: 3, rowspan: 2, colspan: 1}];
-      return addCommonHeader(mergeCell,arr);
-  }
-}
 
 export const scores = ["5.0","4.5","4.0","3.5","3.0","2.5","2.0","1.5","1.0"];
 export const weight=[

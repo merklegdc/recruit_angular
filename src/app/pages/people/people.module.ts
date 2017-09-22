@@ -18,6 +18,7 @@ import { ViewCandidateComponent } from './components/candidate/viewCandidate.com
 
 import { InterviewerService } from './components/interviewer/interviewer.service';
 import { CandidateService } from './components/candidate/candidate.service';
+import { Candidate } from './components/candidate/candidate';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DefaultModal } from '../modal/default-modal/default-modal.component';
 import { ModalModule } from '../modal/modal.module';
@@ -38,6 +39,10 @@ import { ModalModule } from '../modal/modal.module';
     ModalModule,
     HotTableModule,
     ],
+  exports: [
+    CandidateService,
+    Candidate,
+  ],
   declarations: [
     InterviewerComponent,
     People,

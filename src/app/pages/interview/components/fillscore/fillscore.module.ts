@@ -15,6 +15,7 @@ import { FillScoreService } from './fillscore.service';
 import { DefaultModal } from '../../../modal/default-modal/default-modal.component';
 import { ModalModule } from '../../../modal/modal.module';
 import { MyDatePickerModule } from 'mydatepicker';
+import { PeopleModule } from '../../../people/people.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     NgbModalModule,
     ModalModule,
     MyDatePickerModule,
+    PeopleModule,
   ],
   providers: [
     FillScoreService,

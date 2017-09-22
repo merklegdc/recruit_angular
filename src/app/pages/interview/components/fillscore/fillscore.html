@@ -5,7 +5,7 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label>Candidate Name</label>
-        <ng2-completer [(ngModel)]="interviews.candidate_name" [datasource]="dataService"
+        <ng2-completer [(ngModel)]="candidateName" [datasource]="dataService"
                        [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelectCandidate($event)" required></ng2-completer>
         <!--<input type="text" class="form-control" id="inputCandidateName" placeholder="Candidate Name" [(ngModel)]="interview.candidateName">-->
       </div>
@@ -13,7 +13,7 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label>Interviewer Name</label>
-        <ng2-completer [(ngModel)]="interviews.interviews[this.selectedTypeID].interviewer_name" [datasource]="dataService2"
+        <ng2-completer [(ngModel)]="interviewerName" [datasource]="dataService2"
                        [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelectInterviewer($event)" required></ng2-completer>
         <!--<input type="email" class="form-control" id="inputInterviewerName" placeholder="Interviewer Name" [(ngModel)]="interview.interviewerName">-->
       </div>

@@ -1,6 +1,6 @@
 export class Candidate {
   candidate_id: number;
-  name_cn: string="";
+  name_cn: string;
   name_en: string = '';
   status: string="";
   location: any;
@@ -97,81 +97,81 @@ export class Candidate {
 	onsite1_status: string;
 	onsite1_date: string;
 	onsite1_sum: string;
-	onsite1_passed char null,
-	onsite1_score1 decimal(5,1) null,
-	onsite1_question1 varchar(255) null,
-	onsite1_score2 decimal(5,1) null,
-	onsite1_question2 varchar(255) null,
-	onsite1_score3 decimal(5,1) null,
-	onsite1_question3 varchar(255) null,
-	onsite1_score4 decimal(5,1) null,
-	onsite1_question4 varchar(255) null,
-	onsite1_score5 decimal(5,1) null,
-	onsite1_question5 varchar(255) null,
-	onsite1_score6 decimal(5,1) null,
-	onsite1_questiona6 varchar(255) null,
-	onsite1_score7 decimal(5,1) null,
-	onsite1_question7 varchar(255) null,
-	onsite1_score8 decimal(5,1) null,
-	onsite1_question8 varchar(255) null,
-	onsite1_score9 decimal(5,1) null,
-	onsite1_question9 varchar(255) null,
-	onsite1_comment varchar(255) null,
-	onsite1_created_date date null,
-	onsite1_created_by varchar(45) null,
-	onsite2_interviewer varchar(50) null,
-	onsite2_status varchar(50) null,
-	onsite2_date date null,
-	onsite2_sum decimal(10,4) null,
-	onsite2_passed char null,
-	onsite2_score1 decimal(5,1) null,
-	onsite2_question1 varchar(255) null,
-	onsite2_score2 decimal(5,1) null,
-	onsite2_question2 varchar(255) null,
-	onsite2_score3 decimal(5,1) null,
-	onsite2_question3 varchar(255) null,
-	onsite2_score4 decimal(5,1) null,
-	onsite2_question4 varchar(255) null,
-	onsite2_score5 decimal(5,1) null,
-	onsite2_question5 varchar(255) null,
-	onsite2_score6 decimal(5,1) null,
-	onsite2_questiona6 varchar(255) null,
-	onsite2_score7 decimal(5,1) null,
-	onsite2_question7 varchar(255) null,
-	onsite2_score8 decimal(5,1) null,
-	onsite2_question8 varchar(255) null,
-	onsite2_score9 decimal(5,1) null,
-	onsite2_question9 varchar(255) null,
-	onsite2_comment varchar(255) null,
-	onsite2_created_date date null,
-	onsite2_created_by varchar(45) null,
-	onsite3_interviewer varchar(50) null,
-	onsite3_status varchar(50) null,
-	onsite3_date date null,
-	onsite3_sum decimal(10,4) null,
-	onsite3_passed char null,
-	onsite3_score1 decimal(5,1) null,
-	onsite3_question1 varchar(255) null,
-	onsite3_score2 decimal(5,1) null,
-	onsite3_question2 varchar(255) null,
-	onsite3_score3 decimal(5,1) null,
-	onsite3_question3 varchar(255) null,
-	onsite3_score4 decimal(5,1) null,
-	onsite3_question4 varchar(255) null,
-	onsite3_score5 decimal(5,1) null,
-	onsite3_question5 varchar(255) null,
-	onsite3_score6 decimal(5,1) null,
-	onsite3_questiona6 varchar(255) null,
-	onsite3_score7 decimal(5,1) null,
-	onsite3_question7 varchar(255) null,
-	onsite3_score8 decimal(5,1) null,
-	onsite3_question8 varchar(255) null,
-	onsite3_score9 decimal(5,1) null,
-	onsite3_question9 varchar(255) null,
-	onsite3_comment varchar(255) null,
-	onsite3_created_date date null,
-	onsite3_created_by varchar(45) null,
-	onsite_status varchar(25) null,
+	onsite1_passed: string;
+	onsite1_score1: string;
+	onsite1_question1: string;
+	onsite1_score2: string;
+	onsite1_question2: string;
+	onsite1_score3: string;
+	onsite1_question3: string;
+	onsite1_score4: string;
+	onsite1_question4: string;
+	onsite1_score5: string;
+	onsite1_question5: string;
+	onsite1_score6: string;
+	onsite1_questiona6: string;
+	onsite1_score7: string;
+	onsite1_question7: string;
+	onsite1_score8: string;
+	onsite1_question8: string;
+	onsite1_score9: string;
+	onsite1_question9: string;
+	onsite1_comment: string;
+	onsite1_created_date: string;
+	onsite1_created_by: string;
+	onsite2_interviewer: string;
+	onsite2_status: string;
+	onsite2_date: string;
+	onsite2_sum: string;
+	onsite2_passed: string;
+	onsite2_score1: string;
+	onsite2_question1: string;
+	onsite2_score2: string;
+	onsite2_question2: string;
+	onsite2_score3: string;
+	onsite2_question3: string;
+	onsite2_score4: string;
+	onsite2_question4: string;
+	onsite2_score5: string;
+	onsite2_question5: string;
+	onsite2_score6: string;
+	onsite2_questiona6: string;
+	onsite2_score7: string;
+	onsite2_question7: string;
+	onsite2_score8: string;
+	onsite2_question8: string;
+	onsite2_score9: string;
+	onsite2_question9: string;
+	onsite2_comment: string;
+	onsite2_created_date: string;
+	onsite2_created_by: string;
+	onsite3_interviewer: string;
+	onsite3_status: string;
+	onsite3_date: string;
+	onsite3_sum: string;
+	onsite3_passed: string;
+	onsite3_score1: string;
+	onsite3_question1: string;
+	onsite3_score2: string;
+	onsite3_question2: string;
+	onsite3_score3: string;
+	onsite3_question3: string;
+	onsite3_score4: string;
+	onsite3_question4: string;
+	onsite3_score5: string;
+	onsite3_question5: string;
+	onsite3_score6: string;
+	onsite3_questiona6: string;
+	onsite3_score7: string;
+	onsite3_question7: string;
+	onsite3_score8: string;
+	onsite3_question8: string;
+	onsite3_score9: string;
+	onsite3_question9: string;
+	onsite3_comment: string;
+	onsite3_created_date: string;
+	onsite3_created_by: string;
+	onsite_status: string;
 }
 
 export const config = {
