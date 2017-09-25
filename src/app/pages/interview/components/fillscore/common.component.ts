@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import * as Data from '../../data'
 
 @Component({
@@ -15,15 +15,25 @@ import * as Data from '../../data'
   }`]
 })
 export class CommonComponent {
-  @Input() interviews: Data.Interviews;
+  @Input() scores: string[];
+  @Input() questions: any;
+  @Input() comment: any;
+  @Input() commonScore: any;
   @Input() type: number;
-  @Input() sum: number[][];
-  constructor(){}
-  scores = Data.scores;
-  checkPoints = Data.checkPoints;
-  questions = Data.questions;
-  score: any[] = [];
-  model: any;
-  setScore(event){
+  @Output() scoresChange = new EventEmitter<any>();
+  @Output() commentChange = new EventEmitter<any>();
+  @Output() questionsChange = new EventEmitter<any>();
+  setScores(event){
+    this.scoresChange.emit(this.scores.slice());
   }
+  setComment(event){
+    this.commentChange.emit(this.comment);
+  }
+  setQuestions(event){
+    this.questionsChange.emit(this.questions.slice());
+  }
+  constructor(){}
+  scoreList = Data.scores;
+  checkPoints = Data.checkPoints;
+  model: any;
 }

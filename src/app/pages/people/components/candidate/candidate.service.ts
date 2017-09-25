@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 export class CandidateService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
-  private candidateUrl = `${environment.candidateUrl}candidate`;
+  private candidateUrl = `${environment.candidateUrl}candidate/`;
 
   constructor(private http: Http) { }
 
@@ -21,10 +21,10 @@ export class CandidateService {
       .map(response => response.json() as Candidate);
   }
 
-  getCandidate(id: number): Promise<Candidate> {
-    return this.http.get(`${this.candidateUrl}id/${id}`)
+  getCandidate(id: number, type: number): Promise<any> {
+    return this.http.get(`${this.candidateUrl}id/${id}/type/${type}`)
       .toPromise()
-      .then(response => response.json() as Candidate)
+      .then(response => response.json())
       .catch(this.handleError);
   }
 
@@ -34,7 +34,7 @@ export class CandidateService {
       .then(response => response.json());
   }
 
-  saveCandidate(id, data): Promise<any> {
+  saveCandidate(id, data, type?): Promise<any> {
     return this.http.post(`${this.candidateUrl}/id/${id}`, data, { headers: this.headers })
       .toPromise()
       .then(response => response.json());

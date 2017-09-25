@@ -57,7 +57,7 @@ export class Candidate {
 	phone_score5: string;
 	phone_question5: string;
 	phone_score6: string;
-	phone_questiona6: string;
+	phone_question6: string;
 	phone_score7: string;
 	phone_question7: string;
 	phone_score8: string;
@@ -83,7 +83,7 @@ export class Candidate {
 	group_score5: string;
 	group_question5: string;
 	group_score6: string;
-	group_questiona6: string;
+	group_question6: string;
 	group_score7: string;
 	group_question7: string;
 	group_score8: string;
@@ -109,7 +109,7 @@ export class Candidate {
 	onsite1_score5: string;
 	onsite1_question5: string;
 	onsite1_score6: string;
-	onsite1_questiona6: string;
+	onsite1_question6: string;
 	onsite1_score7: string;
 	onsite1_question7: string;
 	onsite1_score8: string;
@@ -135,7 +135,7 @@ export class Candidate {
 	onsite2_score5: string;
 	onsite2_question5: string;
 	onsite2_score6: string;
-	onsite2_questiona6: string;
+	onsite2_question6: string;
 	onsite2_score7: string;
 	onsite2_question7: string;
 	onsite2_score8: string;
@@ -161,7 +161,7 @@ export class Candidate {
 	onsite3_score5: string;
 	onsite3_question5: string;
 	onsite3_score6: string;
-	onsite3_questiona6: string;
+	onsite3_question6: string;
 	onsite3_score7: string;
 	onsite3_question7: string;
 	onsite3_score8: string;

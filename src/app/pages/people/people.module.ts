@@ -40,8 +40,7 @@ import { ModalModule } from '../modal/modal.module';
     HotTableModule,
     ],
   exports: [
-    CandidateService,
-    Candidate,
+    
   ],
   declarations: [
     InterviewerComponent,

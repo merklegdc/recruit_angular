@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import * as Data from '../../data'
 
 @Component({
@@ -15,13 +15,20 @@ import * as Data from '../../data'
   }`]
 })
 export class CVComponent {
-  @Input() interviews: Data.Interviews;
-  @Input() type:number;
-  constructor(){}
-  scores = Data.scores;
-  checkPoints = Data.checkPoints;
-  score: any[] = [];
-  model: any;
-  setScore(event){
+  @Input() scores: string[];
+  @Input() questions: any;
+  @Input() comment: any;
+  @Input() type: number;
+  @Output() scoresChange = new EventEmitter<any>();
+  @Output() commentChange = new EventEmitter<any>();
+  setScores(event){
+    this.scoresChange.emit(this.scores.slice());
   }
+  setComment(event){
+    this.commentChange.emit(this.comment);
+  }
+  constructor(){}
+  scoreList = Data.scores;
+  checkPoints = Data.checkPoints;
+  model: any;
 }

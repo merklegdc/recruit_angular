@@ -1,6 +1,7 @@
 <div class="widgets">
 <!--  {{diagnostic}}
-  {{candidate_id}}{{candidate_name}}{{searchStr}}-->
+  {{candidate_id}}{{candidate_name}}-->
+  {{status}}{{scores}}{{comment}}{{questions}}
   <div class="row buffer-bottom">
     <div class="col-sm-4">
       <div class="form-group">
@@ -42,8 +43,26 @@
     </div>
   </div>
   <div [ngSwitch]="selectedTypeID">
-    <cv *ngSwitchCase=0 [interviews]="interviews" [type]="selectedTypeID"></cv>
-    <common *ngSwitchDefault [interviews]="interviews" [type]="selectedTypeID"></common>
+    <cv *ngSwitchCase=0 [(scores)]="scores" (scoresChange)="scoresChange()" [(comment)]="comment" [type]="selectedTypeID"></cv>
+    <common *ngSwitchDefault [(scores)]="scores" (scoresChange)="scoresChange()" [(comment)]="comment" [commonScore]="commonScore"
+    [(questions)]="questions" [type]="selectedTypeID"></common>
   </div>
-  <sum [interviews]="interviews" [sum]="sum" [type]="selectedTypeID"></sum>
+  <!-- <sum [sums]="sums" [status]="status" [common]="commonScore" [type]="selectedTypeID"></sum> -->
+  <div class="row">
+      <div *ngFor="let i of [0,1,2,3,4]" class="col-md-2">
+        <h5>Total</h5>
+      </div>
+      <div class="col-md-2">
+        <h5>Overall</h5>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div *ngFor="let i of [0,1,2,3,4]" class="col-md-2">
+        <p>{{sums[selectedTypeID][i].toFixed(2)}}</p>
+      </div>
+      <div class="col-md-2">
+        <p [class.red-text]="status == 'failed'">{{sum.toFixed(2)}}</p>
+      </div>
+    </div>
 </div>

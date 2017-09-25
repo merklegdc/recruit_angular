@@ -6,55 +6,55 @@
 <div class="row">
   <div class="form-group col-md-2">
     <label for=1>Desire to learn/serve/achieve</label>
-    <select [(ngModel)]="interviews.interviews[type].score[0]" class="form-control" id=1 required>
-      <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
+    <select [(ngModel)]="scores[0]" class="form-control" id=1 (ngModelChange)="setScores($event)" required>
+      <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
     <label for=21>Technical Skill Set 10%</label>
-    <select [(ngModel)]="interviews.interviews[type].score[1]" (ngModelChange)="setScore($event)" class="form-control" id=21 required>
-      <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
+    <select [(ngModel)]="scores[1]"  class="form-control" id=21 (ngModelChange)="setScores($event)" required>
+      <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=22>Examination Result</label>
-    <select [(ngModel)]="interviews.interviews[6].score[0]" (ngModelChange)="setScore($event)" class="form-control" id=22 required>
+    <select [(ngModel)]="scores[2]"  class="form-control" id=22 (ngModelChange)="setScores($event)" required>
       <option value=0.5> Pass 0.5 </option>
       <option value=0.0> Fail 0 </option>
     </select>
     <label for=23>Academic Achievements 15%</label>
-    <select [(ngModel)]="interviews.interviews[type].score[2]" (ngModelChange)="setScore($event)" class="form-control" id=23 required>
-      <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
+    <select [(ngModel)]="scores[3]"  class="form-control" id=23 (ngModelChange)="setScores($event)" required>
+      <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
     <label for=3>All details</label>
-    <select [(ngModel)]="interviews.interviews[type].score[3]" (ngModelChange)="setScore($event)" class="form-control" id=3 required>
-      <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
+    <select [(ngModel)]="scores[4]"  class="form-control" id=3 (ngModelChange)="setScores($event)" required>
+      <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
     <label for=4>All details</label>
-    <select [(ngModel)]="interviews.interviews[type].score[4]" (ngModelChange)="setScore($event)" class="form-control" id=4 required>
-      <option *ngFor="let t of scores" [ngValue]="t"> {{t}} </option>
+    <select [(ngModel)]="scores[5]"  class="form-control" id=4 (ngModelChange)="setScores($event)" required>
+      <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
     <label for=51>Hometown & Family Tie</label>
-    <select [(ngModel)]="interviews.interviews[6].score[1]" (ngModelChange)="setScore($event)" class="form-control" id=51 required>
+    <select [(ngModel)]="scores[6]"  class="form-control" id=51 (ngModelChange)="setScores($event)" required>
       <option value=0.3> Nanjing 0.3 </option>
       <option value=0.1> Jiangsu&Anhui 0.1 </option>
       <option value=0.0> Others 0 </option>
     </select>
     <label for=52>Overseas Study Experience</label>
-    <select [(ngModel)]="interviews.interviews[6].score[2]" (ngModelChange)="setScore($event)" class="form-control" id=52 required>
+    <select [(ngModel)]="scores[7]"  class="form-control" id=52 (ngModelChange)="setScores($event)" required>
       <option value=0.1> Yes 0.1 </option>
       <option value=0.0> No 0 </option>
     </select>
     <label for=53>Relevant Working Experience</label>
-    <select [(ngModel)]="interviews.interviews[6].score[3]" (ngModelChange)="setScore($event)" class="form-control" id=53 required>
+    <select [(ngModel)]="scores[8]"  class="form-control" id=53 (ngModelChange)="setScores($event)" required>
       <option value=0.1> Yes 0.1 </option>
       <option value=0.0> No 0 </option>
     </select>
@@ -63,7 +63,7 @@
   <div class="form-group col-md-2">
     <div class="form-group">
       <label for="comment">Comment</label>
-      <textarea [(ngModel)]="interviews.interviews[type].comment" placeholder="Comment" class="form-control" id="comment"></textarea>
+      <textarea [(ngModel)]="comment" placeholder="Comment" class="form-control" (ngModelChange)="setComment($event)" id="comment"></textarea>
     </div>
   </div>
 </div>

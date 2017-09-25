@@ -12,13 +12,6 @@
     <p>{{getSum[i].toFixed(2)}}</p>
   </div>
   <div class="col-md-2">
-    <div [ngSwitch]="type">
-      <p *ngSwitchCase=0 [class.red-text]="overAll<2.5">{{overAll.toFixed(2)}}</p>
-      <p *ngSwitchCase=1 [class.red-text]="overAll<2.5">{{overAll.toFixed(2)}}</p>
-      <p *ngSwitchCase=2 [class.red-text]="overAll<3.5">{{overAll.toFixed(2)}}</p>
-      <p *ngSwitchCase=3 [class.red-text]="overAll<3.5">{{overAll.toFixed(2)}}</p>
-      <p *ngSwitchCase=4 [class.red-text]="overAll<3.5">{{overAll.toFixed(2)}}</p>
-      <p *ngSwitchCase=5 [class.red-text]="overAll<3.5">{{overAll.toFixed(2)}}</p>
-    </div>
+    <p [class.red-text]="status == 'failed'">{{overAll.toFixed(2)}}</p>
   </div>
 </div>

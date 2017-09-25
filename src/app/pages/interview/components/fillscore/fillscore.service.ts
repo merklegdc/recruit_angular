@@ -81,6 +81,6 @@ export class FillScoreService {
         i => this.http.get(`${this.interviewUrl}/id/${id}/type/${i}`)
           .map(res => res.json())));
   }
-
+  
   private interview = new Interview();
 }
