@@ -29,6 +29,7 @@ export class FillScoreComponent {
   data: any;
   options: any;
   candidate: Candidate = new Candidate();
+  candidate_id: number;
   interviews = new Data.Interviews();
   selectedTypeID = 0;
   dataService: CompleterData;
@@ -49,6 +50,9 @@ export class FillScoreComponent {
   // questions = Data.questions;
   onSelectType(type) {
     this.selectedTypeID = type.id;
+    if(!this.candidate.candidate_id){
+      return;
+    }
     this.candidateService.getCandidate(this.candidate.candidate_id, type.id).then(
       data => {
         for (let key in data)
@@ -100,8 +104,7 @@ export class FillScoreComponent {
   }
   onSelectCandidate(selected) {
     if (selected) {
-      this.candidate = new Candidate();
-      this.candidate.candidate_id = selected.originalObject.candidate_id;
+      this.candidate_id = selected.originalObject.candidate_id;
       // this.candidateService.getCandidate(selected.originalObject.candidate_id);
       this.interviews = new Data.Interviews();
       this.selectedTypeID = 0;
@@ -135,17 +138,17 @@ export class FillScoreComponent {
   onSubmit() {
     let content: string = '';
     let c = this.candidate;
-    if (this.candidate.candidate_id == 0) {
+    if (!this.candidate_id) {
       content += 'candidate, ';
     }
     if (this.interviewerName == '') {
       content += 'interviewer, ';
     }
-    if (!this.interviewDate && this.selectedTypeID!=0) {
+    if (!this.interviewDate && this.selectedTypeID != 0) {
       content += 'date, ';
     }
     for (let value of this.scores){
-      if (value === '0'){
+      if (!value) {
         content += 'score, ';
         break;
       }
@@ -156,6 +159,16 @@ export class FillScoreComponent {
       activeModal.componentInstance.modalHeader = 'Error: fields are empty';
       activeModal.componentInstance.modalContent = content;
     }else {
+      this.helper();
+      this.candidateService.saveCandidate(this.selectedTypeID, this.candidate, this.selectedTypeID)
+      .then(data => { if (data) {
+        const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+        activeModal.componentInstance.modalHeader = 'Success';
+      }})
+      .catch(error => {
+        const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+        activeModal.componentInstance.modalHeader = 'Nothing changed';
+      });
       switch (this.selectedTypeID){
         case 0:
         c.cv_interviewer = this.interviewerName;
@@ -270,16 +283,8 @@ export class FillScoreComponent {
         c.onsite3_score8 = this.scores[7];
         c.onsite3_score9 = this.scores[8];
       }
-      this.candidateService.saveCandidate(this.selectedTypeID, this.candidate, this.selectedTypeID)
-      .then(data => { if (data) {
-        const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-        activeModal.componentInstance.modalHeader = 'Success';
-      }})
-      .catch(error => {
-        const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-        activeModal.componentInstance.modalHeader = 'Nothing changed';
-      });
-      this.helper();
+      
+      
       const interview = this.interviews.interviews[this.selectedTypeID];
       const oneInterview = new Data.OneInterview(this.interviews.candidate_id,
         this.interviews.interviews[this.selectedTypeID], this.interviews.interviews[6]);
@@ -349,7 +354,6 @@ export class FillScoreComponent {
       this.interviews.interviews[this.selectedTypeID].date = this.interviewDate.formatted;
     }
   }
-  get diagnostic() { return JSON.stringify(this.interviews); }
   // getInterview(){
   //   this.fillscoreService.getInterview().then(interview => this.interview = interview);
   // }

@@ -23,6 +23,9 @@ export class CommonComponent {
   @Output() scoresChange = new EventEmitter<any>();
   @Output() commentChange = new EventEmitter<any>();
   @Output() questionsChange = new EventEmitter<any>();
+  questionList = Data.questions;
+  scoreList = Data.scores;
+  checkPoints = Data.checkPoints;
   setScores(event){
     this.scoresChange.emit(this.scores.slice());
   }
@@ -33,7 +36,5 @@ export class CommonComponent {
     this.questionsChange.emit(this.questions.slice());
   }
   constructor(){}
-  scoreList = Data.scores;
-  checkPoints = Data.checkPoints;
-  model: any;
+  
 }
