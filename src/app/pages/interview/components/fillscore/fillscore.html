@@ -1,28 +1,26 @@
 <div class="widgets">
-<!--  {{diagnostic}}
-  {{candidate_id}}{{candidate_name}}-->
-  {{candidate_id}}{{status}}{{scores}}{{comment}}{{questions}}{{commonScore}}
+  <!-- {{diag}}
+  {{candidate_id}}{{status}}{{scores}}{{comment}}{{questions}} -->
+  <!-- {{sums[0][0]}} -->
   <div class="row buffer-bottom">
     <div class="col-sm-4">
       <div class="form-group">
         <label>Candidate Name</label>
         <ng2-completer [(ngModel)]="candidateName" [datasource]="dataService"
                        [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelectCandidate($event)" required></ng2-completer>
-        <!--<input type="text" class="form-control" id="inputCandidateName" placeholder="Candidate Name" [(ngModel)]="interview.candidateName">-->
       </div>
     </div>
     <div class="col-sm-4">
       <div class="form-group">
         <label>Interviewer Name</label>
-        <ng2-completer [(ngModel)]="interviewerName" [datasource]="dataService2"
-                       [minSearchLength]="1" [inputClass]="['form-control']" (selected)="onSelectInterviewer($event)" required></ng2-completer>
-        <!--<input type="email" class="form-control" id="inputInterviewerName" placeholder="Interviewer Name" [(ngModel)]="interview.interviewerName">-->
+        <ng2-completer [(ngModel)]="interview.interviewer" [datasource]="dataService2"
+                       [minSearchLength]="1" [inputClass]="['form-control']" required></ng2-completer>
       </div>
     </div>
     <div class="col-sm-4">
         <div *ngIf="!(this.selectedTypeID === 0)" class="form-group">
           <label>Interview Date</label>
-          <my-date-picker name="interview-date" [options]="myDatePickerOptions" [(ngModel)]="interviewDate" required></my-date-picker>
+          <my-date-picker name="interview-date" [options]="myDatePickerOptions" [(ngModel)]="interviewDate" (ngModelChange)="dateChange($event)" required></my-date-picker>
         </div>
       </div>
   </div>
@@ -43,11 +41,9 @@
     </div>
   </div>
   <div [ngSwitch]="selectedTypeID">
-    <cv *ngSwitchCase=0 [(scores)]="scores" (scoresChange)="scoresChange()" [(comment)]="comment" [type]="selectedTypeID"></cv>
-    <common *ngSwitchDefault [(scores)]="scores" (scoresChange)="scoresChange()" [(comment)]="comment" [commonScore]="commonScore"
-    [(questions)]="questions" [type]="selectedTypeID"></common>
+    <cv *ngSwitchCase=0 [interview]="interview" [type]="selectedTypeID"></cv>
+    <common *ngSwitchDefault [interview]="interview" [type]="selectedTypeID"></common>
   </div>
-  <!-- <sum [sums]="sums" [status]="status" [common]="commonScore" [type]="selectedTypeID"></sum> -->
   <div class="row">
       <div *ngFor="let i of [0,1,2,3,4]" class="col-md-2">
         <h5>Total</h5>
@@ -59,10 +55,10 @@
     <hr>
     <div class="row">
       <div *ngFor="let i of [0,1,2,3,4]" class="col-md-2">
-        <p>{{sums[selectedTypeID][i].toFixed(2)}}</p>
+        <p>{{__sums[selectedTypeID][i].toFixed(2)}}</p>
       </div>
       <div class="col-md-2">
-        <p [class.red-text]="status == 'failed'">{{sum.toFixed(2)}}</p>
+        <p [class.red-text]="interview.status == 'failed'">{{__sum.toFixed(2)}}</p>
       </div>
     </div>
 </div>

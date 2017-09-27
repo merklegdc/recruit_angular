@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, ResponseContentType } from '@angular/http';
-import { Candidate } from './candidate';
+import { Candidate, Interview } from './candidate';
 // import * as Global from '../../../global';
 import { environment } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
@@ -11,21 +11,14 @@ import 'rxjs/add/operator/toPromise';
 export class CandidateService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
-  private candidateUrl = `${environment.candidateUrl}candidate/`;
+  private candidateUrl = `${environment.candidateUrl}candidate`;
 
   constructor(private http: Http) { }
 
-  search(id: number): Observable<Candidate> {
-    return this.http
-      .get(`${this.candidateUrl}/id/${id}`)
-      .map(response => response.json() as Candidate);
-  }
-
-  getCandidate(id: number, type: number): Promise<any> {
-    return this.http.get(`${this.candidateUrl}id/${id}/type/${type}`)
+  getCandidate(id: number): Promise<Candidate> {
+    return this.http.get(`${this.candidateUrl}/id/${id}`)
       .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+      .then(response => response.json()[0]);
   }
 
   addCandidate(data): Promise<any> {

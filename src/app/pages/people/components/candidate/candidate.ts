@@ -1,179 +1,183 @@
-export class Candidate {
+// export class Candidate {
+//   candidate_id: number;
+//   name_cn: string;
+//   name_en: string = '';
+//   status: string="";
+//   location: any;
+//   service_line: any;
+//   if_group: string;
+//   gender: string="";
+//   phone: string="";
+//   position: any;
+//   degree: string = '';
+//   type: string = '';
+//   assign_date: string = '';
+//   email: string="";
+//   channel: string="";
+//   recommender: string="";
+//   receive_date: string="";
+//   bachelor_school: string="";
+//   bachelor_major: string="";
+//   master_school: string="";
+//   master_major: string="";
+//   create_date: string="";
+//   university: string = '';
+//   major: string = '';
+//   graduation_date: string = '';
+// }
+export interface Candidate {
   candidate_id: number;
   name_cn: string;
-  name_en: string = '';
-  status: string="";
+  name_en: string;
+  status: string;
   location: any;
   service_line: any;
   if_group: string;
-  gender: string="";
-  phone: string="";
+  gender: string;
+  phone: string;
   position: any;
-  degree: string = '';
-  type: string = '';
-  assign_date: string = '';
-  email: string="";
-  channel: string="";
-  recommender: string="";
-  receive_date: string="";
-  bachelor_school: string="";
-  bachelor_major: string="";
-  master_school: string="";
-  master_major: string="";
-  create_date: string="";
-  university: string = '';
-  major: string = '';
-  graduation_date: string = '';
-  cv_interviewer: string;
-	cv_status: string;
-	cv_date: string;
-	cv_sum: string;
-	cv_passed: string;
-	cv_score1: string;
-	cv_score2: string;
-	cv_score3: string;
-	cv_score4: string;
-	cv_score5: string;
-	cv_score6: string;
-	cv_score7: string;
-	cv_score8: string;
-	cv_score9: string;
-	cv_comment: string;
-	cv_created_date: string;
-	cv_created_by: string;
-	phone_interviewer: string;
-	phone_status: string;
-	phone_date: string;
-	phone_sum: string;
-	phone_passed: string;
-	phone_score1: string;
-	phone_question1: string;
-	phone_score2: string;
-	phone_question2: string;
-	phone_score3: string;
-	phone_question3: string;
-	phone_score4: string;
-	phone_question4: string;
-	phone_score5: string;
-	phone_question5: string;
-	phone_score6: string;
-	phone_question6: string;
-	phone_score7: string;
-	phone_question7: string;
-	phone_score8: string;
-	phone_question8: string;
-	phone_score9: string;
-	phone_question9: string;
-	phone_comment: string;
-	phone_created_date: string;
-	phone_created_by: string;
-	group_interviewer: string;
-	group_status: string;
-	group_date: string;
-	group_sum: string;
-	group_passed: string;
-	group_score1: string;
-	group_question1: string;
-	group_score2: string;
-	group_question2: string;
-	group_score3: string;
-	group_question3: string;
-	group_score4: string;
-	group_question4: string;
-	group_score5: string;
-	group_question5: string;
-	group_score6: string;
-	group_question6: string;
-	group_score7: string;
-	group_question7: string;
-	group_score8: string;
-	group_question8: string;
-	group_score9: string;
-	group_question9: string;
-	group_comment: string;
-	group_created_date: string;
-	group_created_by: string;
-	onsite1_interviewer: string;
-	onsite1_status: string;
-	onsite1_date: string;
-	onsite1_sum: string;
-	onsite1_passed: string;
-	onsite1_score1: string;
-	onsite1_question1: string;
-	onsite1_score2: string;
-	onsite1_question2: string;
-	onsite1_score3: string;
-	onsite1_question3: string;
-	onsite1_score4: string;
-	onsite1_question4: string;
-	onsite1_score5: string;
-	onsite1_question5: string;
-	onsite1_score6: string;
-	onsite1_question6: string;
-	onsite1_score7: string;
-	onsite1_question7: string;
-	onsite1_score8: string;
-	onsite1_question8: string;
-	onsite1_score9: string;
-	onsite1_question9: string;
-	onsite1_comment: string;
-	onsite1_created_date: string;
-	onsite1_created_by: string;
-	onsite2_interviewer: string;
-	onsite2_status: string;
-	onsite2_date: string;
-	onsite2_sum: string;
-	onsite2_passed: string;
-	onsite2_score1: string;
-	onsite2_question1: string;
-	onsite2_score2: string;
-	onsite2_question2: string;
-	onsite2_score3: string;
-	onsite2_question3: string;
-	onsite2_score4: string;
-	onsite2_question4: string;
-	onsite2_score5: string;
-	onsite2_question5: string;
-	onsite2_score6: string;
-	onsite2_question6: string;
-	onsite2_score7: string;
-	onsite2_question7: string;
-	onsite2_score8: string;
-	onsite2_question8: string;
-	onsite2_score9: string;
-	onsite2_question9: string;
-	onsite2_comment: string;
-	onsite2_created_date: string;
-	onsite2_created_by: string;
-	onsite3_interviewer: string;
-	onsite3_status: string;
-	onsite3_date: string;
-	onsite3_sum: string;
-	onsite3_passed: string;
-	onsite3_score1: string;
-	onsite3_question1: string;
-	onsite3_score2: string;
-	onsite3_question2: string;
-	onsite3_score3: string;
-	onsite3_question3: string;
-	onsite3_score4: string;
-	onsite3_question4: string;
-	onsite3_score5: string;
-	onsite3_question5: string;
-	onsite3_score6: string;
-	onsite3_question6: string;
-	onsite3_score7: string;
-	onsite3_question7: string;
-	onsite3_score8: string;
-	onsite3_question8: string;
-	onsite3_score9: string;
-	onsite3_question9: string;
-	onsite3_comment: string;
-	onsite3_created_date: string;
-	onsite3_created_by: string;
-	onsite_status: string;
+  degree: string;
+  type: string;
+  assign_date: string;
+  email: string;
+  channel: string;
+  recommender: string;
+  receive_date: string;
+  bachelor_school: string;
+  bachelor_major: string;
+  master_school: string;
+  master_major: string;
+  university: string ;
+  major: string;
+  graduation_date: string;
 }
-
+// export class Interview {
+//   interviewer: string;
+// 	status: string;
+// 	date: string;
+// 	sum: string;
+// 	passed: string;
+// 	score1: string;
+// 	question1: string;
+// 	score2: string;
+// 	question2: string;
+// 	score3: string;
+// 	question3: string;
+// 	score4: string;
+// 	question4: string;
+// 	score5: string;
+// 	question5: string;
+// 	score6: string;
+// 	question6: string;
+// 	score7: string;
+// 	question7: string;
+// 	score8: string;
+// 	question8: string;
+// 	score9: string;
+// 	question9: string;
+// 	comment: string;
+// 	created_date: string;
+// 	created_by: string;
+// }
+export interface Interview {
+  id?: number;
+  candidate_id?: number;
+  interviewer: string;
+	status: string;
+	date: string;
+	sum: string;
+	passed: string;
+	score1: string;
+	question1: string;
+	score2: string;
+	question2: string;
+	score3: string;
+	question3: string;
+	score4: string;
+	question4: string;
+	score5: string;
+	question5: string;
+	score6: string;
+	question6: string;
+	score7: string;
+	question7: string;
+	score8: string;
+	question8: string;
+	score9: string;
+  question9: string;
+  score10: string;
+  score11: string;
+  score12: string;
+  score13: string;
+	comment: string;
+	created_date: string;
+	created_by: string;
+}
+export function createCandidate(): Candidate{
+  let candidate = {
+    candidate_id: null,
+    name_cn: null,
+    name_en: null,
+    status: null,
+    location: null,
+    service_line: null,
+    if_group: null,
+    gender: null,
+    phone: null,
+    position: null,
+    degree: null,
+    type: null,
+    assign_date: null,
+    email: null,
+    channel: null,
+    recommender: null,
+    receive_date: null,
+    bachelor_school: null,
+    bachelor_major: null,
+    master_school: null,
+    master_major: null,
+    university: null,
+    major: null,
+    graduation_date: null,
+  }
+  return candidate;
+}
+export function createInterview(): Interview {
+  let interview = {
+    candidate_id: null,
+    interviewer: null,
+    status: null,
+    date: null,
+    sum: null,
+    passed: null,
+    score1: null,
+    question1: null,
+    score2: null,
+    question2: null,
+    score3: null,
+    question3: null,
+    score4: null,
+    question4: null,
+    score5: null,
+    question5: null,
+    score6: null,
+    question6: null,
+    score7: null,
+    question7: null,
+    score8: null,
+    question8: null,
+    score9: null,
+    question9: null,
+    score10: null,
+    score11: null,
+    score12: null,
+    score13: null,
+    comment: null,
+    created_date: null,
+    created_by: null,
+  }
+  return interview;
+}
 export const config = {
   service_line: [
     { 

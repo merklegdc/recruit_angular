@@ -7,116 +7,116 @@
 
   <div class="form-group col-md-2">
     <label for=11>Desire to learn</label>
-    <input type="text" class="form-control" [(ngModel)]="questions[0]" list="q11" />
+    <input type="text" class="form-control" [(ngModel)]="interview.question1" list="q11" />
     <datalist id="q11">
       <option *ngFor="let q of questionList[0]" [ngValue]="q">{{q}}</option>
     </datalist>
     <label for=11>Score</label>
-    <select [(ngModel)]="scores[0]" (ngModelChange)="setScores($event)" class="form-control" id=11 required>
+    <select [(ngModel)]="interview.score1" class="form-control" id=11 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=12>Desire to serve</label>
-    <input type="text" class="form-control" [(ngModel)]="questions[1]" list="q12" />
+    <input type="text" class="form-control" [(ngModel)]="interview.question2" list="q12" />
     <datalist id="q12">
       <option *ngFor="let q of questionList[1]" [ngValue]="q">{{q}}</option>
     </datalist>
     <label for=12>Score</label>
-    <select [(ngModel)]="scores[1]" (ngModelChange)="setScores($event)" class="form-control" id=12 required>
+    <select [(ngModel)]="interview.score2" class="form-control" id=12 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=13>Desire to achieve</label>
-    <input type="text" class="form-control" [(ngModel)]="questions[2]" list="q13" />
+    <input type="text" class="form-control" [(ngModel)]="interview.question3" list="q13" />
     <datalist id="q13">
       <option *ngFor="let q of questionList[2]" [ngValue]="q">{{q}}</option>
     </datalist>
     <label for=13>Score</label>
-    <select [(ngModel)]="scores[2]" (ngModelChange)="setScores($event)" class="form-control" id=13 required>
+    <select [(ngModel)]="interview.score3" class="form-control" id=13 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
     <label for=21>Technical Skill Set</label>
-    <input type="text" class="form-control" [(ngModel)]="questions[3]" list="q21" />
+    <input type="text" class="form-control" [(ngModel)]="interview.question4" list="q21" />
     <datalist id="q21">
       <!--<option *ngFor="let q of questionList[0]" [ngValue]="q">{{q}}</option>-->
     </datalist>
     <label for=11>Score</label>
-    <select [(ngModel)]="scores[3]" (ngModelChange)="setScores($event)" class="form-control" id=21 required>
+    <select [(ngModel)]="interview.score4" class="form-control" id=21 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=22>Examination Result</label>
-    <select [(ngModel)]="commonScore[0]" (ngModelChange)="setScores($event)" class="form-control" id=22 required>
+    <select [(ngModel)]="interview.score5" class="form-control" id=22 required>
       <option value=0.5> Pass 0.5 </option>
       <option value=0.0> Fail 0 </option>
     </select>
     <label for=23>Desire to achieve</label>
-    <input type="text" class="form-control" [(ngModel)]="questions[4]" list="q23" />
+    <input type="text" class="form-control" [(ngModel)]="interview.question5" list="q23" />
     <datalist id="q23">
       <option *ngFor="let q of questionList[5]" [ngValue]="q">{{q}}</option>
     </datalist>
     <label for=13>Score</label>
-    <select [(ngModel)]="scores[4]" (ngModelChange)="setScores($event)" class="form-control" id=23 required>
+    <select [(ngModel)]="interview.score6" class="form-control" id=23 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
     <label for=31>Business Knowledge</label>
-    <input type="text" class="form-control" [(ngModel)]="questions[5]" list="q31" />
+    <input type="text" class="form-control" [(ngModel)]="interview.question6" list="q31" />
     <datalist id="q31">
       <!--<option *ngFor="let q of questionList[0]" [ngValue]="q">{{q}}</option>-->
     </datalist>
     <label for=31>Score</label>
-    <select [(ngModel)]="scores[5]" (ngModelChange)="setScores($event)" class="form-control" id=31 required>
+    <select [(ngModel)]="interview.score7" class="form-control" id=31 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=32>People Management Experience</label>
-    <input type="text" class="form-control" [(ngModel)]="questions[6]" list="q32" />
+    <input type="text" class="form-control" [(ngModel)]="interview.question7" list="q32" />
     <datalist id="q32">
       <option *ngFor="let q of questionList[6]" [ngValue]="q">{{q}}</option>
     </datalist>
     <label for=32>Score</label>
-    <select [(ngModel)]="scores[6]" (ngModelChange)="setScores($event)" class="form-control" id=32 required>
+    <select [(ngModel)]="interview.score8" class="form-control" id=32 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
     <label for=41>Communication Skill</label>
-    <input type="text" class="form-control" [(ngModel)]="questions[7]" list="q41" />
+    <input type="text" class="form-control" [(ngModel)]="interview.question8" list="q41" />
     <datalist id="q41">
       <!--<option *ngFor="let q of questionList[0]" [ngValue]="q">{{q}}</option>-->
     </datalist>
     <label for=41>Score</label>
-    <select [(ngModel)]="scores[7]" (ngModelChange)="setScores($event)" class="form-control" id=41 required>
+    <select [(ngModel)]="interview.score9" class="form-control" id=41 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=42>Language Skill</label>
-    <input type="text" class="form-control" [(ngModel)]="questions[8]" list="q42" />
+    <input type="text" class="form-control" [(ngModel)]="interview.question9" list="q42" />
     <datalist id="q42">
       <option *ngFor="let q of questionList[4]" [ngValue]="q">{{q}}</option>
     </datalist>
     <label for=42>Score</label>
-    <select [(ngModel)]="scores[8]" (ngModelChange)="setScores($event)" class="form-control" id=42 required>
+    <select [(ngModel)]="interview.score10" class="form-control" id=42 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
   </div>
 
   <div class="form-group col-md-2">
     <label for=51>Hometown & Family Tie</label>
-    <select [(ngModel)]="commonScore[1]" (ngModelChange)="setScores($event)" class="form-control" id=51 required>
+    <select [(ngModel)]="interview.score11" class="form-control" id=51 required>
       <option value=0.3> Nanjing 0.3 </option>
       <option value=0.1> Jiangsu&Anhui 0.1 </option>
       <option value=0.0> Others 0 </option>
     </select>
     <label for=52>Overseas Study Experience</label>
-    <select [(ngModel)]="commonScore[2]" (ngModelChange)="setScores($event)" class="form-control" id=52 required>
+    <select [(ngModel)]="interview.score12" class="form-control" id=52 required>
       <option value=0.1> Yes 0.1 </option>
       <option value=0.0> No 0 </option>
     </select>
     <label for=53>Relevant Working Experience</label>
-    <select [(ngModel)]="commonScore[3]" (ngModelChange)="setScores($event)" class="form-control" id=53 required>
+    <select [(ngModel)]="interview.score13" class="form-control" id=53 required>
       <option value=0.1> Yes 0.1 </option>
       <option value=0.0> No 0 </option>
     </select>
@@ -125,7 +125,7 @@
   <div class="form-group col-md-2">
     <div class="form-group">
       <label for="comment">Comment</label>
-      <textarea [(ngModel)]="comment" (ngModelChange)="setComment($event)" placeholder="Comment" class="form-control" id="comment"></textarea>
+      <textarea [(ngModel)]="interview.comment" placeholder="Comment" class="form-control" id="comment"></textarea>
     </div>
   </div>
 </div>

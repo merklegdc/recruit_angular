@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import * as Data from '../../data'
+import { Interview, createInterview } from '../../../people';
 
 @Component({
   selector: 'common',
@@ -15,26 +16,10 @@ import * as Data from '../../data'
   }`]
 })
 export class CommonComponent {
-  @Input() scores: string[];
-  @Input() questions: any;
-  @Input() comment: any;
-  @Input() commonScore: any;
+  @Input() interview: Interview;
   @Input() type: number;
-  @Output() scoresChange = new EventEmitter<any>();
-  @Output() commentChange = new EventEmitter<any>();
-  @Output() questionsChange = new EventEmitter<any>();
   questionList = Data.questions;
   scoreList = Data.scores;
   checkPoints = Data.checkPoints;
-  setScores(event){
-    this.scoresChange.emit(this.scores.slice());
-  }
-  setComment(event){
-    this.commentChange.emit(this.comment);
-  }
-  setQuestions(event){
-    this.questionsChange.emit(this.questions.slice());
-  }
   constructor(){}
-  
 }

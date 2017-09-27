@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgUploaderOptions } from 'ngx-uploader';
 // import * as Global from '../../../global';
 import { environment } from '../../../../../environments/environment';
-import { Candidate, config } from './candidate';
+import { Candidate, config, createCandidate } from './candidate';
 import { CandidateService } from './candidate.service';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
@@ -29,7 +29,7 @@ export class AddCandidateComponent {
   nameServiceCN: CompleterData;
   nameServiceEN: CompleterData;
   title = 'Add Candidate';
-  candidate: Candidate = new Candidate();
+  candidate: Candidate = createCandidate();
 
   get diag() {
     return JSON.stringify(this.candidate);
@@ -102,7 +102,7 @@ export class AddCandidateComponent {
     }
   }
   onClear() {
-    this.candidate = new Candidate();
+    this.candidate = createCandidate();
     this.assignDate = null;
     this.receiveDate = null;
     this.graduationDate = null;
@@ -129,9 +129,9 @@ export class AddCandidateComponent {
 
   onSelect(selected) {
     if (selected) {
-      this.service.search(selected.originalObject.candidate_id)
-        .subscribe(res => {
-          this.candidate = res[0];
+      this.service.getCandidate(selected.originalObject.candidate_id)
+        .then(res => {
+          this.candidate = res;
           if (this.candidate.assign_date) {
             this.assignDate = {
               date: null,

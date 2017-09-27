@@ -291,22 +291,21 @@ export function getFillScore(type1,type2){
   }
 }
 
-export const scores = ["5.0","4.5","4.0","3.5","3.0","2.5","2.0","1.5","1.0"];
-export const weight=[
-  ["0.4","0.1","0.15","0.05","0.2"],
-  ["0.1","0.2","0.1","0.1","0.15","0.025","0.025","0.1","0.1"],
-  ["0.1","0.2","0.1","0.1","0.15","0.025","0.025","0.1","0.1"],
-  ["0.1","0.2","0.1","0.1","0.15","0.025","0.025","0.1","0.1"],
-  ["0.1","0.2","0.1","0.1","0.15","0.025","0.025","0.1","0.1"],
-  ["0.1","0.2","0.1","0.1","0.15","0.025","0.025","0.1","0.1"],
-  ["1","1","1","1"],
+export const scores = ['5.0','4.5','4.0','3.5','3.0','2.5','2.0','1.5','1.0'];
+export const weight = [
+  ['0.4', '0', '0', '0.1', '1', '0.15', '0.05', '0', '0.2', '0', '1', '1', '1'],
+  ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1'],
+  ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1'],
+  ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1'],
+  ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1'],
+  ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1']
 ];
 export const checkPoints = [
-  {name:"Trainable/Culture fit 40%",id:1,details:[{id:1,name:"Desire to Serve"},{id:2,name:"Desire to Learn"},{id:3,name:"Desire to Achieve"}]},
-  {name: "Acadamitic/Tech. Skill 35%",id:2,details:[{id:4,name:"Academic Achievements"},{id:6,name:"Project/ School Project Experience"},{id:5,name:"Examination Result"}]},
-  {name:"Potential Management Skill 5%",id: 3,details:[{id:7,name:"Business Knowledge"},{id:8,name:"People Management Experience"}]},
-  {name:"Communication 20%",id:4,details:[{id:9,name:"Communication Skill both in English and Chinese"},{id:10,name:"Language Skill/Logical Language Structure Competence"}]},
-  {name: "Add-on",id:5}];
+  {scoreNo:3, name:"Trainable/Culture fit 40%",id:1,details:[{id:1,name:"Desire to Serve"},{id:2,name:"Desire to Learn"},{id:3,name:"Desire to Achieve"}]},
+  {scoreNo:3, name: "Acadamitic/Tech. Skill 35%",id:2,details:[{id:4,name:"Academic Achievements"},{id:6,name:"Project/ School Project Experience"},{id:5,name:"Examination Result"}]},
+  {scoreNo:2, name:"Potential Management Skill 5%",id: 3,details:[{id:7,name:"Business Knowledge"},{id:8,name:"People Management Experience"}]},
+  {scoreNo:2, name:"Communication 20%",id:4,details:[{id:9,name:"Communication Skill both in English and Chinese"},{id:10,name:"Language Skill/Logical Language Structure Competence"}]},
+  {scoreNo:3, name: "Add-on",id:5}];
 
 export class Interviews{
   candidate_id=0;

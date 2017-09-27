@@ -1,3 +1,3 @@
 export * from './people.component';
-export { Candidate } from './components/candidate/candidate';
+export { Candidate, Interview, createCandidate, createInterview } from './components/candidate/candidate';
 export { CandidateService } from './components/candidate/candidate.service';
