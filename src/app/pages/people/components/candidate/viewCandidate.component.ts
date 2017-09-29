@@ -92,17 +92,7 @@ export class ViewCandidateComponent implements OnInit {
   ngOnInit(): void {
   }
   onImported(event): void {
-    this.data = [];
-    let data = JSON.parse(event.response);
-    for (let item of data){
-      let candidate = createCandidate();
-      let i = 0;
-      for (let key in candidate) {
-        candidate[key] = item[i++];
-        // console.log(key);
-      }
-      this.data.push(candidate);
-    }
+    this.data = JSON.parse(event.response);
     this.checkUnassigned();
   }
   onDeleteConfirm(event): void {
@@ -143,16 +133,14 @@ export class ViewCandidateComponent implements OnInit {
     
   }
   
-  clickExportServer(): void {
+  onSave(): void {
     
     this.service.uploadData(this.data)
     .then(data => { if (data) {
-      const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-      activeModal.componentInstance.modalHeader = 'Success';
+     this.openModal('success');
     }})
     .catch(error => {
-      const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-      activeModal.componentInstance.modalHeader = 'Error';
+      this.openModal('error');
     });
   }
   onSLChange(): void {
