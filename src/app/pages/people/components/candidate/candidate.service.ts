@@ -4,6 +4,7 @@ import { Candidate, Interview } from './candidate';
 // import * as Global from '../../../global';
 import { environment } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/forkJoin';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/toPromise';
@@ -33,6 +34,13 @@ export class CandidateService {
       .then(response => response.json());
   }
 
+  deleteCandidates(ids: number[]){
+    console.log(ids);
+    return Observable.forkJoin(
+      ids.map(
+        i => this.http.delete(`${this.candidateUrl}/id/${i}`)
+          .map(res => res.json())));
+  }
   deleteCandidate(id: number): Promise<void> {
     const url = `${this.candidateUrl}/id/${id}`;
     return this.http.delete(url, { headers: this.headers })

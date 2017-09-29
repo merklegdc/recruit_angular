@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 // import * as Global from '../../../global';
 import { environment } from '../../../../../environments/environment';
-import { Candidate } from './candidate';
+import { Candidate, createCandidate } from './candidate';
 import { CandidateService } from './candidate.service';
 import { HotTableModule } from 'ng2-handsontable';
 import { NgUploaderOptions } from 'ngx-uploader';
@@ -20,9 +20,17 @@ export class ViewCandidateComponent implements OnInit {
   fileUploaderOptions: NgUploaderOptions = {
     url: `${environment.uploadUrl}uploadExcel`,
   };
-  data: any[] = [['false', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
-  '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']]; 
-  colHeaders: string[] = ['','查重', 'Candidate ID', 'Name (CN)', 'Name (ENG)', 'Assign Date',
+  selectedSL = {
+    'Marketing': true,
+    'Analytics': true,
+    'ADigital': true,
+    'Digital': true,
+  };
+  // data: any[] = [[false, '', , '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+  // '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']]; 
+  __data: any[];
+  data: any[] = [createCandidate()];
+  colHeaders: string[] = ['', 'Status', 'Active', 'Candidate ID', 'Name (CN)', 'Name (ENG)', 'Assign Date',
     'Service Line', 'Position', 'Location', 'Gender', 'Degree', 'University',
     'Major', 'Graduation Date', 'Cell Phone', 'Email', 'Received Date', 'Channel', 'Channel Detail', 'CV Sreen Coordinator',
     'CV Screen Result', 'CV Status', 'Phone Screener', 'Phone Screen Date', 'Phone Screen Result', 'Comments',
@@ -30,9 +38,29 @@ export class ViewCandidateComponent implements OnInit {
     'interview2-score', 'interview2 comments', 'interviewer3-Name', 'interview3-score', 'interview3 comments',
     'On-site Result'];
   columns: any[] = [
-    {
+    { data: 'check',
       type: "checkbox",
-    },{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
+    },
+    { data: 'status' },
+    { data: 'if_active' },
+    { data: 'candidate_id' },
+    { data: 'name_cn' },
+    { data: 'name_en' },
+    { data: 'assign_date' },
+    { data: 'service_line' },
+    { data: 'position' },
+    { data: 'location' },
+    { data: 'gender' },
+    { data: 'degree' },
+    { data: 'university' },
+    { data: 'major' },
+    { data: 'graduation_date' },
+    { data: 'phone' },
+    { data: 'email' },
+    { data: 'receive_date' },
+    { data: 'channel' },
+    { data: 'recommender' },
+    {},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
   ];
   private colWidths: number[] = [];
   options: any = {
@@ -47,6 +75,8 @@ export class ViewCandidateComponent implements OnInit {
     contextMenu: [
       'row_above', 'row_below', 'remove_row',
     ],
+    dropdownMenu: true,
+    filters: true,
   };
 
   private afterChange(e: any) {
@@ -62,12 +92,18 @@ export class ViewCandidateComponent implements OnInit {
   ngOnInit(): void {
   }
   onImported(event): void {
+    this.data = [];
     let data = JSON.parse(event.response);
-    for (let i in data){
-      data[i] = [''].concat(data[i]);
+    for (let item of data){
+      let candidate = createCandidate();
+      let i = 0;
+      for (let key in candidate) {
+        candidate[key] = item[i++];
+        // console.log(key);
+      }
+      this.data.push(candidate);
     }
-    data = this.helper(data);
-    this.data = data;
+    this.checkUnassigned();
   }
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
@@ -86,10 +122,25 @@ export class ViewCandidateComponent implements OnInit {
     .subscribe(blob => { saveAs(blob, 'Campus Tracking.xlsx');
     })
   };
-  clickDelete(): void {
-    const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-    activeModal.componentInstance.modalHeader = 'Unavailable';
-    activeModal.componentInstance.modalContent = 'This functionality is still under development.';
+  onDelete(): void {
+    if (window.confirm('Are you sure you want to delete?')) {
+      let id: number[] = [];
+      for (let item of this.data) {
+        if (item.check) {
+          id.push(item.candidate_id);
+        }
+      }
+      this.service.deleteCandidates(id)
+        .subscribe(data => {
+          if (data) this.openModal('success');
+          this.service.downloadData()
+          .then(data => { if (data) {
+            this.checkUnassigned();
+            this.data = data;
+          }})
+        });
+    }
+    
   }
   
   clickExportServer(): void {
@@ -104,20 +155,31 @@ export class ViewCandidateComponent implements OnInit {
       activeModal.componentInstance.modalHeader = 'Error';
     });
   }
-  clickImportServer(): void {
+  onSLChange(): void {
+    let temp = [createCandidate()];
+    for (let item of this.__data) {
+      for (let key in this.selectedSL) {
+        if (item.service_line.indexOf(key) === 0 && this.selectedSL[key]){
+          temp.push(item);
+        }
+      }
+    }
+    this.data = temp;
+  }
+  onQuery(): void {
     this.service.downloadData()
     .then(data => { if (data) {
-      data = this.helper(data);
-      this.data = data;
-      const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-      activeModal.componentInstance.modalHeader = 'Success';
+      // console.log(data);
+      this.__data = data;
+      this.onSLChange();
+      this.checkUnassigned();
+      this.openModal('success');
     }})
     .catch(error => {
-      const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-      activeModal.componentInstance.modalHeader = 'Error';
+      this.openModal('Error');
     });
   }
-  clickAssign(): void {
+  onAssign(): void {
     let d = new Date();
     let dd = d.getDate();
     let mm = d.getMonth()+1; //January is 0!
@@ -132,25 +194,22 @@ export class ViewCandidateComponent implements OnInit {
         mms = '0'+mm;
     } 
     let today = `${yyyy}-${mms}-${dds}`;
-    for (let i in this.data){
-      this.data[i][5] = this.data[i][0] ? today: this.data[i][5];
+    for (let item of this.data){
+      item.assign_date = item.check ? today: item.assign_date;
     }
   }
   clickImportExcel(): void {
     this.uploader.bringFileSelector();
   }
-  helper(data): any {
-    let name = new Set();
-    for (let i in data){
-      let s = name.size;
-      name.add(data[i][3]);
-      if (name.size == s){
-        data[i][1] = 1;
-      }else {
-        data[i][1] = 0;
-      }
-      data[i][0] = data[i][5] ? false: true;
+  checkUnassigned(): void {
+    for (let item of this.data){
+      item.check = item.assign_date ? false: true;
     }
-    return data;
+  }
+  
+  openModal(header: string, content?: string){
+    const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+    activeModal.componentInstance.modalHeader = header;
+    activeModal.componentInstance.modalContent = content;
   }
 }

@@ -38,34 +38,11 @@ export class FillScoreComponent implements DoCheck {
   { 'name': 'Interview 1', id: 3 },
   { 'name': 'Interview 2', id: 4 },
   { 'name': 'Interview 3', id: 5 }];
-  commonScore = ['', '', '', '']; 
   __sums = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
   __sum = 0;
-  // questions = Data.questions;
   get diag() {
     return JSON.stringify(this.interview);
   }
-  // get sums() {
-  //   let i = this.selectedTypeID;
-  //   if (this.selectedTypeID === 0) {
-  //     this.__sums[0][0] = +Data.weight[0][0] * +this.interview.score1;
-  //     this.__sums[0][1] = +Data.weight[0][1] * +this.interview.score2;
-  //     this.__sums[0][1] += +Data.weight[0][2] * +this.interview.score3;
-  //     this.__sums[0][1] += +this.interview.score10;
-  //     this.__sums[0][2] = +Data.weight[0][3] * +this.interview.score4;
-  //     this.__sums[0][3] = +Data.weight[0][4] * +this.interview.score5;
-  //   } else {
-  //     this.__sums[i][0] = +Data.weight[i][0] * +this.interview.score1 + +Data.weight[i][1] * +this.interview.score2 + +Data.weight[i][2] * +this.interview.score3;
-  //     this.__sums[i][1] = +Data.weight[i][3] * +this.interview.score4;
-  //     this.__sums[i][1] += +Data.weight[i][4] * +this.interview.score5;
-  //     this.__sums[i][1] += +this.interview.score10;
-  //     this.__sums[i][2] = +Data.weight[i][5] * +this.interview.score6 + +Data.weight[i][6] * +this.interview.score7;
-  //     this.__sums[i][3] = +Data.weight[i][7] * +this.interview.score8 + +Data.weight[i][8] * +this.interview.score9;
-  //   }
-  //   this.__sums[0][4] = +this.interview.score11 + +this.interview.score12 + +this.interview.score13;
-  //   this.__sums[0][0] = +this.interview.score1;
-  //   return this.__sums;
-  // }
   ngDoCheck(){
     this.__sums = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
     let j = 0;
@@ -93,18 +70,22 @@ export class FillScoreComponent implements DoCheck {
   }
   onSelectType(type) {
     this.interview = createInterview();
-    if (this.selectedTypeID === 0) {
-      this.commonScore[0] = this.interview.score3;
-      this.commonScore[1] = this.interview.score7;
-      this.commonScore[2] = this.interview.score8;
-      this.commonScore[3] = this.interview.score9;
-    }
     this.selectedTypeID = type.id;
+    this.interviewDate = null;
     if(!this.candidate.candidate_id){
       return;
     }
     this.service.getInterview(this.candidate.candidate_id, type.id)
-    .then(data => {if (data)  this.interview = data;})
+    .then(data => {
+      if (data)  this.interview = data;
+      if (this.interview.date) 
+      this.interviewDate = {
+        date: null,
+        formatted: this.interview.date,
+        jsdate: null,
+        epoc: null,
+      };
+    })
     .catch();
   }
   onSelectCandidate(selected) {
@@ -152,53 +133,13 @@ export class FillScoreComponent implements DoCheck {
     }else {
       this.interview.candidate_id = this.candidate.candidate_id;
       this.service.saveInterview(this.candidate.candidate_id, this.selectedTypeID, this.interview)
-      .then(data => { if (data) {
-        const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-        activeModal.componentInstance.modalHeader = 'Success';
-      }})
-      .catch(error => {
-        const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
-        activeModal.componentInstance.modalHeader = 'Nothing changed';
-      });
+      .then(data => { if (data)  this.openModal('Success'); })
+      .catch(error =>  this.openModal('Nothing changed'));
     }
   }
   dateChange(event){
     this.interview.date = this.interviewDate.formatted;
   }
-  // get sum() {
-
-  // }
-  // scoresChange(){
-  //   let i = this.selectedTypeID;
-  //   let common = this.commonScore;
-  //   if (i == 0) {
-  //     this.sums[i][0] = +this.interview.score1*0.4;
-  //     this.sums[i][1] = +this.interview.score2*0.1 + +common[0] + +this.interview.score4*0.15;
-  //     this.sums[i][2] = +this.interview.score5*0.05;
-  //     this.sums[i][3] = +this.interview.score6*0.2;
-  //     this.sums[i][4] = +common[1] + +common[2] + +common[3];
-  //   }else{
-  //     this.sums[i][0] = +this.interview.score1*0.1 + +this.interview.score2*0.2 + +this.interview.score3*0.1;
-  //     this.sums[i][1] = +this.interview.score4*0.1 + +common[0] + +this.interview.score5*0.15;
-  //     this.sums[i][2] = +this.interview.score6*0.025 + +this.interview.score7*0.025;
-  //     this.sums[i][3] = +this.interview.score8*0.1 + +this.interview.score9*0.1;
-  //     this.sums[i][4] = +common[1] + +common[2] + +common[3];
-  //   }
-  //   let sum = 0;
-  //   for (let j = 0; j < this.sums[i].length; j++){
-  //     sum += this.sums[i][j];
-  //   }
-  //   this.sum = sum;
-  //   switch (i){
-  //     case 0:
-  //     this.status = sum < 2.5? 'failed': 'passed';
-  //     break;
-  //     case 1:
-  //     this.status = sum < 2.5? 'failed': 'passed';
-  //     default:
-  //     this.status = sum < 3.5? 'failed': 'passed';
-  //   }
-  // }
   openModal(header: string, content?: string){
     const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
     activeModal.componentInstance.modalHeader = header;

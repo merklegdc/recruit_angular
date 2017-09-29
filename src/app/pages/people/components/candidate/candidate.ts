@@ -1,31 +1,5 @@
-// export class Candidate {
-//   candidate_id: number;
-//   name_cn: string;
-//   name_en: string = '';
-//   status: string="";
-//   location: any;
-//   service_line: any;
-//   if_group: string;
-//   gender: string="";
-//   phone: string="";
-//   position: any;
-//   degree: string = '';
-//   type: string = '';
-//   assign_date: string = '';
-//   email: string="";
-//   channel: string="";
-//   recommender: string="";
-//   receive_date: string="";
-//   bachelor_school: string="";
-//   bachelor_major: string="";
-//   master_school: string="";
-//   master_major: string="";
-//   create_date: string="";
-//   university: string = '';
-//   major: string = '';
-//   graduation_date: string = '';
-// }
 export interface Candidate {
+  check: boolean;
   candidate_id: number;
   name_cn: string;
   name_en: string;
@@ -50,35 +24,8 @@ export interface Candidate {
   university: string ;
   major: string;
   graduation_date: string;
+  if_active: string;
 }
-// export class Interview {
-//   interviewer: string;
-// 	status: string;
-// 	date: string;
-// 	sum: string;
-// 	passed: string;
-// 	score1: string;
-// 	question1: string;
-// 	score2: string;
-// 	question2: string;
-// 	score3: string;
-// 	question3: string;
-// 	score4: string;
-// 	question4: string;
-// 	score5: string;
-// 	question5: string;
-// 	score6: string;
-// 	question6: string;
-// 	score7: string;
-// 	question7: string;
-// 	score8: string;
-// 	question8: string;
-// 	score9: string;
-// 	question9: string;
-// 	comment: string;
-// 	created_date: string;
-// 	created_by: string;
-// }
 export interface Interview {
   id?: number;
   candidate_id?: number;
@@ -115,6 +62,7 @@ export interface Interview {
 }
 export function createCandidate(): Candidate{
   let candidate = {
+    check: false,
     candidate_id: null,
     name_cn: null,
     name_en: null,
@@ -139,6 +87,7 @@ export function createCandidate(): Candidate{
     university: null,
     major: null,
     graduation_date: null,
+    if_active: null,
   }
   return candidate;
 }

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'dashboard',
@@ -6,7 +7,7 @@ import {Component} from '@angular/core';
   templateUrl: './dashboard.html'
 })
 export class Dashboard {
-
+  docUrl = `${environment.downloadUrl}downloadDoc`;
   constructor() {
   }
 

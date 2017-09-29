@@ -1,5 +1,4 @@
 <div class="widgets">
-
   <div class="row">
     <ba-card title="" >
         <!-- <hotTable 
@@ -22,36 +21,31 @@
       <hr>
       <div class="row">
           <div class="col-sm-4">
-              <button type="button" class="btn btn-success" (click)="clickAssign()">Assign</button>
-              <button type="button" class="btn btn-success" (click)="clickDelete()">Delete</button>
+              <button type="button" class="btn btn-success" (click)="onAssign()">Assign</button>
+              <button type="button" class="btn btn-success" (click)="onDelete()">Delete</button>
           </div>
           <div class="col-sm-4">
               <ba-file-uploader #uploader [style.display]="'none'" [buttonText]="'Import Excel'" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onImported($event)"></ba-file-uploader>
           </div>
-          <!-- <div class="col-sm-3">
-            <ba-file-uploader [buttonText]="'Import Excel'" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onImported($event)"></ba-file-uploader>
-          </div>
-          <div class="col-sm-2">
-            <button type="button" class="btn btn-success" (click)="clickImportServer()">Import From Server</button>
-          </div> -->
           <div class="col-sm-4">
-            <button type="button" class="btn btn-success" (click)="clickImportServer()">Query</button>
+            <button type="button" class="btn btn-success" (click)="onQuery()">Query</button>
             <button type="button" class="btn btn-success" (click)="clickExportExcel()">Export</button>
             <button type="button" class="btn btn-success" (click)="clickExportServer()">Save to Server</button>
             <button type="button" class="btn btn-success" (click)="clickImportExcel()">Import Excel</button>
-            <!-- <div class="btn-group" ngbDropdown>
-              <button type="button" class="btn btn-success" ngbDropdownToggle>
-                Export
-              </button>
-              <ul class="dropdown-menu">
-                <li class="dropdown-item"><a href="javascript:void(0);" (click)="clickExportExcel()">To Excel</a></li>
-                <li class="dropdown-item"><a href="javascript:void(0);" (click)="clickExportServer()">To Server</a></li>
-                <li class="dropdown-item"><a href="javascript:void(0);">Something else here</a></li>
-                <li class="dropdown-divider"></li>
-                <li class="dropdown-item"><a href="#">Separated link</a></li>
-              </ul>
-            </div> -->
           </div>
+      </div>
+      <hr>
+      <div class="row">
+      <div class="col-sm-8">
+        <input type="checkbox" [(ngModel)]="selectedSL.Marketing" (ngModelChange)="onSLChange()">
+        <span>Marketing Technology</span>
+        <input type="checkbox" [(ngModel)]="selectedSL.Analytics" (ngModelChange)="onSLChange()">
+        <span>Analytics and Data Products</span>
+        <input type="checkbox" [(ngModel)]="selectedSL.ADigital" (ngModelChange)="onSLChange()">
+        <span>ADigital Marketing</span>
+        <input type="checkbox" [(ngModel)]="selectedSL.Digital" (ngModelChange)="onSLChange()">
+        <span>Digital Analytics</span>
+      </div>
       </div>
     </ba-card>
   </div>

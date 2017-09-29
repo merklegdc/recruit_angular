@@ -22,7 +22,6 @@ import { Candidate } from './components/candidate/candidate';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DefaultModal } from '../modal/default-modal/default-modal.component';
 import { ModalModule } from '../modal/modal.module';
-
 @NgModule({
   imports: [
     CommonModule,
