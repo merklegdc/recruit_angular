@@ -35,7 +35,6 @@ export class CandidateService {
   }
 
   deleteCandidates(ids: number[]){
-    console.log(ids);
     return Observable.forkJoin(
       ids.map(
         i => this.http.delete(`${this.candidateUrl}/id/${i}`)
@@ -61,10 +60,16 @@ export class CandidateService {
         .catch(this.handleError)
   }
 
-  downloadData(): Promise<any[]> {
+  downloadData(): Promise<any> {
     return this.http.get(`${environment.downloadUrl}downloadData`, { headers: this.headers })
     .toPromise()
     .then(response => response.json());
+  }
+
+  ifValidUser(): Promise<any> {
+    return this.http.get(`${environment.indexUrl}index`)
+    .toPromise()
+    .then(data => data.json());
   }
 
   private handleError(error: any): Promise<any> {

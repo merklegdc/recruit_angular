@@ -7,28 +7,30 @@
 
   <div class="form-group col-md-2">
     <label for=11>Desire to learn</label>
-    <input type="text" class="form-control" [(ngModel)]="interview.question1" list="q11" />
+    <!-- <input type="text" class="form-control" [(ngModel)]="interview.question1" list="q11" />
     <datalist id="q11">
       <option *ngFor="let q of questionList[0]" [ngValue]="q">{{q}}</option>
-    </datalist>
+    </datalist> -->
+    <ng2-completer [(ngModel)]="interview.question1" [datasource]="dataService[0]" [openOnClick]="true" [openOnFocus]="false" 
+    [selectOnClick]="true" [minSearchLength]="0" [inputClass]="['form-control']" ></ng2-completer>
     <label for=11>Score</label>
     <select [(ngModel)]="interview.score1" class="form-control" id=11 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=12>Desire to serve</label>
-    <input type="text" class="form-control" [(ngModel)]="interview.question2" list="q12" />
+    <ng2-completer [(ngModel)]="interview.question2" [datasource]="dataService[1]" [openOnClick]="true"  [openOnFocus]="false" 
+    [selectOnClick]="true" [minSearchLength]="0" [inputClass]="['form-control']" [fillHighlighted]="false" [autoHighlight]="true"></ng2-completer>
+    <!-- <input type="text" class="form-control" [(ngModel)]="interview.question2" list="q12" />
     <datalist id="q12">
       <option *ngFor="let q of questionList[1]" [ngValue]="q">{{q}}</option>
-    </datalist>
+    </datalist> -->
     <label for=12>Score</label>
     <select [(ngModel)]="interview.score2" class="form-control" id=12 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=13>Desire to achieve</label>
-    <input type="text" class="form-control" [(ngModel)]="interview.question3" list="q13" />
-    <datalist id="q13">
-      <option *ngFor="let q of questionList[2]" [ngValue]="q">{{q}}</option>
-    </datalist>
+    <ng2-completer [(ngModel)]="interview.question3" [datasource]="dataService[2]" [openOnClick]="true" [openOnFocus]="false" 
+    [selectOnClick]="true" [minSearchLength]="0" [inputClass]="['form-control']" ></ng2-completer>
     <label for=13>Score</label>
     <select [(ngModel)]="interview.score3" class="form-control" id=13 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
@@ -50,12 +52,10 @@
       <option value=0.5> Pass 0.5 </option>
       <option value=0.0> Fail 0 </option>
     </select>
-    <label for=23>Desire to achieve</label>
-    <input type="text" class="form-control" [(ngModel)]="interview.question5" list="q23" />
-    <datalist id="q23">
-      <option *ngFor="let q of questionList[5]" [ngValue]="q">{{q}}</option>
-    </datalist>
-    <label for=13>Score</label>
+    <label for=23>Academic Achievement</label>
+    <ng2-completer [(ngModel)]="interview.question5" [datasource]="dataService[4]" [openOnClick]="true" [openOnFocus]="false" 
+    [selectOnClick]="true" [minSearchLength]="0" [inputClass]="['form-control']" ></ng2-completer>
+    <label for=23>Score</label>
     <select [(ngModel)]="interview.score6" class="form-control" id=23 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
@@ -72,10 +72,8 @@
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=32>People Management Experience</label>
-    <input type="text" class="form-control" [(ngModel)]="interview.question7" list="q32" />
-    <datalist id="q32">
-      <option *ngFor="let q of questionList[6]" [ngValue]="q">{{q}}</option>
-    </datalist>
+    <ng2-completer [(ngModel)]="interview.question7" [datasource]="dataService[6]" [openOnClick]="true" [openOnFocus]="false" 
+    [selectOnClick]="true" [minSearchLength]="0" [inputClass]="['form-control']" ></ng2-completer>
     <label for=32>Score</label>
     <select [(ngModel)]="interview.score8" class="form-control" id=32 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
@@ -93,10 +91,8 @@
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>
     </select>
     <label for=42>Language Skill</label>
-    <input type="text" class="form-control" [(ngModel)]="interview.question9" list="q42" />
-    <datalist id="q42">
-      <option *ngFor="let q of questionList[4]" [ngValue]="q">{{q}}</option>
-    </datalist>
+    <ng2-completer [(ngModel)]="interview.question9" [datasource]="dataService[8]" [openOnClick]="true" [openOnFocus]="false" 
+    [selectOnClick]="true" [minSearchLength]="0" [inputClass]="['form-control']" ></ng2-completer>
     <label for=42>Score</label>
     <select [(ngModel)]="interview.score10" class="form-control" id=42 required>
       <option *ngFor="let t of scoreList" [ngValue]="t"> {{t}} </option>

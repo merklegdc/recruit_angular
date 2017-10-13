@@ -18,6 +18,11 @@ export class FillScoreService {
   constructor(private http: Http) {
     this.headers.append('Access-Control-Allow-Origin', '*');
   }
+  ifValidUser(): Promise<any> {
+    return this.http.get(`${environment.indexUrl}index`)
+    .toPromise()
+    .then(data => data.json());
+  }
   searchCandidate(id: number): Observable<any> {
     return this.http
       .get(`${this.candidateUrl}/id/${id}`)

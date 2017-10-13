@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgUploaderOptions } from 'ngx-uploader';
 // import * as Global from '../../../global';
 import { environment } from '../../../../../environments/environment';
@@ -15,7 +15,7 @@ import { DefaultModal } from '../../../modal/default-modal/default-modal.compone
   styleUrls: ['./candidate.scss'],
 })
 
-export class AddCandidateComponent {
+export class AddCandidateComponent implements OnInit{
   myDatePickerOptions: IMyDpOptions = {
         // other options...
         dateFormat: 'yyyy-mm-dd',
@@ -40,6 +40,14 @@ export class AddCandidateComponent {
         return sl.name;
       }
     } 
+  }
+  ngOnInit(): void {
+    this.service.ifValidUser()
+    .then(data => {
+      if (data ===  'access denied') {
+        this.openModal('Access Denied', 'you dont have permision, pls contact system admin?');
+      }
+    })
   }
   // fill missing fields
   helper() {
@@ -176,7 +184,11 @@ export class AddCandidateComponent {
       }
     }
   }
-
+  openModal(header: string, content?: string){
+    const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+    activeModal.componentInstance.modalHeader = header;
+    activeModal.componentInstance.modalContent = content;
+  }
   get fileUploaderOptions(): NgUploaderOptions {
     return {url: `${environment.uploadUrl}name/${this.candidate.name_en}/dept/${this.candidate.service_line}`,};
   }

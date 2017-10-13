@@ -7,19 +7,23 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { routing } from './interview.routing';
 import { Ng2CompleterModule } from "ng2-completer";
-
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalModule } from '../modal/modal.module';
+import { DefaultModal } from '../modal/default-modal/default-modal.component';
 import { Interview } from './interview.component';
 import { ScoringCardComponent } from './components/scoringcard';
 import { TableComponent } from './components/commonTable';
-import {ScoringCardService} from "./components/scoringcard/scoringcard.service";
+import { ScoringCardService } from "./components/scoringcard/scoringcard.service";
 import { FillScoreService } from "./components/fillscore/fillscore.service"
 
 
 @NgModule({
   imports: [
     CommonModule,
+    NgbModalModule,
     AngularFormsModule,
     AppTranslationModule,
+    ModalModule,
     NgaModule,
     NgbRatingModule,
     routing,

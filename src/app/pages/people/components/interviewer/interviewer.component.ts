@@ -2,7 +2,9 @@ import { Component,OnInit } from '@angular/core';
 
 import { InterviewerService } from './interviewer.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { Interviewer } from './Interviewer'
+import { Interviewer } from './Interviewer';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DefaultModal } from '../../../modal/default-modal/default-modal.component';
 
 @Component({
   selector: 'interviewer',
@@ -126,9 +128,15 @@ export class InterviewerComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   interviewers: Interviewer[];
 
-  constructor(protected service: InterviewerService) {}
-
+  constructor(protected service: InterviewerService, private modalService: NgbModal) {}
+  
   ngOnInit(): void {
+    this.service.ifValidUser()
+    .then(data => {
+      if (data ===  'access denied') {
+        this.openModal('Access Denied', 'you dont have permision, pls contact system admin?');
+      }
+    })
     this.getInterviewers();
   }
   getInterviewers(): void {
@@ -153,5 +161,9 @@ export class InterviewerComponent implements OnInit {
     this.service.saveInterviewer(event.data.interviewer_id, event.newData)
       .then(data => event.confirm.resolve(event.newData));
   }
-
+  openModal(header: string, content?: string){
+    const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
+    activeModal.componentInstance.modalHeader = header;
+    activeModal.componentInstance.modalContent = content;
+  }
 }

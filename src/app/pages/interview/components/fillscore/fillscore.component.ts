@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { FillScoreService } from "./fillscore.service";
 import * as Data from '../../data';
 // import * as Global from '../../../global';
@@ -17,7 +17,7 @@ import { Candidate, CandidateService, Interview, createCandidate, createIntervie
   styleUrls: ['./fillscore.scss'],
   providers: [FillScoreService]
 })
-export class FillScoreComponent implements DoCheck {
+export class FillScoreComponent implements DoCheck, OnInit {
   myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'yyyy-mm-dd',
@@ -42,6 +42,14 @@ export class FillScoreComponent implements DoCheck {
   __sum = 0;
   get diag() {
     return JSON.stringify(this.interview);
+  }
+  ngOnInit(): void {
+    this.service.ifValidUser()
+    .then(data => {
+      if (data ===  'access denied') {
+        this.openModal('Access Denied', 'you dont have permision, pls contact system admin?');
+      }
+    })
   }
   ngDoCheck(){
     this.__sums = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];

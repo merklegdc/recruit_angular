@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { Observable }     from 'rxjs/Observable';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/observable/forkJoin';
+import { Candidate, CandidateService, Interview, createCandidate, createInterview } from '../../../people';
 
 @Injectable()
 export class ScoringCardService {
@@ -36,7 +37,11 @@ export class ScoringCardService {
     ["Comments by CV Screeners/Interviewers(If necessary)","","","","","","","","","","","",""],
     ["Hiring Decision/Comments by Service Line Lead","","","","","","","","","","","",""]
   ];
-
+  ifValidUser(): Promise<any> {
+    return this.http.get(`${environment.indexUrl}index`)
+    .toPromise()
+    .then(data => data.json());
+  }
   getTableData(): Promise<any> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -50,12 +55,12 @@ export class ScoringCardService {
       .map(response => response.json());
   }
   // handle multiple http requests
-  getInterview(id) {
-    var ids:number[] = [0,1,2,3,4,5,6];
+  getInterview(id: number): Observable<any> {
+    var ids: number[] = [0,1,2,3,4,5,6];
     return Observable.forkJoin(
       ids.map(
         i => this.http.get(`${this.interviewUrl}/id/${id}/type/${i}`)
-          .map(res => res.json())
+          .map(res => res.json()[0])
       ));
   }
   constructor(private http: Http) {

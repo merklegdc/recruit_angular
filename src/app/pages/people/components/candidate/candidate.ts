@@ -29,6 +29,7 @@ export interface Candidate {
 export interface Interview {
   id?: number;
   candidate_id?: number;
+  type: string;
   interviewer: string;
 	status: string;
 	date: string;
@@ -53,6 +54,7 @@ export interface Interview {
 	score9: string;
   question9: string;
   score10: string;
+  question10: string;
   score11: string;
   score12: string;
   score13: string;
@@ -93,6 +95,8 @@ export function createCandidate(): Candidate{
 }
 export function createInterview(): Interview {
   let interview = {
+    id: null,
+    type: null,
     candidate_id: null,
     interviewer: null,
     status: null,
@@ -118,6 +122,7 @@ export function createInterview(): Interview {
     score9: null,
     question9: null,
     score10: null,
+    question10: null,
     score11: null,
     score12: null,
     score13: null,

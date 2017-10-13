@@ -20,11 +20,12 @@ export class ViewCandidateComponent implements OnInit {
   fileUploaderOptions: NgUploaderOptions = {
     url: `${environment.uploadUrl}uploadExcel`,
   };
+  ifCheckUnassigned: boolean = false;
   selectedSL = {
-    'Marketing': true,
-    'Analytics': true,
-    'ADigital': true,
-    'Digital': true,
+    'Marketing_Technology': true,
+    'Analytics_and_Data_Products': true,
+    'Digital_Marketing': true,
+    'Digital_Analytics': true,
   };
   // data: any[] = [[false, '', , '', '', '', '', '', '', '', '', '', '', '', '', '', '',
   // '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']]; 
@@ -60,7 +61,23 @@ export class ViewCandidateComponent implements OnInit {
     { data: 'receive_date' },
     { data: 'channel' },
     { data: 'recommender' },
-    {},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
+    { data: 'cv_name' },
+    { data: 'cv_result' },
+    {},
+    { data: 'phone_name' },
+    { data: 'phone_date' },
+    { data: 'phone_result' },
+    { data: 'phone_comment' },
+    { data: 'onsite_date' },
+    { data: 'onsite1_name' },
+    { data: 'onsite1_score' },
+    { data: 'onsite1_comment' },
+    { data: 'onsite2_name' },
+    { data: 'onsite2_score' },
+    { data: 'onsite2_comment' },
+    { data: 'onsite3_name' },
+    { data: 'onsite3_score' },
+    { data: 'onsite3_comment' },
   ];
   private colWidths: number[] = [];
   options: any = {
@@ -90,24 +107,25 @@ export class ViewCandidateComponent implements OnInit {
   constructor(protected service: CandidateService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
+    this.service.ifValidUser()
+    .then(data => {
+      if (data ===  'access denied') {
+        this.openModal('Access Denied', 'you dont have permision, pls contact system admin?');
+      }
+    })
+  }
+  onCheckUnassigned(): void {
+    if (this.ifCheckUnassigned) {
+      this.checkUnassigned(this.data);
+    }else {
+      this.unCheckUnassigned(this.data);
+    }
   }
   onImported(event): void {
     this.data = JSON.parse(event.response);
-    this.checkUnassigned();
+    this.checkUnassigned(this.data);
   }
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.deleteCandidate(event.data.candidate_id)
-        .then(data => event.confirm.resolve());
-    } else {
-      event.confirm.reject();
-    }
-  }
-  onEditConfirm(event): void {
-    this.service.saveCandidate(event.data.interviewer_id, event.newData)
-      .then(data => event.confirm.resolve(event.newData));
-  }
-  clickExportExcel(): void {
+  onExportExcel(): void {
     this.service.downloadExcel(this.data)
     .subscribe(blob => { saveAs(blob, 'Campus Tracking.xlsx');
     })
@@ -121,20 +139,13 @@ export class ViewCandidateComponent implements OnInit {
         }
       }
       this.service.deleteCandidates(id)
-        .subscribe(data => {
-          if (data) this.openModal('success');
-          this.service.downloadData()
-          .then(data => { if (data) {
-            this.checkUnassigned();
-            this.data = data;
-          }})
+        .subscribe(res => {
+          this.onQuery();
         });
     }
-    
   }
   
   onSave(): void {
-    
     this.service.uploadData(this.data)
     .then(data => { if (data) {
      this.openModal('success');
@@ -144,23 +155,29 @@ export class ViewCandidateComponent implements OnInit {
     });
   }
   onSLChange(): void {
-    let temp = [createCandidate()];
+    let temp = [];
     for (let item of this.__data) {
       for (let key in this.selectedSL) {
-        if (item.service_line.indexOf(key) === 0 && this.selectedSL[key]){
+        if (item.service_line.replace(/ /g, '_') === key && this.selectedSL[key]){
           temp.push(item);
         }
       }
     }
-    this.data = temp;
+    this.data = temp[0]? temp: [createCandidate()];
   }
   onQuery(): void {
     this.service.downloadData()
     .then(data => { if (data) {
-      // console.log(data);
       this.__data = data;
-      this.onSLChange();
-      this.checkUnassigned();
+      this.data = data;
+      // this.onSLChange();
+      this.onCheckUnassigned();
+      this.selectedSL = {
+        'Marketing_Technology': true,
+        'Analytics_and_Data_Products': true,
+        'Digital_Marketing': true,
+        'Digital_Analytics': true,
+      };
       this.openModal('success');
     }})
     .catch(error => {
@@ -186,18 +203,23 @@ export class ViewCandidateComponent implements OnInit {
       item.assign_date = item.check ? today: item.assign_date;
     }
   }
-  clickImportExcel(): void {
+  onImportExcel(): void {
     this.uploader.bringFileSelector();
   }
-  checkUnassigned(): void {
-    for (let item of this.data){
+  checkUnassigned(data): void {
+    for (let item of data){
       item.check = item.assign_date ? false: true;
     }
   }
-  
+  unCheckUnassigned(data): void {
+    for (let item of data){
+      item.check = item.assign_date ? true: false;
+    }
+  }
   openModal(header: string, content?: string){
     const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });
     activeModal.componentInstance.modalHeader = header;
     activeModal.componentInstance.modalContent = content;
   }
+
 }

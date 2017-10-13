@@ -41,7 +41,11 @@ export class InterviewerService {
       .then(() => null)
       .catch(this.handleError);
   }
-
+  ifValidUser(): Promise<any> {
+    return this.http.get(`${environment.indexUrl}index`)
+    .toPromise()
+    .then(data => data.json());
+  }
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
