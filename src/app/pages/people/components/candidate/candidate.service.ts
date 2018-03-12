@@ -21,7 +21,11 @@ export class CandidateService {
       .toPromise()
       .then(response => response.json()[0]);
   }
-
+  getVWCandidate(id: number): Promise<Candidate> {
+    return this.http.get(`${environment.candidateUrl}vwcandidate/id/${id}`)
+      .toPromise()
+      .then(response => response.json()[0]);
+  }
   addCandidate(data): Promise<any> {
     return this.http.post(this.candidateUrl, data, { headers: this.headers })
       .toPromise()
@@ -37,7 +41,7 @@ export class CandidateService {
   deleteCandidates(ids: number[]){
     return Observable.forkJoin(
       ids.map(
-        i => this.http.delete(`${this.candidateUrl}/id/${i}`)
+        i => this.http.get(`${environment.candidateUrl}deleteCandidate/id/${i}`)
           .map(res => res.json())));
   }
   deleteCandidate(id: number): Promise<void> {
@@ -69,11 +73,12 @@ export class CandidateService {
   ifValidUser(): Promise<any> {
     return this.http.get(`${environment.indexUrl}index`)
     .toPromise()
-    .then(data => data.json());
+    .then(data => data.json())
+    .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
+    console.log('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
 }

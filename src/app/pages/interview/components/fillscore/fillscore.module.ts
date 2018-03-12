@@ -9,6 +9,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { routing } from './fillscore.routing';
 import { FillScoreComponent } from './fillscore.component';
 import { CVComponent } from './cv.component';
+import { GroupComponent } from './group.component';
 import { SumComponent } from './sum.component';
 import { CommonComponent } from './common.component';
 import { FillScoreService } from './fillscore.service';
@@ -24,6 +25,7 @@ import { Candidate, CandidateService } from '../../../people';
     CVComponent,
     SumComponent,
     CommonComponent,
+    GroupComponent,
   ],
   imports: [
     AppTranslationModule,

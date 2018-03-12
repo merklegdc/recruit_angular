@@ -50,7 +50,7 @@
     <label for=22>Examination Result</label>
     <select [(ngModel)]="interview.score5" class="form-control" id=22 required>
       <option value=0.5> Pass 0.5 </option>
-      <option value=0.0> Fail 0 </option>
+      <option value=0.0> Fail/Not Applicable 0 </option>
     </select>
     <label for=23>Academic Achievement</label>
     <ng2-completer [(ngModel)]="interview.question5" [datasource]="dataService[4]" [openOnClick]="true" [openOnFocus]="false" 

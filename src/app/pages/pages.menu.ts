@@ -2,23 +2,23 @@ export const PAGES_MENU = [
   {
     path: 'pages',
     children: [
-      // {
-      //   path: 'dashboard',
-      //   data: {
-      //     menu: {
-      //       title: 'Dashboard',
-      //       icon: 'ion-android-home',
-      //       selected: false,
-      //       expanded: false,
-      //       order: 0,
-      //     },
-      //   },
-      // },
+      {
+        path: 'dashboard',
+        data: {
+          menu: {
+            title: 'Dashboard',
+            icon: 'ion-android-home',
+            selected: false,
+            expanded: false,
+            order: 0,
+          },
+        },
+      },
       {
         path: 'people',
         data: {
           menu: {
-            title: 'People',
+            title: 'People Management',
             icon: 'ion-compose',
             selected: false,
             expanded: true,
@@ -56,7 +56,7 @@ export const PAGES_MENU = [
         path: 'interview',
         data: {
           menu: {
-            title: 'Interview',
+            title: 'Scoring Management',
             icon: 'ion-compose',
             selected: false,
             expanded: true,
@@ -65,18 +65,18 @@ export const PAGES_MENU = [
         },
         children: [
           {
-            path: 'scoringcard',
-            data: {
-              menu: {
-                title: 'Scoring Card',
-              },
-            },
-          },
-          {
             path: 'fillscore',
             data: {
               menu: {
                 title: 'Fill Score',
+              },
+            },
+          },
+          {
+            path: 'scoringcard',
+            data: {
+              menu: {
+                title: 'Scoring Card',
               },
             },
           },

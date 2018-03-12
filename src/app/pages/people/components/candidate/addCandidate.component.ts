@@ -15,7 +15,7 @@ import { DefaultModal } from '../../../modal/default-modal/default-modal.compone
   styleUrls: ['./candidate.scss'],
 })
 
-export class AddCandidateComponent implements OnInit{
+export class AddCandidateComponent implements OnInit {
   myDatePickerOptions: IMyDpOptions = {
         // other options...
         dateFormat: 'yyyy-mm-dd',
@@ -28,6 +28,7 @@ export class AddCandidateComponent implements OnInit{
   searchStr: string;
   nameServiceCN: CompleterData;
   nameServiceEN: CompleterData;
+  statusDataService: CompleterData;
   title = 'Add Candidate';
   candidate: Candidate = createCandidate();
 
@@ -139,6 +140,7 @@ export class AddCandidateComponent implements OnInit{
     if (selected) {
       this.service.getCandidate(selected.originalObject.candidate_id)
         .then(res => {
+          this.onClear();
           this.candidate = res;
           if (this.candidate.assign_date) {
             this.assignDate = {
@@ -156,7 +158,7 @@ export class AddCandidateComponent implements OnInit{
               epoc: null,
             };
           }
-          if (this.candidate.receive_date) {
+          if (this.candidate.graduation_date) {
             this.graduationDate = {
               date: null,
               formatted: this.candidate.graduation_date,
@@ -193,10 +195,12 @@ export class AddCandidateComponent implements OnInit{
     return {url: `${environment.uploadUrl}name/${this.candidate.name_en}/dept/${this.candidate.service_line}`,};
   }
 
-  constructor(protected service: CandidateService, private completerService: CompleterService, private modalService: NgbModal) {
+  constructor(protected service: CandidateService, private completerService: CompleterService, 
+    private modalService: NgbModal) {
     this.nameServiceCN = completerService
     .remote(environment.SearchUrl+'searchCandidateCN/name/', 'name', 'name').descriptionField('description');
     this.nameServiceEN = completerService
     .remote(environment.SearchUrl+'searchCandidateEN/name/', 'name', 'name').descriptionField('description');
+    this.statusDataService = completerService.local(config.status, null, 'text');
   }
 }

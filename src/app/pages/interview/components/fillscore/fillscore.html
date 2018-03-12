@@ -42,6 +42,8 @@
   </div>
   <div [ngSwitch]="selectedTypeID">
     <cv *ngSwitchCase=0 [interview]="interview" [type]="selectedTypeID"></cv>
+    <common *ngSwitchCase=1 [interview]="interview" [type]="selectedTypeID"></common>
+    <group *ngSwitchCase=2 [interview]="interview" [type]="selectedTypeID"></group>
     <common *ngSwitchDefault [interview]="interview" [type]="selectedTypeID"></common>
   </div>
   <div class="row">

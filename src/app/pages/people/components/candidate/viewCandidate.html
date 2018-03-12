@@ -1,21 +1,14 @@
 <div class="widgets">
   <div class="row">
     <ba-card title="" >
-        <!-- <hotTable 
-        [data]="data" 
-        [columns]="columns" 
-        [colHeaders]="colHeaders" 
-        [colWidths]="colHeaders" 
-        [options]="options" 
-        (HANDSONTABLE_EVENT)="eventHandler">
-        </hotTable> -->
       <div class="row">
-        <hotTable 
-          [data]="data" 
-          [options]="options"
-          [columns]="columns"
-          [colHeaders]="colHeaders"
-          [colWidths]="colHeaders">
+        <ng2-completer [(ngModel)]="name" [datasource]="nameService" [minSearchLength]="0" [inputClass]="['form-control']" 
+        (selected)="onSelectName($event)" placeholder="search by name"></ng2-completer>
+      </div>
+      <hr>
+      <div class="row">
+        <hotTable [data]="data" [options]="options" [columns]="columns" [colHeaders]="colHeaders" 
+        [colWidths]="colHeaders">
         </hotTable>
       </div>
       <hr>

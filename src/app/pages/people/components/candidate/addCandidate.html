@@ -23,7 +23,14 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="status">Status</label>
-          <input type="text" [(ngModel)]="candidate.status" class="form-control" id="status" placeholder="" disabled>
+          <!-- <input type="text" [(ngModel)]="candidate.status" class="form-control" id="status" placeholder=""> -->
+          <!-- <select type="text" [(ngModel)]="candidate.status" class="form-control" id="status">
+              <option *ngFor="let status of config.status" [value]="status.text">
+                 {{status.text}} 
+              </option>  
+            </select> -->
+          <ng2-completer [(ngModel)]="candidate.status" [datasource]="statusDataService" [openOnClick]="true" [openOnFocus]="false" 
+          [selectOnClick]="true" [minSearchLength]="0" [inputClass]="['form-control']" ></ng2-completer>
         </div>
       </div>
       <div class="col-sm-6">
@@ -116,14 +123,14 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="channel">Channel</label>
-          <input type="text" class="form-control" [(ngModel)]="candidate.channel" id="channel" placeholder="" required>
+          <label>Receive Date</label>
+          <my-date-picker name="receive-date" [options]="myDatePickerOptions" [(ngModel)]="receiveDate" required></my-date-picker>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label for="recommender">Channel Detail</label>
-          <input type="text" class="form-control" [(ngModel)]="candidate.recommender" id="recommender" placeholder="" required>
+          <label>Graduation Date</label>
+          <my-date-picker name="graduation-date" [options]="myDatePickerOptions" [(ngModel)]="graduationDate" required></my-date-picker>
         </div>
       </div>
     </div>
@@ -144,26 +151,25 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
-          <label>Receive Date</label>
-          <my-date-picker name="receive-date" [options]="myDatePickerOptions" [(ngModel)]="receiveDate" required></my-date-picker>
+          <label for="channel">Channel</label>
+          <input type="text" class="form-control" [(ngModel)]="candidate.channel" id="channel" placeholder="" required>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <label>Graduation Date</label>
-          <my-date-picker name="graduation-date" [options]="myDatePickerOptions" [(ngModel)]="graduationDate" required></my-date-picker>
+          <label for="recommender">Channel Detail</label>
+          <input type="text" class="form-control" [(ngModel)]="candidate.recommender" id="recommender" placeholder="" required>
         </div>
       </div>
     </div>
     <div class="row">
-      
       <div class="col-sm-6">
         <label>Upload Resume to \\nanitfp01\Public\Departments\Public\2017 recruitment\resume\{{serviceLine}}</label>
         <ba-file-uploader [fileUploaderOptions]="fileUploaderOptions"></ba-file-uploader>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
-    <button type="submit" class="btn btn-primary" (click)="onEdit()">Edit</button>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit New</button>
+    <button type="submit" class="btn btn-primary" (click)="onEdit()">Submit Change</button>
     <button type="submit" class="btn btn-primary" (click)="onClear()">Clear</button>
   </ba-card>
 

@@ -8,7 +8,8 @@ import { NgUploaderOptions } from 'ngx-uploader';
 import { DefaultModal } from '../../../modal/default-modal/default-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { saveAs } from "file-saver";
-import { BaFileUploader } from '../../../../theme/components/baFileUploader/baFileUploader.component'
+import { BaFileUploader } from '../../../../theme/components/baFileUploader/baFileUploader.component';
+import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 
 @Component({
   selector: 'view-candidate',
@@ -20,7 +21,9 @@ export class ViewCandidateComponent implements OnInit {
   fileUploaderOptions: NgUploaderOptions = {
     url: `${environment.uploadUrl}uploadExcel`,
   };
+  nameService: CompleterData;
   ifCheckUnassigned: boolean = false;
+  name: any;
   selectedSL = {
     'Marketing_Technology': true,
     'Analytics_and_Data_Products': true,
@@ -104,7 +107,11 @@ export class ViewCandidateComponent implements OnInit {
 
   candidates: Candidate[];
 
-  constructor(protected service: CandidateService, private modalService: NgbModal) {}
+  constructor(protected service: CandidateService, private modalService: NgbModal, private completerService: CompleterService) {
+
+    this.nameService = completerService
+    .remote(environment.SearchUrl+'searchCandidate/name/', 'name', 'name').descriptionField('description');;
+  }
 
   ngOnInit(): void {
     this.service.ifValidUser()
@@ -168,6 +175,10 @@ export class ViewCandidateComponent implements OnInit {
   onQuery(): void {
     this.service.downloadData()
     .then(data => { if (data) {
+      if (data === 'access denied') {
+        this.openModal('Access Denied', 'Sorry, you donnot have permission to do this.');
+        return;
+      }
       this.__data = data;
       this.data = data;
       // this.onSLChange();
@@ -206,14 +217,22 @@ export class ViewCandidateComponent implements OnInit {
   onImportExcel(): void {
     this.uploader.bringFileSelector();
   }
+  onSelectName(selected): void {
+    if (selected) {
+      this.service.getVWCandidate(selected.originalObject.candidate_id)
+      .then(res => {
+        res.check = false;
+        this.data = [res]});
+    }
+  }
   checkUnassigned(data): void {
-    for (let item of data){
+    for (let item of data) {
       item.check = item.assign_date ? false: true;
     }
   }
   unCheckUnassigned(data): void {
-    for (let item of data){
-      item.check = item.assign_date ? true: false;
+    for (let item of data) {
+      item.check = false;
     }
   }
   openModal(header: string, content?: string){

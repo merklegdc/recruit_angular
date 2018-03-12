@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 // import * as Global from '../../../global';
 import { environment } from '../../../../../environments/environment';
 import 'rxjs/add/operator/map';
 import { Observable }     from 'rxjs/Observable';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, RequestOptions, ResponseContentType } from '@angular/http';
 import 'rxjs/add/observable/forkJoin';
 import { Candidate, CandidateService, Interview, createCandidate, createInterview } from '../../../people';
 
@@ -62,6 +62,16 @@ export class ScoringCardService {
         i => this.http.get(`${this.interviewUrl}/id/${id}/type/${i}`)
           .map(res => res.json()[0])
       ));
+  }
+  downloadScoringCard(id: number): Observable<Blob> {
+    let options = new RequestOptions({ responseType: ResponseContentType.Blob });
+    return this.http.get(`${environment.downloadUrl}downloadScoringCard/id/${id}`, options)
+        .map(res => res.blob())
+        .catch(this.handleError)
+  }
+  private handleError(error: any): Promise<any> {
+    console.log('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
   }
   constructor(private http: Http) {
     this.headers.append('Access-Control-Allow-Origin', '*');

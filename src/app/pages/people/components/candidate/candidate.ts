@@ -179,6 +179,11 @@ export const config = {
           text: 'Web Technical Analyst(网站数据技术师)',
           value: 'Web Technical Analyst',
         },
+        {
+          id: 4,
+          text: 'Digital/Media Analyst（媒体分析师）',
+          value: 'Media Analyst',
+        },
       ],
     },
     {
@@ -197,8 +202,8 @@ export const config = {
         },
         {
           id: 3,
-          text: 'Digital/Media Analyst（媒体分析师）',
-          value: 'Media Analyst',
+          text: 'Graphic Designer（平面设计师）',
+          value: 'Graphic Designer',
         },
       ],
     },
@@ -220,6 +225,11 @@ export const config = {
           id: 3,
           text: 'Web Technical Analyst(网站数据技术师)',
           value: 'Web Technical Analyst',
+        },
+        {
+          id: 4,
+          text: 'Digital/Media Analyst（媒体分析师）',
+          value: 'Media Analyst',
         },
       ],
     },
@@ -257,6 +267,68 @@ export const config = {
     {
       id: 2,
       text: 'Nanjing',
+    },
+  ],
+  status: [
+    // {
+    //   id: 0,
+    //   text: '',
+    // },
+    {
+      id: 1,
+      text: 'CV failed',
+    },
+    {
+      id: 2,
+      text: 'CV passed',
+    },
+    {
+      id: 3,
+      text: 'Phone failed',
+    },
+    {
+      id: 4,
+      text: 'Phone passed',
+    },
+    {
+      id: 5,
+      text: 'Group failed',
+    },
+    {
+      id: 6,
+      text: 'Group passed',
+    },
+    {
+      id: 7,
+      text: 'Onsite1 failed',
+    },
+    {
+      id: 8,
+      text: 'Onsite1 passed',
+    },
+    {
+      id: 9,
+      text: 'Onsite2 failed',
+    },
+    {
+      id: 10,
+      text: 'Onsite2 passed',
+    },
+    {
+      id: 11,
+      text: 'Onsite3 failed',
+    },
+    {
+      id: 12,
+      text: 'Onsite3 passed',
+    },
+    {
+      id: 13,
+      text: 'Already found a job',
+    },
+    {
+      id: 14,
+      text: 'Declined offer',
     },
   ],
   QMG: 'Digital Analytics, Analytics and Data Products',

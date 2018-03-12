@@ -35,9 +35,9 @@ export class FillScoreComponent implements DoCheck, OnInit {
   types = [{ 'name': 'CV Screening', id: 0 }, 
   { 'name': 'Phone Interview', id: 1 }, 
   { 'name': 'Group Interview', id: 2 },
-  { 'name': 'Interview 1', id: 3 },
-  { 'name': 'Interview 2', id: 4 },
-  { 'name': 'Interview 3', id: 5 }];
+  { 'name': 'Onsite 1', id: 3 },
+  { 'name': 'Onsite 2', id: 4 },
+  { 'name': 'Onsite 3', id: 5 }];
   __sums = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
   __sum = 0;
   get diag() {
@@ -66,14 +66,13 @@ export class FillScoreComponent implements DoCheck, OnInit {
       this.__sum += this.__sums[i][j];
     }
     this.interview.sum = this.__sum.toString();
-    switch (i) {
-      case 0:
+    switch (true) {
+      case (i < 3) :
         this.interview.status = this.__sum < 2.5 ? 'failed' : 'passed';
         break;
-      case 1:
-        this.interview.status = this.__sum < 2.5 ? 'failed' : 'passed';
       default:
         this.interview.status = this.__sum < 3.5 ? 'failed' : 'passed';
+        break;
     }
   }
   onSelectType(type) {
@@ -103,25 +102,36 @@ export class FillScoreComponent implements DoCheck, OnInit {
       if (selected.originalObject.if_group == 'N') {
         this.types = [{ 'name': 'CV Screening', id: 0 }, 
         { 'name': 'Phone Interview', id: 1 }, 
-        { 'name': 'Interview 1', id: 3 },
-        { 'name': 'Interview 2', id: 4 },
-        { 'name': 'Interview 3', id: 5 }];
+        { 'name': 'Onsite 1', id: 3 },
+        { 'name': 'Onsite 2', id: 4 },
+        { 'name': 'Onsite 3', id: 5 }];
       }else {
         this.types = [{ 'name': 'CV Screening', id: 0 }, 
         { 'name': 'Phone Interview', id: 1 }, 
         { 'name': 'Group Interview', id: 2 },
-        { 'name': 'Interview 1', id: 3 },
-        { 'name': 'Interview 2', id: 4 },
-        { 'name': 'Interview 3', id: 5 }];
+        { 'name': 'Onsite 1', id: 3 },
+        { 'name': 'Onsite 2', id: 4 },
+        { 'name': 'Onsite 3', id: 5 }];
       }
       this.onSelectType(this.types[this.selectedTypeID]);
     } 
   }
   onSubmit() {
     let content: string = '';
+    let phoneRequired: string[] = ['interviewer', 'score1', 'score4', 'score7', 'score9', 'score11', 'score12', 'score13'];    
     let cvRequired: string[] = ['interviewer', 'score1', 'score4', 'score5', 'score6', 'score7', 'score9', 'score11', 'score12', 'score13'];
     let commonRequired: string[] = ['interviewer', 'score1', 'score2', 'score3', 'score4', 'score5', 'score6', 'score7', 'score8', 'score9', 'score10', 'score11', 'score12', 'score13'];
-    let required = this.selectedTypeID? commonRequired: cvRequired;
+    let required;
+    switch (this.selectedTypeID) {
+      case 0:
+      required = cvRequired;
+      break;
+      case 2:
+      required = phoneRequired;
+      break;
+      default:
+      required = commonRequired;
+    }
     if (!this.candidate.candidate_id) content += 'candidate, ';
     for (let key in this.interview) {
       if (required.indexOf(key) !== -1) {

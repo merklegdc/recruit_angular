@@ -1,14 +1,14 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import {ScoringCardService} from "./scoringcard.service";
+import { ScoringCardService } from "./scoringcard.service";
 import { FillScoreService } from "../fillscore/fillscore.service"
 // import * as Global from '../../../global';
 import { environment } from '../../../../../environments/environment';
-import { getScoringCard } from '../../data';
 import { CompleterService, CompleterData,CompleterItem } from 'ng2-completer';
 import * as Data from '../../data';
 import { Candidate, CandidateService, Interview, createCandidate, createInterview } from '../../../people';
 import { DefaultModal } from '../../../modal/default-modal/default-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'scoringcard',
@@ -19,7 +19,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
     }
     .red-text{
       color:red;
-    }`],
+    }
+    button{
+      position:absolute;
+      top: 23px;
+    }
+    `],
 })
 
 export class ScoringCardComponent implements OnInit {
@@ -49,6 +54,7 @@ export class ScoringCardComponent implements OnInit {
   }
   onSelect(selected) {
     if (selected) {
+      this.candidate_id = selected.originalObject.candidate_id;
       this.service.getInterview(selected.originalObject.candidate_id)
         .subscribe(res => {
           this.interviews = res;
@@ -68,6 +74,11 @@ export class ScoringCardComponent implements OnInit {
           }
         });
     }
+  }
+  onExport() {
+    this.service.downloadScoringCard(this.candidate_id)
+    .subscribe(blob => { saveAs(blob, 'Scoring Card.xlsx');
+    });
   }
   openModal(header: string, content?: string){
     const activeModal = this.modalService.open(DefaultModal, { size: 'sm' });

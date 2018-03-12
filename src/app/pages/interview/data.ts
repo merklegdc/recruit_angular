@@ -222,35 +222,6 @@ export const q = [
   }
 ];
 
-let commonTable = [
-    ["Trainable/Culture fit 40%","Desire to Serve (Interpersonal)","10%",""],
-    ["","Desire to Learn (Intellectual)","20%",""],
-    ["","Desire to Achieve (Result Driven)","10%",""],
-    ["","Total","40%",""],
-    ["Acadamitic/Tech. Skill (SAS,SQL,etc.) 35%","Technical Skill Set (SAS,SQL,etc.)","10%",""],
-    ["","Examination Result (Pass 0.5, Fail 0)","10%",""],
-    ["","Academic Achievements, School Project & Internship Experience for Campus Hire","15%",""],
-    ["","Total","35%",""],
-    ["Potential Management Skill 5%","Business Knowledge","2.5%",""],
-    ["","People Management Experience","2.5%",""],
-    ["","Total","5%",""],
-    ["Communication (Chinese & English) & Logical Language Structure Competence 20%","Communication Skill both in English and Chinese","10%",""],
-    ["","Language Skill/Logical Language Structure Competence","10%",""],
-    ["","Total","20%",""],
-    ["Add-on","Hometown & Family Tie",""],
-    ["","Overseas Study Experience",""],
-    ["","Relevant Working Experience","",""],
-    ["Overall Assessment","(>=3.5,Pass; <3.5,Fail & Other Comments)",""]
-  ];
-
-const mergeCell = [{row: 0, col: 0, rowspan: 4, colspan: 1},
-  {row: 4, col: 0, rowspan: 4, colspan: 1},
-  {row: 8, col: 0, rowspan: 3, colspan: 1},
-  {row: 11, col: 0, rowspan: 3, colspan: 1},
-  {row: 14, col: 0, rowspan: 3, colspan: 1},
-  {row: 18, col: 0, rowspan: 1, colspan: 3},
-  {row: 19, col: 0, rowspan: 1, colspan: 3}];
-const commonHeader = ["Check Points","Details","Weight"];
 
 export enum interviewType {
   cv = 0,
@@ -261,41 +232,12 @@ export enum interviewType {
   onSite3 = 5
 }
 
-export function getScoringCard(type){
-  switch (type){
-    case "table":
-      let table = initTable(18,9,"");
-      addCommonTable(commonTable,table);
-      table.splice(0,0,["Interviewer","","","","","","","","","","","",""]);
-      table.push(["Comments by CV Screeners/Interviewers(If necessary)","","","","","","","","","","","",""]);
-      table.push(["Hiring Decision/Comments by Service Line Lead","","","","","","","","","","","",""]);
-      return table;
-    case "header":
-      let header = ["CV Screening","Phone Interviewer","Score","Interviewer 1","Score","Interviewer 2","Score","Interviewer 3","Score","Average"];
-      return addCommonHeader(commonHeader,header);
-  }
-}
-export function getFillScore(type1,type2){
-  switch (type1){
-    case "cv":
-      switch (type2){
-        case "table":
-          let table = initTable(18,1,"");
-          addCommonTable(commonTable,table);
-          return table;
-        case "header":
-          let header = ["CV Screening"];
-          return addCommonHeader(commonHeader,header);
-      }
-
-  }
-}
 
 export const scores = ['5.0','4.5','4.0','3.5','3.0','2.5','2.0','1.5','1.0'];
 export const weight = [
   ['0.4', '0', '0', '0.1', '1', '0.15', '0.05', '0', '0.2', '0', '1', '1', '1'],
   ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1'],
-  ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1'],
+  ['0.4', '0', '0', '0.35', '0', '0', '0.05', '0', '0.2', '0', '1', '1', '1'],
   ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1'],
   ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1'],
   ['0.1', '0.2', '0.1', '0.1', '1', '0.15', '0.025', '0.025', '0.1', '0.1', '1', '1', '1']

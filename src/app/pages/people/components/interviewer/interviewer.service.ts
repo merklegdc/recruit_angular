@@ -35,8 +35,8 @@ export class InterviewerService {
   }
 
   deleteInterviewer(id: number): Promise<void> {
-    const url = `${this.interviewerUrl}/id/${id}`;
-    return this.http.delete(url, { headers: this.headers })
+    const url = `${environment.interviewerUrl}deleteInterviewer/id/${id}`;
+    return this.http.get(url, { headers: this.headers })
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
